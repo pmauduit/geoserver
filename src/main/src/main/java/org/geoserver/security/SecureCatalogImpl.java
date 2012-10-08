@@ -253,7 +253,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     }
 
     public List<FeatureTypeInfo> getFeatureTypes() {
-        return filterResources(user(), delegate.getFeatureTypes());
+        return filterResources(user(), delegate.getFeatureTypes(), false);
     }
 
     public List<FeatureTypeInfo> getFeatureTypesByNamespace(NamespaceInfo namespace) {
@@ -359,7 +359,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     }
 
     public List<NamespaceInfo> getNamespaces() {
-        return filterNamespaces(user(), delegate.getNamespaces());
+        return filterNamespaces(user(), delegate.getNamespaces(), false);
     }
 
     public <T extends ResourceInfo> T getResource(String id, Class<T> clazz) {
@@ -891,6 +891,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
             return new AccessDeniedException("Operation unallowed with the current privileges");
     }
 
+    
     /**
      * Given a list of resources, returns a copy of it containing only the
      * resources the user can access
@@ -902,9 +903,32 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
      */
     protected <T extends ResourceInfo> List<T> filterResources(Authentication user,
             List<T> resources) {
+    	return filterResources(user, resources, true);
+    }
+    /**
+     * Given a list of resources, returns a copy of it containing only the
+     * resources the user can access
+     * 
+     * @param user
+     * @param resources
+     * @param handleCheckAccessException
+     * 
+     * @return
+     */
+    protected <T extends ResourceInfo> List<T> filterResources(Authentication user,
+            List<T> resources, boolean handleCheckAccessException) {
         List<T> result = new ArrayList<T>();
         for (T original : resources) {
-            T secured = checkAccess(user, original);
+            T secured = null;
+            try {
+            	secured = checkAccess(user, original);
+            }
+            catch (SpringSecurityException e) {
+            	if (handleCheckAccessException) {
+            		throw e;
+            	}
+            	secured = null;
+            }
             if (secured != null)
                 result.add(secured);
         }
@@ -921,9 +945,32 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
      * @return
      */
     protected <T extends StoreInfo> List<T> filterStores(Authentication user, List<T> resources) {
+    	return filterStores(user, resources, true);
+    }
+    /**
+     * Given a list of stores, returns a copy of it containing only the
+     * resources the user can access
+     * 
+     * @param user
+     * @param resources
+     * @param handleCheckAccessException
+     * 
+     * @return
+     */
+    protected <T extends StoreInfo> List<T> filterStores(Authentication user, List<T> resources,
+    		boolean handleCheckAccessException) {
         List<T> result = new ArrayList<T>();
         for (T original : resources) {
-            T secured = checkAccess(user, original);
+            T secured = null;
+            try {
+            	secured = checkAccess(user, original);
+            }
+            catch (SpringSecurityException e) {
+            	if (handleCheckAccessException) {
+            		throw e;
+            	}
+            	secured = null;
+            }
             if (secured != null)
                 result.add(secured);
         }
@@ -940,9 +987,33 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
      * @return
      */
     protected List<LayerGroupInfo> filterGroups(Authentication user, List<LayerGroupInfo> groups) {
+    	return filterGroups(user, groups, true);
+    }
+    
+    /**
+     * Given a list of layer groups, returns a copy of it containing only the
+     * groups the user can access
+     * 
+     * @param user
+     * @param groups
+     * @param handleCheckAccessException
+     * 
+     * @return
+     */
+    protected List<LayerGroupInfo> filterGroups(Authentication user, List<LayerGroupInfo> groups,
+    		boolean handleCheckAccessException) {
         List<LayerGroupInfo> result = new ArrayList<LayerGroupInfo>();
         for (LayerGroupInfo original : groups) {
-            LayerGroupInfo secured = checkAccess(user, original);
+            LayerGroupInfo secured = null;
+            try {
+            	secured = checkAccess(user, original);
+            }
+            catch (SpringSecurityException e) {
+            	if (handleCheckAccessException) {
+            		throw e;
+            	}
+            	secured = null;
+            }
             if (secured != null)
                 result.add(secured);
         }
@@ -959,9 +1030,32 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
      * @return
      */
     protected List<LayerInfo> filterLayers(Authentication user, List<LayerInfo> layers) {
+    	return filterLayers(user, layers, true);
+    }
+    
+    /**
+     * Given a list of layers, returns a copy of it containing only the layers
+     * the user can access
+     * 
+     * @param user
+     * @param layers
+     * 
+     * @return
+     */
+    protected List<LayerInfo> filterLayers(Authentication user, List<LayerInfo> layers,
+    		boolean handleCheckAccessException) {
         List<LayerInfo> result = new ArrayList<LayerInfo>();
         for (LayerInfo original : layers) {
-            LayerInfo secured = checkAccess(user, original);
+            LayerInfo secured = null;
+            try {
+            	secured = checkAccess(user, original);
+            }
+            catch (SpringSecurityException e) {
+            	if (handleCheckAccessException) {
+            		throw e;
+            	}
+            	secured = null;
+            }
             if (secured != null)
                 result.add(secured);
         }
@@ -993,9 +1087,32 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
      */
     protected <T extends NamespaceInfo> List<T> filterNamespaces(Authentication user,
             List<T> namespaces) {
+    	return filterNamespaces(user, namespaces, true);
+    }
+    /**
+     * Given a list of namespaces, returns a copy of it containing only the
+     * namespaces the user can access
+     * 
+     * @param user
+     * @param namespaces
+     * @param handleCheckAccessException
+     * 
+     * @return
+     */
+    protected <T extends NamespaceInfo> List<T> filterNamespaces(Authentication user,
+            List<T> namespaces, boolean handleCheckAccessException) {
         List<T> result = new ArrayList<T>();
         for (T original : namespaces) {
-            T secured = checkAccess(user, original);
+            T secured = null;
+            try {
+            	secured = checkAccess(user, original);
+            }
+            catch (SpringSecurityException e) {
+            	if (handleCheckAccessException) {
+            		throw e;
+            	}
+            	secured = null;
+            }
             if (secured != null)
                 result.add(secured);
         }
@@ -1013,9 +1130,33 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
      */
     protected <T extends WorkspaceInfo> List<T> filterWorkspaces(Authentication user,
             List<T> workspaces) {
+    	return filterWorkspaces(user, workspaces, true);
+    }
+    
+    /**
+     * Given a list of workspaces, returns a copy of it containing only the
+     * workspaces the user can access
+     * 
+     * @param user
+     * @param namespaces
+     * @param handleCheckAccessException
+     * 
+     * @return
+     */
+    protected <T extends WorkspaceInfo> List<T> filterWorkspaces(Authentication user,
+            List<T> workspaces, boolean handleCheckAccessException) {
         List<T> result = new ArrayList<T>();
         for (T original : workspaces) {
-            T secured = checkAccess(user, original);
+            T secured = null;
+            try {
+            	secured = checkAccess(user, original);
+            }
+            catch (SpringSecurityException e) {
+            	if (handleCheckAccessException) {
+            		throw e;
+            	}
+            	secured = null;
+            }
             if (secured != null)
                 result.add(secured);
         }
