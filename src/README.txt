@@ -75,7 +75,7 @@ mvn -Declipse.workspace=<path-to-your-eclipse-workspace> eclipse:add-maven-repo
 
 2) Import GeoServer as an eclipse project
 Let maven create an eclipse project for you:
-mvn eclipse:eclipse
+mvn eclipse:eclipse -P-skipTest
 
 After that, run eclipse and "Import existing projects into the workspace", use the root of your geoserver source tree.
 Select all of the modules. Hit Finish.
