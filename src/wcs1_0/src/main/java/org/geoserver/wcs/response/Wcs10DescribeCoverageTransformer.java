@@ -537,6 +537,7 @@ public class Wcs10DescribeCoverageTransformer extends TransformerBase {
             // ELEVATION
             //
             // now get possible elevation
+<<<<<<< HEAD
             DimensionInfo elevationInfo = ci.getMetadata().get(ResourceInfo.ELEVATION, DimensionInfo.class);
             if(elevationInfo != null && elevationInfo.isEnabled()) {
                 AbstractGridCoverage2DReader reader = null;
@@ -548,6 +549,38 @@ public class Wcs10DescribeCoverageTransformer extends TransformerBase {
                 if(reader == null) {
                     throw new WcsException("Unable to acquire a reader for this coverage with format: " 
                             + ci.getStore().getFormat().getName());
+=======
+            AbstractGridCoverage2DReader reader = null;
+            try {
+                reader = (AbstractGridCoverage2DReader) ci.getGridCoverageReader(null, GeoTools.getDefaultHints());
+            } catch (IOException e) {
+                LOGGER.severe("Unable to acquire a reader for this coverage with format: " + ci.getStore().getFormat().getName());
+            }            
+            if(reader == null)
+                throw new WcsException("Unable to acquire a reader for this coverage with format: " + ci.getStore().getFormat().getName());
+
+            final String[] metadataNames = reader.getMetadataNames();
+            String elevationMetadata=null;
+            if (metadataNames != null && metadataNames.length > 0) {
+                // TIME DIMENSION
+                elevationMetadata = reader.getMetadataValue("ELEVATION_DOMAIN"); 
+                if(elevationMetadata!=null) {
+	                start("wcs:AxisDescription");
+	                element("wcs:name", "ELEVATION");
+	                element("wcs:label", "ELEVATION");
+	                start("wcs:values");
+	                
+	                final String [] values=elevationMetadata.split(",");
+	                for(String s:values){
+	                	element("wcs:singleValue", s);
+	                }
+	                element("wcs:default", values[0]);
+	               
+	               
+	                end("wcs:values");
+	
+	                end("wcs:AxisDescription");
+>>>>>>> 56064f3... added georchestra patches
                 }
                 
                 ReaderDimensionsAccessor dimensions = new ReaderDimensionsAccessor(reader);
