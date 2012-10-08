@@ -482,7 +482,17 @@ public abstract class FeatureTypeSchemaBuilder {
                 continue;
 
             //build the schema for the types in the single namespace (and don't clean them, they are not dynamic)
+<<<<<<< HEAD
             XSDSchema schema = buildSchemaInternal(new FeatureTypeInfo[] { meta }, null, false);
+=======
+            XSDSchema schema = null;
+           try {
+              schema = buildSchemaInternal(new FeatureTypeInfo[] { meta }, null);
+            }
+            catch (org.springframework.security.AccessDeniedException e) {
+              continue;
+            }
+>>>>>>> 56064f3... added georchestra patches
 
             //declare the namespace
             String prefix = meta.getNamespace().getPrefix();
