@@ -256,7 +256,28 @@ public class SecureCatalogImplTest extends AbstractAuthorizationTest {
         assertEquals(0, sc.getFeatureTypes().size());
         assertEquals(0, sc.getCoverages().size());
         assertEquals(0, sc.getWorkspaces().size());
+     
+        // try with a describeFeatureType, make sure the lists are empty
+        request = org.easymock.classextension.EasyMock.createNiceMock(Request.class);
+        org.easymock.classextension.EasyMock.expect(request.getRequest()).andReturn("DescribeFeatureType").anyTimes();
+        org.easymock.classextension.EasyMock.replay(request);
+        Dispatcher.REQUEST.set(request);
         
+        // check the lists used to build capabilities are empty
+        assertEquals(0, sc.getFeatureTypes().size());
+//        assertEquals(0, sc.getCoverages().size());
+//        assertEquals(0, sc.getWorkspaces().size());    
+        
+        // try with a describeFeatureType, make sure the lists are empty
+        request = org.easymock.classextension.EasyMock.createNiceMock(Request.class);
+        org.easymock.classextension.EasyMock.expect(request.getRequest()).andReturn("GetFeature").anyTimes();
+        org.easymock.classextension.EasyMock.replay(request);
+        Dispatcher.REQUEST.set(request);
+        
+        // check the lists used to build capabilities are empty
+        assertEquals(0, sc.getFeatureTypes().size());
+//        assertEquals(0, sc.getCoverages().size());
+//        assertEquals(0, sc.getWorkspaces().size()); 
         
 
         // try with write enabled user

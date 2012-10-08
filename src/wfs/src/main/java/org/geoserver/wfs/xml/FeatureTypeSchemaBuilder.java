@@ -482,7 +482,12 @@ public abstract class FeatureTypeSchemaBuilder {
                 continue;
 
             //build the schema for the types in the single namespace (and don't clean them, they are not dynamic)
-            XSDSchema schema = buildSchemaInternal(new FeatureTypeInfo[] { meta }, null, false);
+			XSDSchema schema = null;
+			try {
+				schema = buildSchemaInternal(new FeatureTypeInfo[] { meta }, null, false);
+			} catch (IOException e) {
+				continue;
+			}
 
             //declare the namespace
             String prefix = meta.getNamespace().getPrefix();
