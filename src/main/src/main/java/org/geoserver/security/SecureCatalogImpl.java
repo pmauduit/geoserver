@@ -46,10 +46,10 @@ import org.geoserver.security.impl.DefaultDataAccessManager;
 import org.opengis.feature.type.Name;
 import org.opengis.filter.Filter;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-
 /**
  * Wraps the catalog and applies the security directives provided by a {@link ResourceAccessManager}
  * or a {@link DataAccessManager} registered in the Spring application context
@@ -783,15 +783,14 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
      * 
      * @return
      */
-    protected <T extends ResourceInfo> List<T> filterResources(Authentication user,
-            List<T> resources, boolean handleCheckAccessException) {
+    protected <T extends ResourceInfo> List<T> filterResources(Authentication user, List<T> resources, boolean handleCheckAccessException) {
         List<T> result = new ArrayList<T>();
         for (T original : resources) {
             T secured = null;
             try {
             	secured = checkAccess(user, original);
             }
-            catch (SpringSecurityException e) {
+            catch (RuntimeException e) {
             	if (handleCheckAccessException) {
             		throw e;
             	}
@@ -833,7 +832,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
             try {
             	secured = checkAccess(user, original);
             }
-            catch (SpringSecurityException e) {
+            catch (RuntimeException e) {
             	if (handleCheckAccessException) {
             		throw e;
             	}
@@ -876,7 +875,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
             try {
             	secured = checkAccess(user, original);
             }
-            catch (SpringSecurityException e) {
+            catch (RuntimeException e) {
             	if (handleCheckAccessException) {
             		throw e;
             	}
@@ -918,7 +917,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
             try {
             	secured = checkAccess(user, original);
             }
-            catch (SpringSecurityException e) {
+            catch (RuntimeException e) {
             	if (handleCheckAccessException) {
             		throw e;
             	}
@@ -975,7 +974,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
             try {
             	secured = checkAccess(user, original);
             }
-            catch (SpringSecurityException e) {
+            catch (RuntimeException e) {
             	if (handleCheckAccessException) {
             		throw e;
             	}
@@ -1019,7 +1018,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
             try {
             	secured = checkAccess(user, original);
             }
-            catch (SpringSecurityException e) {
+            catch (RuntimeException e) {
             	if (handleCheckAccessException) {
             		throw e;
             	}
