@@ -61,6 +61,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
 
@@ -915,15 +916,14 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
      * 
      * @return
      */
-    protected <T extends ResourceInfo> List<T> filterResources(Authentication user,
-            List<T> resources, boolean handleCheckAccessException) {
+    protected <T extends ResourceInfo> List<T> filterResources(Authentication user, List<T> resources, boolean handleCheckAccessException) {
         List<T> result = new ArrayList<T>();
         for (T original : resources) {
             T secured = null;
             try {
             	secured = checkAccess(user, original);
             }
-            catch (SpringSecurityException e) {
+            catch (RuntimeException e) {
             	if (handleCheckAccessException) {
             		throw e;
             	}
@@ -965,7 +965,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
             try {
             	secured = checkAccess(user, original);
             }
-            catch (SpringSecurityException e) {
+            catch (RuntimeException e) {
             	if (handleCheckAccessException) {
             		throw e;
             	}
@@ -1008,7 +1008,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
             try {
             	secured = checkAccess(user, original);
             }
-            catch (SpringSecurityException e) {
+            catch (RuntimeException e) {
             	if (handleCheckAccessException) {
             		throw e;
             	}
@@ -1050,7 +1050,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
             try {
             	secured = checkAccess(user, original);
             }
-            catch (SpringSecurityException e) {
+            catch (RuntimeException e) {
             	if (handleCheckAccessException) {
             		throw e;
             	}
@@ -1107,7 +1107,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
             try {
             	secured = checkAccess(user, original);
             }
-            catch (SpringSecurityException e) {
+            catch (RuntimeException e) {
             	if (handleCheckAccessException) {
             		throw e;
             	}
@@ -1151,7 +1151,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
             try {
             	secured = checkAccess(user, original);
             }
-            catch (SpringSecurityException e) {
+            catch (RuntimeException e) {
             	if (handleCheckAccessException) {
             		throw e;
             	}
