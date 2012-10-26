@@ -1011,7 +1011,8 @@
       </plugin>
     </plugins>
   </pluginManagement>
- 
+
+  <testSourceDirectory>src/undefined</testSourceDirectory>
   <!-- TODO: the resources stuff hardcodes paths to source + test directories,
       we should be able to use some properties here -->
   <resources>
@@ -1139,6 +1140,7 @@
      <argLine>-Xmx${test.maxHeapSize} -XX:MaxPermSize=${test.maxPermSize} -enableassertions ${jvm.opts} -Djava.awt.headless=${java.awt.headless} -DremoteOwsTests=${remoteOwsTests}</argLine>
      <printSummary>true</printSummary>
      <testFailureIgnore>${allow.test.failure.ignore}</testFailureIgnore>
+     <skip>true</skip>
     </configuration>
    </plugin>
 
