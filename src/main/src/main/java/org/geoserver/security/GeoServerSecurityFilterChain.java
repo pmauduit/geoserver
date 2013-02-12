@@ -138,7 +138,9 @@ public class GeoServerSecurityFilterChain implements Serializable {
      * @return
      */
     public static GeoServerSecurityFilterChain createInitialChain() {
-        return new GeoServerSecurityFilterChain(new ArrayList(INITIAL));
+    	// GEORCHESTRA CHANGE
+        return new GeoServerSecurityFilterChain(new ArrayList(GeorchestraSecurityFilterChain.INITIAL));
+        // END GEORCHESTRA CHANGE
     }
 
     public void postConfigure(GeoServerSecurityManager secMgr) {

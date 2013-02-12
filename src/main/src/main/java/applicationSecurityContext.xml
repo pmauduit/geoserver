@@ -81,7 +81,7 @@
     <!-- GEORCHESTRA CHANGE (, and ;) -->
   	<property name="roleDelimiterString" value="," />
   	<property name="roleParameterDelimiterString" value=";"/>
-  	<!-- END GEORCHESTRA CHANGE -->+
+  	<!-- END GEORCHESTRA CHANGE -->
   	<property name="roleParameterStartString" value="("/>
   	<property name="roleParameterEndString" value= ")"/>
   	<property name="roleParameterAssignmentString" value="="/>  
@@ -102,8 +102,11 @@
   <bean id="rememberMeFilterProvider" class="org.geoserver.security.filter.GeoServerRememberMeAuthenticationProvider"/>
   <bean id="anonymousFilterProvider" class="org.geoserver.security.filter.GeoServerAnonymousAuthenticationProvider"/>
   <bean id="logoutFilterProvider" class="org.geoserver.security.filter.GeoServerLogoutProvider"/>  
-  <bean id="securityInterceptorFilterProvider" class="org.geoserver.security.filter.GeoServerSecurityInterceptorProvider"/>  
-  
+  <bean id="securityInterceptorFilterProvider" class="org.geoserver.security.filter.GeoServerSecurityInterceptorProvider"/>
+  <!-- GEORCHESTRA CHANGE -->  
+  <bean id="georLogoutFilterProvider" class="org.geoserver.security.filter.GeorchestraLogoutProvider"/>  
+  <bean id="georLoginFilterProvider" class="org.geoserver.security.filter.GeorchestraLoginProvider"/>  
+  <!-- END GEORCHESTRA CHANGE -->
   <bean id="urlMasterPasswordProvider" 
     class="org.geoserver.security.password.URLMasterPasswordProvider$SecurityProvider"/>
   
