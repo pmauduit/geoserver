@@ -80,11 +80,14 @@ import org.geoserver.security.config.J2eeAuthenticationFilterConfig;
 import org.geoserver.security.config.PreAuthenticatedUserNameFilterConfig;
 import org.geoserver.security.config.PreAuthenticatedUserNameFilterConfig.PreAuthenticatedUserNameRoleSource;
 import org.geoserver.security.config.RoleFilterConfig;
+import org.geoserver.security.config.GeorchestraLoginFilterConfig;
 import org.geoserver.security.config.LogoutFilterConfig;
 import org.geoserver.security.config.PasswordPolicyConfig;
+import org.geoserver.security.config.GeorchestraLogoutFilterConfig;
 import org.geoserver.security.config.RememberMeAuthenticationFilterConfig;
 import org.geoserver.security.config.RoleSource;
 import org.geoserver.security.config.SSLFilterConfig;
+import org.geoserver.security.config.RequestHeaderAuthenticationFilterConfig;
 import org.geoserver.security.config.SecurityAuthProviderConfig;
 import org.geoserver.security.config.SecurityConfig;
 import org.geoserver.security.config.SecurityContextPersistenceFilterConfig;
@@ -108,11 +111,14 @@ import org.geoserver.security.filter.GeoServerLogoutFilter;
 import org.geoserver.security.filter.GeoServerRememberMeAuthenticationFilter;
 import org.geoserver.security.filter.GeoServerRoleFilter;
 import org.geoserver.security.filter.GeoServerSSLFilter;
+import org.geoserver.security.filter.GeoServerRequestHeaderAuthenticationFilter;
 import org.geoserver.security.filter.GeoServerSecurityContextPersistenceFilter;
 import org.geoserver.security.filter.GeoServerSecurityFilter;
 import org.geoserver.security.filter.GeoServerSecurityInterceptorFilter;
 import org.geoserver.security.filter.GeoServerUserNamePasswordAuthenticationFilter;
 import org.geoserver.security.impl.DataAccessRuleDAO;
+import org.geoserver.security.filter.GeorchestraLoginFilter;
+import org.geoserver.security.filter.GeorchestraLogoutFilter;
 import org.geoserver.security.impl.GeoServerRole;
 import org.geoserver.security.impl.GeoServerUser;
 import org.geoserver.security.impl.GeoServerUserGroup;
@@ -2182,6 +2188,35 @@ public class GeoServerSecurityManager extends ProviderManager implements Applica
             siConfig.setSecurityMetadataSource("restFilterDefinitionMap");
             saveFilter(siConfig);
         }
+        // GEORCHESTRA CHANGE
+        filterName = GeorchestraSecurityFilterChain.PROXY_FILTER;
+        filter = loadFilter(filterName);
+        if (filter==null) {
+        	RequestHeaderAuthenticationFilterConfig headerAuthConfig= new RequestHeaderAuthenticationFilterConfig();
+        	headerAuthConfig.setClassName(GeoServerRequestHeaderAuthenticationFilter.class.getName());
+        	headerAuthConfig.setName(filterName);
+        	headerAuthConfig.setPrincipalHeaderAttribute("sec-username");
+        	headerAuthConfig.setRolesHeaderAttribute("sec-roles");
+        	headerAuthConfig.setRoleSource(PreAuthenticatedUserNameRoleSource.Header);
+        	saveFilter(headerAuthConfig);
+        }
+        filterName = GeorchestraSecurityFilterChain.LOGOUT_FILTER;
+        filter = loadFilter(filterName);
+        if (filter==null) {
+        	GeorchestraLogoutFilterConfig headerAuthConfig= new GeorchestraLogoutFilterConfig();
+        	headerAuthConfig.setClassName(GeorchestraLogoutFilter.class.getName());
+        	headerAuthConfig.setName(filterName);
+        	saveFilter(headerAuthConfig);
+        }
+        filterName = GeorchestraSecurityFilterChain.LOGIN_FILTER;
+        filter = loadFilter(filterName);
+        if (filter==null) {
+        	GeorchestraLoginFilterConfig headerAuthConfig= new GeorchestraLoginFilterConfig();
+        	headerAuthConfig.setClassName(GeorchestraLoginFilter.class.getName());
+        	headerAuthConfig.setName(filterName);
+        	saveFilter(headerAuthConfig);
+        }
+        // END GEORCHESTRA CHANGE
         filterName =GeoServerSecurityFilterChain.FORM_LOGOUT_FILTER;
         filter = loadFilter(filterName);
         if (filter==null) {
