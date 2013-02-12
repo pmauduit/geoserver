@@ -387,7 +387,9 @@ public class AuthenticationFilterTest extends AbstractAuthenticationProviderTest
             chain = new MockFilterChain();            
             request.setHeader("principal", testUserName);
             if (rs==RoleSource.Header) {
-                request.setHeader("roles", derivedRole+";"+rootRole);
+                // GEORCHESTRA CHANGE
+                request.setHeader("roles", derivedRole+","+rootRole);
+                // END GEORCHESTRA CHANGE
             }
             getProxy().doFilter(request, response, chain);            
             assertEquals(HttpServletResponse.SC_OK, response.getErrorCode());
@@ -1118,7 +1120,9 @@ public class AuthenticationFilterTest extends AbstractAuthenticationProviderTest
             response= new MockHttpServletResponse();
             chain = new MockFilterChain();
             if (rs==RoleSource.Header) {
-                request.setHeader("roles", derivedRole+";"+rootRole);
+                // GEORCHESTRA CHANGE
+                request.setHeader("roles", derivedRole+","+rootRole);
+                // END GEORCHESTRA CHANGE
             }
 
             setCertifacteForUser(testUserName, request);                        
