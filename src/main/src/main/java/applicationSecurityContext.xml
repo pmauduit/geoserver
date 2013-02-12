@@ -78,8 +78,10 @@
    -->
    
   <bean id="roleConverter" class="org.geoserver.security.impl.GeoServerRoleConverterImpl" >  
-  	<property name="roleDelimiterString" value=";" />
-  	<property name="roleParameterDelimiterString" value=","/>
+    <!-- GEORCHESTRA CHANGE (, and ;) -->
+  	<property name="roleDelimiterString" value="," />
+  	<property name="roleParameterDelimiterString" value=";"/>
+  	<!-- END GEORCHESTRA CHANGE -->+
   	<property name="roleParameterStartString" value="("/>
   	<property name="roleParameterEndString" value= ")"/>
   	<property name="roleParameterAssignmentString" value="="/>  
