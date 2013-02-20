@@ -44,7 +44,7 @@ public class SecurityHomePageContentProvider implements
     public Component getPageBodyComponent(String id) {
         //do a check that the root password is not set
         GeoServerSecurityManager secMgr = GeoServerApplication.get().getSecurityManager();
-        if (secMgr.checkAuthenticationForAdminRole()) {
+        if (false && secMgr.checkAuthenticationForAdminRole()) {// GEORCHESTRA always false
             return new SecurityWarningsPanel(id);
         }
         return null;
