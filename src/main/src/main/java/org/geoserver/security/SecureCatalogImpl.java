@@ -48,7 +48,6 @@ import org.opengis.filter.Filter;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 /**
  * Wraps the catalog and applies the security directives provided by a {@link ResourceAccessManager}
