@@ -24,13 +24,12 @@
    <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-plugin-plugin</artifactId>
-    <version>2.9</version>
     <!-- Add the Ant plugin tools -->
     <dependencies>
      <dependency>
-      <groupId>org.apache.maven.plugin-tools</groupId>
+      <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-tools-ant</artifactId>
-      <version>2.9</version>
+      <version>2.1</version>
      </dependency>
     </dependencies>
     <configuration>
