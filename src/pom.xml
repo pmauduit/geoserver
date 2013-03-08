@@ -1493,7 +1493,7 @@
   <fork.javac>true</fork.javac>
   <javac.maxHeapSize>256m</javac.maxHeapSize>
   <skip>true</skip>
-  <testDir>src/test</testDir>
+  <testDir>src/test/java</testDir>
   <image.tests>true</image.tests>
   <interactive.tests>false</interactive.tests>
  </properties>
