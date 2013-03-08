@@ -31,40 +31,40 @@ public class GeorchestraSecurityFilterChain {
 	public static String LOGIN_FILTER = "proxy_login";
 
 
-    static RequestFilterChain WEB = new RequestFilterChain(WEB_CHAIN, GWC_WEB_CHAIN);
+    static RequestFilterChain WEB = new ServiceLoginFilterChain(WEB_CHAIN, GWC_WEB_CHAIN);
     static {
         WEB.setName("web");
         WEB.setFilterNames(SECURITY_CONTEXT_ASC_FILTER, PROXY_FILTER, ANONYMOUS_FILTER,
             GUI_EXCEPTION_TRANSLATION_FILTER, FILTER_SECURITY_INTERCEPTOR);
     }
 
-    private static RequestFilterChain WEB_LOGIN = new RequestFilterChain(FORM_LOGIN_CHAIN);
+    private static RequestFilterChain WEB_LOGIN = new ServiceLoginFilterChain(FORM_LOGIN_CHAIN);
     static {
         WEB_LOGIN.setName("webLogin");
         WEB_LOGIN.setFilterNames(SECURITY_CONTEXT_ASC_FILTER, LOGIN_FILTER);
     }
 
-    private static RequestFilterChain WEB_LOGOUT = new RequestFilterChain(FORM_LOGOUT_CHAIN);
+    private static RequestFilterChain WEB_LOGOUT = new ServiceLoginFilterChain(FORM_LOGOUT_CHAIN);
     static {
         WEB_LOGOUT.setName("webLogout");
         WEB_LOGOUT.setFilterNames(SECURITY_CONTEXT_ASC_FILTER, LOGOUT_FILTER);
     }
 
-    private static RequestFilterChain REST = new RequestFilterChain(REST_CHAIN);
+    private static RequestFilterChain REST = new ServiceLoginFilterChain(REST_CHAIN);
     static {
         REST.setName("rest");
         REST.setFilterNames(SECURITY_CONTEXT_NO_ASC_FILTER, PROXY_FILTER, BASIC_AUTH_FILTER, ANONYMOUS_FILTER, 
             DYNAMIC_EXCEPTION_TRANSLATION_FILTER, FILTER_SECURITY_REST_INTERCEPTOR);
     }
 
-    private static RequestFilterChain GWC = new RequestFilterChain(GWC_REST_CHAIN);
+    private static RequestFilterChain GWC = new ServiceLoginFilterChain(GWC_REST_CHAIN);
     static {
         GWC.setName("gwc");
         GWC.setFilterNames(SECURITY_CONTEXT_NO_ASC_FILTER, PROXY_FILTER, BASIC_AUTH_FILTER, 
             DYNAMIC_EXCEPTION_TRANSLATION_FILTER, FILTER_SECURITY_REST_INTERCEPTOR);
     }
 
-    private static RequestFilterChain DEFAULT = new RequestFilterChain(DEFAULT_CHAIN);
+    private static RequestFilterChain DEFAULT = new ServiceLoginFilterChain(DEFAULT_CHAIN);
     static {
         DEFAULT.setName("default");
         DEFAULT.setFilterNames(SECURITY_CONTEXT_NO_ASC_FILTER, PROXY_FILTER, BASIC_AUTH_FILTER, ANONYMOUS_FILTER, 
