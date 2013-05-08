@@ -209,14 +209,6 @@ public class GeoServerInfoImpl implements GeoServerInfo {
         this.adminUsername = adminUsername;
     }
 
-    public boolean isLocalWorkspaceRemovesPrefix() {
-        return getSettings().isLocalWorkspaceRemovesPrefix();
-    }
-
-    public void setLocalWorkspaceRemovesPrefix(boolean removePrefix) {
-        getSettings().setLocalWorkspaceRemovesPrefix(removePrefix);
-    }
-
     public int getFeatureTypeCacheSize() {
         return featureTypeCacheSize;
     }
