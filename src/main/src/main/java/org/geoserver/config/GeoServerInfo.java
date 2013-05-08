@@ -218,24 +218,6 @@ public interface GeoServerInfo extends Info {
     boolean isVerboseExceptions();
 
     /**
-     * If true local workspace should hide the namespace prefixes in
-     * getCapabilities etc...
-     *
-     * @deprecated use {@link #getSettings()}
-     */
-    boolean isLocalWorkspaceRemovesPrefix();
-
-    /**
-     * Set whether or not a local workspace should hide namespace prefixes in
-     * the getCapabilities etc...
-     *
-     * @param removePrefix
-     *            if true then the prefixes will be removed.
-     * @deprecated use {@link #getSettings()}
-     */
-    void setLocalWorkspaceRemovesPrefix(boolean removePrefix);
-
-    /**
      * Set the XML error handling mode for the server.
      * 
      * @see ResourceErrorHandling
