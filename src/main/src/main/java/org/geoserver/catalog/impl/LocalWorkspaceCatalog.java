@@ -12,12 +12,14 @@ import org.geoserver.catalog.Catalog;
 import org.geoserver.catalog.CatalogInfo;
 import org.geoserver.catalog.LayerGroupInfo;
 import org.geoserver.catalog.LayerInfo;
+import org.geoserver.catalog.MetadataMap;
 import org.geoserver.catalog.NamespaceInfo;
 import org.geoserver.catalog.StyleInfo;
 import org.geoserver.catalog.WorkspaceInfo;
 import org.geoserver.catalog.event.CatalogListener;
 import org.geoserver.catalog.util.CloseableIterator;
 import org.geoserver.catalog.util.CloseableIteratorAdapter;
+import org.geoserver.config.GeoServer;
 import org.geoserver.ows.LocalWorkspace;
 import org.geoserver.ows.LocalWorkspaceCatalogFilter;
 import org.geotools.feature.NameImpl;
@@ -38,9 +40,15 @@ import com.google.common.base.Function;
  */
 public class LocalWorkspaceCatalog extends AbstractCatalogDecorator implements Catalog {
 
+	private GeoServer geoServer;
+
     public LocalWorkspaceCatalog(Catalog delegate) {
         super(delegate);
     }
+
+	public void setGeoServer(GeoServer geoServer ) {
+		this.geoServer = geoServer;
+	}
 
     @Override
     public StyleInfo getStyleByName(String name) {
@@ -96,7 +104,7 @@ public class LocalWorkspaceCatalog extends AbstractCatalogDecorator implements C
 
     @Override
     public List<LayerInfo> getLayers() {
-        if (LocalWorkspace.get() != null) {
+        if (LocalWorkspace.get() != null && geoServer.getSettings().isLocalWorkspaceRemovesPrefix()) {
             return NameDequalifyingProxy.createList(super.getLayers(), LayerInfo.class);
         }
         return super.getLayers();

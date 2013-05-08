@@ -52,6 +52,7 @@ public class GlobalSettingsPage extends ServerAdminPage {
         form.add(new CheckBox("verbose"));
         form.add(new CheckBox("verboseExceptions"));
         form.add(new CheckBox("globalServices"));
+        form.add(new CheckBox("localWorkspaceRemovesPrefix"));
         form.add(new TextField<Integer>("numDecimals").add(new MinimumValidator<Integer>(0)));
         form.add(new DropDownChoice("charset", AVAILABLE_CHARSETS));
         form.add(new DropDownChoice<ResourceErrorHandling>("resourceErrorHandling", Arrays.asList(ResourceErrorHandling.values())));
