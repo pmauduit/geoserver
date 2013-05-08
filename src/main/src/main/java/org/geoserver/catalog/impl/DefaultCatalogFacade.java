@@ -34,6 +34,7 @@ import org.geoserver.catalog.StyleInfo;
 import org.geoserver.catalog.WorkspaceInfo;
 import org.geoserver.catalog.util.CloseableIterator;
 import org.geoserver.catalog.util.CloseableIteratorAdapter;
+import org.geoserver.ows.LocalWorkspace;
 import org.geoserver.ows.util.OwsUtils;
 import org.opengis.filter.Filter;
 import org.opengis.filter.sort.SortBy;
@@ -430,6 +431,19 @@ public class DefaultCatalogFacade extends AbstractCatalogFacade implements Catal
     }
     
     public List<LayerInfo> getLayers() {
+        // GEORCHESTRA: Workaround for when logged in as admin. Fixes a nullpointer whe
+        // calling getcapabilities
+        if(LocalWorkspace.get() != null) {
+            WorkspaceInfo currentWorkspace = LocalWorkspace.get();
+            ArrayList list = new ArrayList();
+            for (LayerInfo layer : layers) {
+                WorkspaceInfo layerWorkspace = layer.getResource().getStore().getWorkspace();
+                if(currentWorkspace.getId().equals(layerWorkspace.getId())) {
+                    list.add(layer);
+                }
+            }
+            return  ModificationProxy.createList( list, LayerInfo.class);
+        } else 
         return ModificationProxy.createList( new ArrayList(layers), LayerInfo.class );
     }
     
