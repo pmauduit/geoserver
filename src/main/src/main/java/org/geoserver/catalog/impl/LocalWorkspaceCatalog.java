@@ -104,11 +104,8 @@ public class LocalWorkspaceCatalog extends AbstractCatalogDecorator implements C
 
     @Override
     public List<LayerInfo> getLayers() {
-        WorkspaceInfo workspaceInfo = LocalWorkspace.get();
-        boolean hidePrefix = geoServer == null || geoServer.getSettings().isLocalWorkspaceRemovesPrefix();
-        if (workspaceInfo != null && hidePrefix) {
-            return NameDequalifyingProxy.createList(super.getLayers(),
-                    LayerInfo.class);
+        if (LocalWorkspace.get() != null && geoServer.getSettings().isLocalWorkspaceRemovesPrefix()) {
+            return NameDequalifyingProxy.createList(super.getLayers(), LayerInfo.class);
         }
         return super.getLayers();
     }
