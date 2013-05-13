@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 
 import org.geoserver.catalog.Catalog;
 import org.geoserver.catalog.impl.CatalogImpl;
-import org.geoserver.catalog.impl.LocalWorkspaceCatalog;
 import org.geoserver.catalog.WorkspaceInfo;
 import org.geoserver.config.ConfigurationListener;
 import org.geoserver.config.GeoServer;
@@ -86,10 +85,6 @@ public class GeoServerImpl implements GeoServer, ApplicationContextAware {
     
     public void setCatalog(Catalog catalog) {
         this.catalog = catalog;
-        if (catalog instanceof LocalWorkspaceCatalog) {
-            LocalWorkspaceCatalog lwCatalog = (LocalWorkspaceCatalog) catalog;
-            lwCatalog.setGeoServer(this);
-        }
     }
     
     public GeoServerInfo getGlobal() {
