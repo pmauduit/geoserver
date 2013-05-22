@@ -59,7 +59,7 @@ final class CapabilityUtil {
 			stylesCopy.add(defaultStyle);
 		}
 		
-		// searches the max and min denominator in the style's rules that are contained in the style set. 
+		// searches the maximum and minimum denominator in the style's rules that are contained in the style set. 
 		Map<String,Double> scaleDenominator = new HashMap<String,Double>(2);
 		scaleDenominator.put(minScaleDenominator, Double.POSITIVE_INFINITY);
 		scaleDenominator.put(maxScaleDenominator, Double.NEGATIVE_INFINITY);
@@ -94,6 +94,7 @@ final class CapabilityUtil {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Computes the Scale Hint based on the scale denominator (real world scale) provided as parameter and 
 	 * the standard pixel size (0.28mm x 0.28mm from WMS OGC specification). This value is appropriated 
 	 * to render the layer.
@@ -105,6 +106,17 @@ final class CapabilityUtil {
 	public static Double computeScaleHint(final Double scaleDenominator) {
 		
 		final Double sizeStandardRenderPixel = 0.00028;//(meters) 
+=======
+	 * Computes the rendering scale taking into account the standard pixel size and the real world scale denominator.
+	 * 
+	 * @param scaleDenominator
+	 * @return the rendering scale.
+	 */
+	public static Double computeScaleHint(final Double scaleDenominator) {
+		
+		// According to OGC SLD 1.0 specification: The "standardized rendering pixel size" is defined to be 0.28mm × 0.28mm (millimeters).
+		final Double sizeStarndardRenderPixel = 0.00028;//(meters) 
+>>>>>>> 2122629... fixing test cases for capabilities' scalehint
 		
 		Double scaleHint = Math.sqrt(Math.pow((scaleDenominator * sizeStandardRenderPixel), 2) * 2);
 		
