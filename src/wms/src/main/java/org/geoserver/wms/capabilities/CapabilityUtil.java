@@ -93,11 +93,20 @@ final class CapabilityUtil {
 	    return scaleDenominator;
 	}
 
+	/**
+	 * Computes the Scale Hint based on the scale denominator (real world scale) provided as parameter and 
+	 * the standard pixel size (0.28mm x 0.28mm from WMS OGC specification). This value is appropriated 
+	 * to render the layer.
+	 *  
+	 * @param scaleDenominator real world scale
+	 * 
+	 * @return the Scale Hint suggested to render the layer  
+	 */
 	public static Double computeScaleHint(final Double scaleDenominator) {
 		
-		final Double sizeStarndardRenderPixel = 0.0028;//(meters) 
+		final Double sizeStandardRenderPixel = 0.00028;//(meters) 
 		
-		Double scaleHint = Math.sqrt(Math.pow((scaleDenominator * sizeStarndardRenderPixel), 2) * 2);
+		Double scaleHint = Math.sqrt(Math.pow((scaleDenominator * sizeStandardRenderPixel), 2) * 2);
 		
 		return scaleHint;
 	}
