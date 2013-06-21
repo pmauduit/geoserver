@@ -1111,7 +1111,11 @@ public class GetCapabilitiesTransformer extends TransformerBase {
          */
         private List<LayerGroupInfo> filterNestedGroups(List<LayerGroupInfo> allGroups) {
             LinkedHashSet<LayerGroupInfo> result = new LinkedHashSet<LayerGroupInfo>(allGroups);
+            result.remove(null);
             for (LayerGroupInfo group : allGroups) {
+                if(group == null) {
+            	    continue;
+                }
                 for(PublishedInfo pi : group.getLayers()) {
                     if(pi instanceof LayerGroupInfo) {
                         result.remove(pi);
