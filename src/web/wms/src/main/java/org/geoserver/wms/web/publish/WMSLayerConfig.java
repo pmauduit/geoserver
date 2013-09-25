@@ -35,9 +35,10 @@ public class WMSLayerConfig extends LayerConfigurationPanel {
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public WMSLayerConfig(String id, IModel layerModel) {
         super(id, layerModel);
-        
+
         add(new CheckBox("queryableEnabled", new PropertyModel(layerModel,"queryable")));
-        
+        add(new CheckBox("opaqueEnabled", new PropertyModel(layerModel,"opaque")));
+
         // styles block container
         WebMarkupContainer styleContainer = new WebMarkupContainer("styles");
         add(styleContainer);

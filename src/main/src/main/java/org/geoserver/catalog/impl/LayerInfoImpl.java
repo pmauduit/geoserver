@@ -58,6 +58,8 @@ public class LayerInfoImpl implements LayerInfo {
 
     protected Boolean queryable;
 
+    protected Boolean opaque;
+
     protected MetadataMap metadata = new MetadataMap();
 
     protected AttributionInfo attribution;
@@ -331,6 +333,16 @@ public class LayerInfoImpl implements LayerInfo {
     @Override
     public boolean isQueryable() {
         return this.queryable == null? true : this.queryable.booleanValue();
+    }
+
+    @Override
+    public void setOpaque(boolean opaque) {
+        this.opaque = opaque;
+    }
+
+    @Override
+    public boolean isOpaque() {
+        return this.opaque == null? false : this.opaque.booleanValue();
     }
 
     @Override
