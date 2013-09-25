@@ -155,10 +155,12 @@ public class SecurityHomePageContentProvider implements
                 add(new Label("strongEncryptionMsg", new StringResourceModel("strongEncryption", new SecuritySettingsPage(), null))
                     .add(new AttributeAppender("class", new Model("info-link"), " "))); 
             }
+            /*
             else {
                 add(new Label("strongEncryptionMsg", new StringResourceModel("noStrongEncryption", new SecuritySettingsPage(), null))
                 .add(new AttributeAppender("class", new Model("warning-link"), " ")));
             }
+            */
             
             // check for password encoding in the default user group service
             visibility=false;
