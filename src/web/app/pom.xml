@@ -14,7 +14,7 @@
   </parent>
   <groupId>org.geoserver.web</groupId>
   <artifactId>web-app</artifactId>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <version>2.3.2</version>
   <name>GeoServer Web Application</name>
   <dependencies>
