@@ -123,6 +123,7 @@
 	<artifactId>wms</artifactId>
 	<classifier>tests</classifier>
         <scope>test</scope>
+        <version>2.3.2</version>
     </dependency>
   </dependencies>
   
