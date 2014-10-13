@@ -5,7 +5,7 @@ class GeoServerCSSProject(info: ProjectInfo) extends DefaultProject(info) {
   val gsVersion="2.1-SNAPSHOT"
 
   override def repositories = super.repositories ++ Set(
-    "OpenGeo Maven Repository" at "http://repo.opengeo.org/"
+    "OpenGeo Maven Repository" at "http://boundlessgeo.com/main/"
   )
 
   override def libraryDependencies = super.libraryDependencies ++ Set(
@@ -18,6 +18,6 @@ class GeoServerCSSProject(info: ProjectInfo) extends DefaultProject(info) {
     "org.geotools" % "gt-shapefile" % gtVersion,
     "org.geoserver" % "main" % gsVersion % "provided",
     "org.geoserver.web" % "web-core" % gsVersion % "provided",
-    "xml-apis" % "xml-apis-xerces" % "2.7.1" from "http://repo.opengeo.org/xml-apis/xml-apis-xerces/2.7.1/xml-apis-xerces-2.7.1.jar"
+    "xml-apis" % "xml-apis-xerces" % "2.7.1" from "http://boundlessgeo.com/main/xml-apis/xml-apis-xerces/2.7.1/xml-apis-xerces-2.7.1.jar"
   )
 }

@@ -9,7 +9,7 @@
   <repository>
    <id>opengeo</id>
    <name>opengeo</name>
-   <url>http://repo.opengeo.org/</url>
+   <url>http://boundlessgeo.com/main/</url>
    <snapshots>
     <enabled>true</enabled>
    </snapshots>
