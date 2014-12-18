@@ -51,10 +51,20 @@
  </ciManagement>
 
  <repositories>
+
+   <repository>
+    <snapshots>
+      <enabled>true</enabled>
+      <checksumPolicy>ignore</checksumPolicy>
+    </snapshots>
+    <id>georchestra</id>
+    <url>http://sdi.georchestra.org/maven/repository</url>
+  </repository>
+
   <repository>
    <id>opengeo</id>
    <name>OpenGeo Maven Repository</name>
-   <url>http://repo.opengeo.org/</url>
+   <url>http://boundlessgeo.com/main/</url>
    <snapshots>
      <enabled>true</enabled>
    </snapshots>
@@ -1480,13 +1490,13 @@
   <repository>
    <id>opengeo</id>
    <name>OpenGeo Maven Repository</name>
-   <url>dav:http://repo.opengeo.org</url>
+   <url>dav:http://boundlessgeo.com/main</url>
    <uniqueVersion>false</uniqueVersion>
   </repository>
   <snapshotRepository>
    <id>opengeo</id>
    <name>OpenGeo Maven Repository</name>
-   <url>dav:http://repo.opengeo.org</url>
+   <url>dav:http://boundlessgeo.com/main</url>
    <uniqueVersion>false</uniqueVersion>
   </snapshotRepository>
  </distributionManagement>
