@@ -87,6 +87,13 @@
       <enabled>false</enabled>
     </snapshots>
   </repository>
+
+   <repository>
+     <id>mapfishDev</id>
+     <name>Mapfish Dev repository</name>
+     <url>http://dev.mapfish.org/maven/repository/</url>
+   </repository>
+
  </repositories>
 
  <pluginRepositories>
