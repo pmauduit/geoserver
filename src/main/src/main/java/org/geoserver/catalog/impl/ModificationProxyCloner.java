@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -130,6 +131,15 @@ class ModificationProxyCloner {
         Class result = CATALOGINFO_INTERFACE_CACHE.get(sourceClass);
         if(result == null) {
             Class[] interfaces = sourceClass.getInterfaces();
+            // geOrchestra issue #885:
+            // if interfaces is an empty array, let's try with the parent class.
+            // Java reflection mechanisms do not return every interfaces that the
+            // object actually implements, because parent objects are not scanned.
+            if(interfaces.length == 0) {
+                Class superClass = sourceClass.getSuperclass();
+                interfaces = superClass.getInterfaces();
+            }
+            
             // collect only CatalogInfo related interfaces
             List<Class> cis = new ArrayList<Class>();
             for (Class clazz : interfaces) {
@@ -158,8 +168,12 @@ class ModificationProxyCloner {
             
                 result = cis.get(0);
             }
-            
-            CATALOGINFO_INTERFACE_CACHE.put(sourceClass, result);
+            // georchestra #885:
+            // null values are not authorized in ConcurrentHashMaps
+            // Note: this should not happen.
+            if ((result != null) && (sourceClass != null)) {
+              CATALOGINFO_INTERFACE_CACHE.put(sourceClass, result);
+            }
         }
         
         return result;

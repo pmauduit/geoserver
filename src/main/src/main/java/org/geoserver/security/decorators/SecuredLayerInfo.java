@@ -29,14 +29,31 @@ public class SecuredLayerInfo extends DecoratingLayerInfo {
     @Override
     public ResourceInfo getResource() {
         ResourceInfo r = super.getResource();
-        if (r == null)
+
+        if (r == null) {
             return null;
-        else if (r instanceof FeatureTypeInfo)
+        }
+        // geOrchestra #885: Applying same reflection fiddling
+        Class proxiedInterface = null;
+
+        Class[] itfs = r.getClass().getInterfaces();
+        if (itfs.length > 0) {
+            proxiedInterface = itfs[0];
+        }
+
+        if (r instanceof FeatureTypeInfo)
             return new SecuredFeatureTypeInfo((FeatureTypeInfo) r, policy);
-        else if (r instanceof CoverageInfo)
-            return new SecuredCoverageInfo((CoverageInfo) r, policy);
+        else if (r instanceof CoverageInfo)            
+            return new SecuredCoverageInfo((SecuredCoverageInfo) r, policy);
         else if (r instanceof WMSLayerInfo)
             return new SecuredWMSLayerInfo((WMSLayerInfo) r, policy);
+        // if r is already a SecuredBlah object
+        else if (proxiedInterface != null && proxiedInterface.isAssignableFrom(SecuredFeatureTypeInfo.class)
+                || (proxiedInterface != null && proxiedInterface.isAssignableFrom(SecuredCoverageInfo.class))
+                || (proxiedInterface != null && proxiedInterface.isAssignableFrom(SecuredWMSLayerInfo.class)))
+            return r;
+        
+            
         else
             throw new RuntimeException("Don't know how to make resource of type " + r.getClass());
     }
