@@ -27,6 +27,7 @@ import org.geoserver.catalog.CatalogInfo;
 import org.geoserver.config.util.XStreamPersister;
 import org.geoserver.config.util.XStreamPersisterFactory;
 import org.geotools.util.logging.Logging;
+import org.springframework.util.ClassUtils;
 
 import com.thoughtworks.xstream.XStream;
 
@@ -40,23 +41,23 @@ import com.thoughtworks.xstream.XStream;
  * <li>Using {@link Cloneable} if available</li>
  * <li>Using copy constructors if available</li>
  * <li>Falling back on XStream serialization if the above fails
- * 
+ *
  * @author Andrea Aime - GeoSolutions
- * 
+ *
  */
 class ModificationProxyCloner {
 
     private static final XStreamPersisterFactory XSTREAM_PERSISTER_FACTORY = new XStreamPersisterFactory();
 
     static final Logger LOGGER = Logging.getLogger(ModificationProxyCloner.class);
-    
+
     static final Map<Class, Class> CATALOGINFO_INTERFACE_CACHE = new ConcurrentHashMap<Class, Class>();
 
     /**
      * Best effort object cloning utility, tries different lightweight strategies, then falls back
      * on copy by XStream serialization (we use that one as we have a number of hooks to avoid deep
      * copying the catalog, and re-attaching to it, in there)
-     * 
+     *
      * @param source
      * @return
      */
@@ -65,12 +66,12 @@ class ModificationProxyCloner {
         if (source == null) {
             return null;
         }
-        
+
         // already a modification proxy?
         if(ModificationProxy.handler(source) != null) {
             return source;
         }
-        
+
         // is it a catalog info?
         if(source instanceof CatalogInfo) {
             // mumble... shouldn't we wrap this one in a modification proxy object?
@@ -81,7 +82,7 @@ class ModificationProxyCloner {
         if (source instanceof String || source instanceof Byte || source instanceof Short
                 || source instanceof Integer || source instanceof Float || source instanceof Double
                 || source instanceof BigInteger || source instanceof BigDecimal) {
-            return (T) source;
+            return source;
         }
 
         // is it cloneable?
@@ -112,7 +113,7 @@ class ModificationProxyCloner {
                         "Source has a copy constructor, but it failed, skipping to XStream", e);
             }
         }
-        
+
 
         if(source instanceof Serializable) {
             return (T) SerializationUtils.clone((Serializable) source);
@@ -124,12 +125,12 @@ class ModificationProxyCloner {
             return copy;
         }
     }
-    
+
     static Class getDeepestCatalogInfoInterface(CatalogInfo object) {
         Class<? extends CatalogInfo> sourceClass = object.getClass();
         Class result = CATALOGINFO_INTERFACE_CACHE.get(sourceClass);
         if(result == null) {
-            Class[] interfaces = sourceClass.getInterfaces();
+            Class[] interfaces = ClassUtils.getAllInterfaces(sourceClass);
             // collect only CatalogInfo related interfaces
             List<Class> cis = new ArrayList<Class>();
             for (Class clazz : interfaces) {
@@ -143,7 +144,7 @@ class ModificationProxyCloner {
                 result = cis.get(0);
             } else {
                 Collections.sort(cis, new Comparator<Class>() {
-        
+
                     @Override
                     public int compare(Class c1, Class c2) {
                         if(c1.isAssignableFrom(c2)) {
@@ -155,21 +156,21 @@ class ModificationProxyCloner {
                         }
                     }
                 });
-            
+
                 result = cis.get(0);
             }
-            
+
             CATALOGINFO_INTERFACE_CACHE.put(sourceClass, result);
         }
-        
+
         return result;
-        
-        
+
+
     }
 
     /**
      * Shallow or deep copies the provided collection
-     * 
+     *
      * @param source
      * @param deepCopy If true, a deep copy will be done, otherwise the cloned collection will
      *        contain the exact same objects as the source
@@ -198,10 +199,10 @@ class ModificationProxyCloner {
 
     /**
      * Shallow or deep copies the provided collection
-     * 
+     *
      * @param <K>
      * @param <V>
-     * 
+     *
      * @param source
      * @param deepCopy If true, a deep copy will be done, otherwise the cloned collection will
      *        contain the exact same objects as the source
