@@ -23,7 +23,7 @@ import org.geotools.geometry.jts.ReferencedEnvelope;
 /**
  * Delegates every method to the wrapped {@link LayerGroupInfo}. Subclasses will
  * override selected methods to perform their "decoration" job
- * 
+ *
  * @author Andrea Aime
  */
 public class DecoratingLayerGroupInfo extends AbstractDecorator<LayerGroupInfo> implements LayerGroupInfo {
@@ -46,17 +46,17 @@ public class DecoratingLayerGroupInfo extends AbstractDecorator<LayerGroupInfo> 
     public LayerInfo getRootLayer() {
         return delegate.getRootLayer();
     }
-    
+
     @Override
     public StyleInfo getRootLayerStyle() {
         return delegate.getRootLayerStyle();
-    }   
-    
+    }
+
     @Override
     public List<PublishedInfo> getLayers() {
         return delegate.getLayers();
     }
-    
+
     @Override
     public List<LayerInfo> layers() {
         LayerGroupHelper helper = new LayerGroupHelper(this);
@@ -67,8 +67,8 @@ public class DecoratingLayerGroupInfo extends AbstractDecorator<LayerGroupInfo> 
     public List<StyleInfo> styles() {
         LayerGroupHelper helper = new LayerGroupHelper(this);
         return helper.allStylesForRendering();
-    }  
-    
+    }
+
     @Override
     public String getName() {
         return delegate.getName();
@@ -78,7 +78,7 @@ public class DecoratingLayerGroupInfo extends AbstractDecorator<LayerGroupInfo> 
     public Mode getMode() {
         return delegate.getMode();
     }
-    
+
     @Override
     public WorkspaceInfo getWorkspace() {
         return delegate.getWorkspace();
@@ -102,8 +102,8 @@ public class DecoratingLayerGroupInfo extends AbstractDecorator<LayerGroupInfo> 
     @Override
     public void setRootLayerStyle(StyleInfo style) {
         delegate.setRootLayerStyle(style);
-    }    
-    
+    }
+
     @Override
     public void setBounds(ReferencedEnvelope bounds) {
         delegate.setBounds(bounds);
@@ -118,7 +118,7 @@ public class DecoratingLayerGroupInfo extends AbstractDecorator<LayerGroupInfo> 
     public void setMode(Mode mode) {
         delegate.setMode(mode);
     }
-    
+
     @Override
     public void setWorkspace(WorkspaceInfo workspace) {
         delegate.setWorkspace(workspace);
@@ -128,32 +128,32 @@ public class DecoratingLayerGroupInfo extends AbstractDecorator<LayerGroupInfo> 
     public MetadataMap getMetadata() {
         return delegate.getMetadata();
     }
-    
+
     @Override
     public String getTitle() {
         return delegate.getTitle();
     }
-    
+
     @Override
     public void setTitle(String title) {
         delegate.setTitle(title);
     }
-    
+
     @Override
     public String getAbstract() {
         return delegate.getAbstract();
     }
-    
+
     @Override
     public void setAbstract(String abstractTxt) {
         delegate.setAbstract(abstractTxt);
-    }    
-    
+    }
+
     @Override
     public void accept(CatalogVisitor visitor) {
         delegate.accept(visitor);
     }
-    
+
     @Override
     public List<AuthorityURLInfo> getAuthorityURLs() {
         return delegate.getAuthorityURLs();
@@ -168,5 +168,10 @@ public class DecoratingLayerGroupInfo extends AbstractDecorator<LayerGroupInfo> 
     public String toString() {
         return new StringBuilder(getClass().getSimpleName()).append('[').append(delegate).append(
                 ']').toString();
+    }
+
+    @Override
+    public void setLayers(List<PublishedInfo> layers) {
+       delegate.setLayers(layers);
     }
 }

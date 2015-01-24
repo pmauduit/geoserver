@@ -6,13 +6,14 @@
 package org.geoserver.catalog;
 
 import java.util.List;
+
 import org.geotools.geometry.jts.ReferencedEnvelope;
 
 
 /**
- * A map in which the layers grouped together can be referenced as 
+ * A map in which the layers grouped together can be referenced as
  * a regular layer.
- * 
+ *
  * @author Justin Deoliveira, The Open Planning Project
  *
  */
@@ -29,7 +30,7 @@ public interface LayerGroupInfo extends PublishedInfo {
             public String getName() {
                 return "Single";
             }
-            
+
             public Integer getCode() {
                 return 0;
             }
@@ -41,7 +42,7 @@ public interface LayerGroupInfo extends PublishedInfo {
             public String getName() {
                 return "Named Tree";
             }
-                        
+
             public Integer getCode() {
                 return 1;
             }
@@ -53,7 +54,7 @@ public interface LayerGroupInfo extends PublishedInfo {
             public String getName() {
                 return "Container Tree";
             }
-                                    
+
             public Integer getCode() {
                 return 2;
             }
@@ -66,7 +67,7 @@ public interface LayerGroupInfo extends PublishedInfo {
             public String getName() {
                 return "Earth Observation Tree";
             }
-                            
+
             public Integer getCode() {
                 return 3;
             }
@@ -75,7 +76,7 @@ public interface LayerGroupInfo extends PublishedInfo {
         public abstract String getName();
         public abstract Integer getCode();
     }
-        
+
     /**
      * Layer group mode.
      */
@@ -84,23 +85,23 @@ public interface LayerGroupInfo extends PublishedInfo {
     /**
      * Sets layer group mode.
      */
-    void setMode( Mode mode );    
+    void setMode( Mode mode );
 
     /**
      * Returns a workspace or <code>null</code> if global.
      */
-    WorkspaceInfo getWorkspace();    
-    
+    WorkspaceInfo getWorkspace();
+
     /**
      * Get root layer.
      */
     LayerInfo getRootLayer();
-    
+
     /**
      * Set root layer.
      */
     void setRootLayer(LayerInfo rootLayer);
-    
+
     /**
      * Get root layer style.
      */
@@ -110,12 +111,14 @@ public interface LayerGroupInfo extends PublishedInfo {
      * Set root layer style.
      */
     void setRootLayerStyle(StyleInfo style);
-    
+
     /**
      * The layers and layer groups in the group.
      */
     List<PublishedInfo> getLayers();
-    
+
+    void setLayers(List<PublishedInfo> layers);
+
     /**
      * The styles for the layers in the group.
      * <p>
@@ -123,20 +126,20 @@ public interface LayerGroupInfo extends PublishedInfo {
      * </p>
      */
     List<StyleInfo> getStyles();
-    
+
     /**
-     * 
+     *
      * @return
      */
     List<LayerInfo> layers();
 
     /**
-     * 
-     * 
+     *
+     *
      * @return
      */
-    List<StyleInfo> styles();  
-        
+    List<StyleInfo> styles();
+
     /**
      * The bounds for the base map.
      */
@@ -151,5 +154,5 @@ public interface LayerGroupInfo extends PublishedInfo {
      * Sets the workspace.
      */
     void setWorkspace(WorkspaceInfo workspace);
-    
+
 }
