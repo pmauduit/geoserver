@@ -534,7 +534,7 @@ public class ModificationProxy implements WrappingProxy, Serializable {
      */
     private Class getCatalogInfoInterface(Class<? extends CatalogInfo> clazz) {
         Class result = CatalogInfo.class;
-        for (Class c : ClassUtils.getAllInterfaces(clazz)) {
+        for (Class c : ClassUtils.getAllInterfacesForClass(clazz)) {
             if(result.isAssignableFrom(c)) {
                 result = c;
             }

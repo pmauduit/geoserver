@@ -130,7 +130,7 @@ class ModificationProxyCloner {
         Class<? extends CatalogInfo> sourceClass = object.getClass();
         Class result = CATALOGINFO_INTERFACE_CACHE.get(sourceClass);
         if(result == null) {
-            Class[] interfaces = ClassUtils.getAllInterfaces(sourceClass);
+            Class[] interfaces = ClassUtils.getAllInterfacesForClass(sourceClass);
             // collect only CatalogInfo related interfaces
             List<Class> cis = new ArrayList<Class>();
             for (Class clazz : interfaces) {
