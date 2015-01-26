@@ -61,7 +61,6 @@ import org.opengis.filter.sort.SortBy;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
 
@@ -72,21 +71,21 @@ import com.google.common.collect.Iterators;
 /**
  * Wraps the catalog and applies the security directives provided by a {@link ResourceAccessManager}
  * or a {@link DataAccessManager} registered in the Spring application context
- * 
+ *
  * @author Andrea Aime - GeoSolutions
  */
 public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Catalog {
 
     protected ResourceAccessManager accessManager;
-    
+
     public SecureCatalogImpl(Catalog catalog) throws Exception {
         this(catalog, lookupResourceAccessManager());
     }
-    
+
     public String getId() {
         return delegate.getId();
     }
-    
+
     public ResourceAccessManager getResourceAccessManager() {
         return accessManager;
     }
@@ -96,7 +95,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
         if (manager == null) {
             DataAccessManager daManager = lookupDataAccessManager();
             manager = new DataAccessManagerAdapter(daManager);
-        } 
+        }
         CatalogFilterAccessManager lwManager = new CatalogFilterAccessManager();
         lwManager.setDelegate(manager);
         return lwManager;
@@ -125,23 +124,23 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     // -------------------------------------------------------------------
 
     public CoverageInfo getCoverage(String id) {
-        return (CoverageInfo) checkAccess(user(), delegate.getCoverage(id));
+        return checkAccess(user(), delegate.getCoverage(id));
     }
 
     public CoverageInfo getCoverageByName(String ns, String name) {
-        return (CoverageInfo) checkAccess(user(), delegate.getCoverageByName(ns, name));
+        return checkAccess(user(), delegate.getCoverageByName(ns, name));
     }
 
     public CoverageInfo getCoverageByName(NamespaceInfo ns, String name) {
-        return (CoverageInfo) checkAccess(user(), delegate.getCoverageByName(ns, name));
+        return checkAccess(user(), delegate.getCoverageByName(ns, name));
     }
-    
+
     public CoverageInfo getCoverageByName(Name name) {
-        return (CoverageInfo) checkAccess(user(), delegate.getCoverageByName(name));
+        return checkAccess(user(), delegate.getCoverageByName(name));
     }
-    
+
     public CoverageInfo getCoverageByName(String name) {
-        return (CoverageInfo) checkAccess(user(), delegate.getCoverageByName(name));
+        return checkAccess(user(), delegate.getCoverageByName(name));
     }
 
     public List<CoverageInfo> getCoverages() {
@@ -151,12 +150,12 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     public List<CoverageInfo> getCoveragesByNamespace(NamespaceInfo namespace) {
         return filterResources(user(), delegate.getCoveragesByNamespace(namespace));
     }
-    
+
     public List<CoverageInfo> getCoveragesByCoverageStore(
             CoverageStoreInfo store) {
         return filterResources(user(), delegate.getCoveragesByCoverageStore(store));
     }
-    
+
     public CoverageInfo getCoverageByCoverageStore(
             CoverageStoreInfo coverageStore, String name) {
         return checkAccess(user(), delegate.getCoverageByCoverageStore(coverageStore, name));
@@ -165,7 +164,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     public List<CoverageInfo> getCoveragesByStore(CoverageStoreInfo store) {
         return filterResources(user(), delegate.getCoveragesByStore(store));
     }
-    
+
     public CoverageStoreInfo getCoverageStore(String id) {
         return checkAccess(user(), delegate.getCoverageStore(id));
     }
@@ -173,22 +172,22 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     public CoverageStoreInfo getCoverageStoreByName(String name) {
         return checkAccess(user(), delegate.getCoverageStoreByName(name));
     }
-    
+
     public CoverageStoreInfo getCoverageStoreByName(String workspaceName,
             String name) {
         return checkAccess(user(), delegate.getCoverageStoreByName(workspaceName,name));
     }
-    
+
     public CoverageStoreInfo getCoverageStoreByName(WorkspaceInfo workspace,
             String name) {
         return checkAccess(user(), delegate.getCoverageStoreByName(workspace,name));
     }
-    
+
     public List<CoverageStoreInfo> getCoverageStoresByWorkspace(
             String workspaceName) {
         return filterStores(user(),delegate.getCoverageStoresByWorkspace(workspaceName));
     }
-    
+
     public List<CoverageStoreInfo> getCoverageStoresByWorkspace(
             WorkspaceInfo workspace) {
         return filterStores(user(),delegate.getCoverageStoresByWorkspace(workspace));
@@ -205,15 +204,15 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     public DataStoreInfo getDataStoreByName(String name) {
         return checkAccess(user(), delegate.getDataStoreByName(name));
     }
-    
+
     public DataStoreInfo getDataStoreByName(String workspaceName, String name) {
         return checkAccess(user(), delegate.getDataStoreByName(workspaceName,name));
     }
-    
+
     public DataStoreInfo getDataStoreByName(WorkspaceInfo workspace, String name) {
         return checkAccess(user(), delegate.getDataStoreByName(workspace,name)) ;
     }
-    
+
     public List<DataStoreInfo> getDataStoresByWorkspace(String workspaceName) {
         return filterStores(user(), delegate.getDataStoresByWorkspace(workspaceName));
     }
@@ -241,7 +240,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     public FeatureTypeInfo getFeatureTypeByName(String ns, String name) {
         return checkAccess(user(), delegate.getFeatureTypeByName(ns, name));
     }
-    
+
     public FeatureTypeInfo getFeatureTypeByName(NamespaceInfo ns, String name) {
         return checkAccess(user(), delegate.getFeatureTypeByName(ns,name));
     }
@@ -249,7 +248,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     public FeatureTypeInfo getFeatureTypeByName(Name name) {
         return checkAccess(user(), delegate.getFeatureTypeByName(name));
     }
-    
+
     public FeatureTypeInfo getFeatureTypeByName(String name) {
         return checkAccess(user(), delegate.getFeatureTypeByName(name));
     }
@@ -270,7 +269,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
             String name) {
         return checkAccess(user(), delegate.getFeatureTypeByDataStore(dataStore , name));
     }
-    
+
     public List<FeatureTypeInfo> getFeatureTypesByStore(DataStoreInfo store) {
         return filterResources(user(), delegate.getFeatureTypesByStore(store));
     }
@@ -285,7 +284,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     public LayerInfo getLayerByName(String name) {
         return checkAccess(user(), delegate.getLayerByName(name));
     }
-    
+
     public LayerInfo getLayerByName(Name name) {
         return checkAccess(user(), delegate.getLayerByName(name));
     }
@@ -327,7 +326,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     public List<LayerInfo> getLayers(ResourceInfo resource) {
         return filterLayers(Predicates.equal("resource.id", resource.getId()));
     }
-    
+
     public List<LayerInfo> getLayers(StyleInfo style) {
 
         String id = style.getId();
@@ -371,7 +370,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     public <T extends ResourceInfo> T getResourceByName(Name name, Class<T> clazz) {
         return checkAccess(user(), delegate.getResourceByName(name, clazz));
     }
-    
+
     public <T extends ResourceInfo> T getResourceByName(String name, Class<T> clazz) {
         return checkAccess(user(), delegate.getResourceByName(name, clazz));
     }
@@ -398,12 +397,12 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
             String namespace, Class<T> clazz) {
         return filterResources(user(), delegate.getResourcesByNamespace(namespace, clazz));
     }
-    
+
     public <T extends ResourceInfo> T getResourceByStore(StoreInfo store,
             String name, Class<T> clazz) {
         return checkAccess(user(), delegate.getResourceByStore(store, name, clazz));
     }
-    
+
     public <T extends ResourceInfo> List<T> getResourcesByStore(
             StoreInfo store, Class<T> clazz) {
         return filterResources(user(), delegate.getResourcesByStore(store, clazz));
@@ -421,7 +420,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
             String name, Class<T> clazz) {
         return checkAccess(user(), delegate.getStoreByName(workspaceName, name, clazz));
     }
-    
+
     public <T extends StoreInfo> T getStoreByName(WorkspaceInfo workspace,
             String name, Class<T> clazz) {
         return checkAccess(user(), delegate.getStoreByName(workspace, name, clazz));
@@ -496,19 +495,19 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
         // handle null case
         if (info == null)
             return null;
-        
+
         // first off, handle the case where the user cannot even read the data
         WrapperPolicy policy = buildWrapperPolicy(user, info, info.getName());
-        
+
         // handle the modes that do not require wrapping
         if(policy.level == AccessLevel.HIDDEN)
             return null;
         else if(policy.level == AccessLevel.READ_WRITE && policy.getLimits() == null)
             return info;
-        
+
         // otherwise we are in a mixed case where the user can read but not write, or
         // cannot read but is allowed by the operation mode to access the metadata
-        if(info instanceof FeatureTypeInfo) { 
+        if(info instanceof FeatureTypeInfo) {
             return (T) new SecuredFeatureTypeInfo((FeatureTypeInfo) info, policy);
         } else if(info instanceof CoverageInfo) {
             return (T) new SecuredCoverageInfo((CoverageInfo) info, policy);
@@ -521,20 +520,20 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
 
     /**
      * Given a {@link StyleInfo} and a user, returns it back if the user can access it.
-     * 
+     *
      * @return <code>null</code> if the user can't acess the style, otherwise the original style.
      */
     protected StyleInfo checkAccess(Authentication user, StyleInfo style) {
         if (style == null)
             return null;
-        
+
         WrapperPolicy policy = buildWrapperPolicy(user, style, style.getName());
-        
+
         // if we don't need to hide it, then we can return it as is since it
         // can only provide metadata.
         if(policy.level == AccessLevel.HIDDEN)
             return null;
-        else 
+        else
             return style;
     }
 
@@ -546,13 +545,13 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     protected <T extends StoreInfo> T checkAccess(Authentication user, T store) {
         if (store == null)
             return null;
-        
+
         WrapperPolicy policy = buildWrapperPolicy(user, store.getWorkspace(), store.getName());
-        
+
         // handle the modes that do not require wrapping
         if(policy.level == AccessLevel.HIDDEN)
             return null;
-        else if(policy.level == AccessLevel.READ_WRITE || 
+        else if(policy.level == AccessLevel.READ_WRITE ||
                 (policy.level == AccessLevel.READ_ONLY && store instanceof CoverageStoreInfo))
             return store;
 
@@ -580,15 +579,29 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     protected LayerInfo checkAccess(Authentication user, LayerInfo layer) {
         if (layer == null)
             return null;
-        
+
         // first off, handle the case where the user cannot even read the data
         WrapperPolicy policy = buildWrapperPolicy(user, layer, layer.getName());
-        
+
         // handle the modes that do not require wrapping
         if(policy.level == AccessLevel.HIDDEN)
             return null;
-        else if(policy.level == AccessLevel.READ_WRITE && policy.getLimits() == null)
-            return layer;
+        else if(policy.level == AccessLevel.READ_WRITE) {
+            if (policy.getLimits() == null) {
+                return layer;
+            }
+            // geOrchetra Geofence integration:
+            // Geofence will create (via GeofenceAccessManager class) limits onto the
+            // policy object. To avoid extra-wrapping of objects, we need more thorough
+            // tests.
+            else {
+                AccessLimits l = policy.getLimits();
+                if ((l instanceof VectorAccessLimits)
+                        && (((VectorAccessLimits) l).getReadAttributes() == null)
+                        && (((VectorAccessLimits) l).getWriteAttributes() == null))
+                    return layer;
+            }
+        }
 
         // otherwise we are in a mixed case where the user can read but not write, or
         // cannot read but is allowed by the operation mode to access the metadata
@@ -611,7 +624,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
         }
 
         boolean needsWrapping = false;
-        
+
         LayerInfo rootLayer = group.getRootLayer();
         if (LayerGroupInfo.Mode.EO.equals(group.getMode())) {
             LayerInfo checked = checkAccess(user, rootLayer);
@@ -624,10 +637,10 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
                 return null;
             }
         }
-        
+
         // scan thru the layers
         final List<PublishedInfo> layers = group.getLayers();
-        ArrayList<PublishedInfo> wrapped = new ArrayList<PublishedInfo>(layers.size());        
+        ArrayList<PublishedInfo> wrapped = new ArrayList<PublishedInfo>(layers.size());
         for (PublishedInfo layer : layers) {
             PublishedInfo checked = checkAccess(user, layer);
             if (checked != null) {
@@ -636,14 +649,14 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
                 }
                 wrapped.add(checked);
             } else {
-                needsWrapping = true; 
+                needsWrapping = true;
             }
         }
-        
+
         if(needsWrapping)
             return new SecuredLayerGroupInfo(group, rootLayer, wrapped);
         else
-            return group;            
+            return group;
     }
 
     /**
@@ -654,7 +667,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     protected <T extends NamespaceInfo> T checkAccess(Authentication user, T ns) {
         if(ns == null)
             return null;
-        
+
         // route the security check thru the associated workspace info
         WorkspaceInfo ws = delegate.getWorkspaceByName(ns.getPrefix());
         if(ws == null) {
@@ -678,14 +691,14 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     protected <T extends WorkspaceInfo> T checkAccess(Authentication user, T ws) {
         if (ws == null)
             return null;
-        
+
         WrapperPolicy policy = buildWrapperPolicy(user, ws, ws.getName());
-        
+
         // if we don't need to hide it, then we can return it as is since it
         // can only provide metadata.
         if(policy.level == AccessLevel.HIDDEN)
             return null;
-        else 
+        else
             return ws;
     }
 
@@ -767,7 +780,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
 
         if(info instanceof WorkspaceInfo) {
             // unsure here... shall we disallow writing? Only catalog and config
-            // related code should be playing with stores directly, so it's more of a 
+            // related code should be playing with stores directly, so it's more of a
             // matter if you can admin a workspace or not
             limits = accessManager.getAccessLimits(user, (WorkspaceInfo) info);
             WorkspaceAccessLimits wl = (WorkspaceAccessLimits) limits;
@@ -789,14 +802,14 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
         } else if(info instanceof LayerInfo || info instanceof ResourceInfo) {
             DataAccessLimits dl;
             WorkspaceAccessLimits wl;
-            
+
             if(info instanceof LayerInfo) {
                 dl = accessManager.getAccessLimits(user, (LayerInfo) info);
-                wl = accessManager.getAccessLimits(user, 
+                wl = accessManager.getAccessLimits(user,
                     ((LayerInfo)info).getResource().getStore().getWorkspace());
             } else {
                 dl = accessManager.getAccessLimits(user, (ResourceInfo) info);
-                wl = accessManager.getAccessLimits(user, 
+                wl = accessManager.getAccessLimits(user,
                     ((ResourceInfo)info).getStore().getWorkspace());
             }
             if(dl != null) {
@@ -824,7 +837,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
                 limits = accessManager.getAccessLimits(user, (LayerGroupInfo) info);
                 ws = ((LayerGroupInfo)info).getWorkspace();
             }
-            
+
             if (limits != null) {
                 canRead = false;
             }
@@ -841,7 +854,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
             throw new IllegalArgumentException("Can't build the wrapper policy for objects " +
             		"other than workspace, layer or resource: " + info);
         }
-        
+
         final CatalogMode mode = limits != null ? limits.getMode() : CatalogMode.HIDE;
         if (!canRead) {
             // if in hide mode, we just hide the resource
@@ -882,7 +895,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
             return new AccessDeniedException("Cannot access "
                     + resourceName + " with the current privileges");
     }
-    
+
     public static RuntimeException unauthorizedAccess() {
         // not hide, and not filtering out a list, this
         // is an unauthorized direct resource access, complain
@@ -896,10 +909,10 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     /**
      * Given a list of resources, returns a copy of it containing only the
      * resources the user can access
-     * 
+     *
      * @param user
      * @param resources
-     * 
+     *
      * @return
      */
     protected <T extends ResourceInfo> List<T> filterResources(Authentication user,
@@ -916,10 +929,10 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     /**
      * Given a list of stores, returns a copy of it containing only the
      * resources the user can access
-     * 
+     *
      * @param user
      * @param resources
-     * 
+     *
      * @return
      */
     protected <T extends StoreInfo> List<T> filterStores(Authentication user, List<T> resources) {
@@ -935,10 +948,10 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     /**
      * Given a list of layer groups, returns a copy of it containing only the
      * groups the user can access
-     * 
+     *
      * @param user
      * @param groups
-     * 
+     *
      * @return
      */
     protected List<LayerGroupInfo> filterGroups(Authentication user, List<LayerGroupInfo> groups) {
@@ -954,10 +967,10 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     /**
      * Given a list of layers, returns a copy of it containing only the layers
      * the user can access
-     * 
+     *
      * @param user
      * @param layers
-     * 
+     *
      * @return
      */
     protected List<LayerInfo> filterLayers(Authentication user, List<LayerInfo> layers) {
@@ -972,7 +985,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
 
     /**
      * Given a list of styles, returns a copy of it containing only the styles the user can access.
-     * 
+     *
      */
     protected List<StyleInfo> filterStyles(Authentication user, List<StyleInfo> styles) {
         List<StyleInfo> result = new ArrayList<StyleInfo>();
@@ -987,10 +1000,10 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     /**
      * Given a list of namespaces, returns a copy of it containing only the
      * namespaces the user can access
-     * 
+     *
      * @param user
      * @param namespaces
-     * 
+     *
      * @return
      */
     protected <T extends NamespaceInfo> List<T> filterNamespaces(Authentication user,
@@ -1007,10 +1020,10 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     /**
      * Given a list of workspaces, returns a copy of it containing only the
      * workspaces the user can access
-     * 
+     *
      * @param user
      * @param namespaces
-     * 
+     *
      * @return
      */
     protected <T extends WorkspaceInfo> List<T> filterWorkspaces(Authentication user,
@@ -1023,7 +1036,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
         }
         return result;
     }
-    
+
     // -------------------------------------------------------------------
     // Unwrappers, used to make sure the lower level does not get hit by
     // read only wrappers
@@ -1033,13 +1046,13 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
             return ((SecuredLayerGroupInfo) layerGroup).unwrap(LayerGroupInfo.class);
         return layerGroup;
     }
-    
+
     static LayerInfo unwrap(LayerInfo layer) {
         if(layer instanceof SecuredLayerInfo)
             return ((SecuredLayerInfo) layer).unwrap(LayerInfo.class);
         return layer;
     }
-    
+
     static ResourceInfo unwrap(ResourceInfo info) {
         if(info instanceof SecuredFeatureTypeInfo)
             return ((SecuredFeatureTypeInfo) info).unwrap(ResourceInfo.class);
@@ -1048,7 +1061,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
 
         return info;
     }
-    
+
     static StoreInfo unwrap(StoreInfo info) {
         if(info instanceof SecuredDataStoreInfo)
             return ((SecuredDataStoreInfo) info).unwrap(StoreInfo.class);
@@ -1071,7 +1084,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
         if ( obj instanceof SecureCatalogImpl ) {
             return ((SecureCatalogImpl)obj).delegate;
         }
-        
+
         return obj;
     }
     // -------------------------------------------------------------------
@@ -1103,7 +1116,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     public LayerGroupInfo detach(LayerGroupInfo layerGroup) {
         return delegate.detach(layerGroup);
     }
-    
+
     public void add(LayerInfo layer) {
         delegate.add(unwrap(layer));
     }
@@ -1115,11 +1128,11 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     public LayerInfo detach(LayerInfo layer) {
         return delegate.detach(layer);
     }
-    
+
     public void add(MapInfo map) {
         delegate.add(map);
     }
-    
+
     public MapInfo detach(MapInfo map) {
         return delegate.detach(map);
     }
@@ -1147,7 +1160,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     public <T extends ResourceInfo> T detach(T resource) {
         return delegate.detach(resource);
     }
-    
+
     public void add(StoreInfo store) {
         delegate.add(unwrap(store));
     }
@@ -1156,7 +1169,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
         return delegate.validate(unwrap(store), isNew);
     }
 
-    
+
     public <T extends StoreInfo> T detach(T store) {
         return delegate.detach(store);
     }
@@ -1184,7 +1197,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     public WorkspaceInfo detach(WorkspaceInfo workspace) {
         return delegate.detach(workspace);
     }
-    
+
     public void addListener(CatalogListener listener) {
         delegate.addListener(listener);
     }
@@ -1196,7 +1209,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     public CatalogFacade getFacade() {
         return delegate.getFacade();
     }
-    
+
     public CatalogFactory getFactory() {
         return delegate.getFactory();
     }
@@ -1208,20 +1221,20 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     public void fireAdded(CatalogInfo object) {
         delegate.fireAdded(object);
     }
-    
+
     public void fireModified(CatalogInfo object, List<String> propertyNames, List oldValues,
             List newValues) {
         delegate.fireModified(object, propertyNames, oldValues, newValues);
     }
-    
+
     public void firePostModified(CatalogInfo object) {
         delegate.firePostModified(object);
     }
-    
+
     public void fireRemoved(CatalogInfo object) {
         delegate.fireRemoved(object);
     }
-    
+
     // TODO: why is resource pool being exposed???
     public ResourcePool getResourcePool() {
         return delegate.getResourcePool();
@@ -1236,7 +1249,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     }
 
     public StyleInfo getStyleByName(String workspaceName, String name) {
-        return checkAccess(user(), delegate.getStyleByName(workspaceName, name)); 
+        return checkAccess(user(), delegate.getStyleByName(workspaceName, name));
     }
 
     public StyleInfo getStyleByName(WorkspaceInfo workspace, String name) {
@@ -1334,15 +1347,15 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
     public void setResourcePool(ResourcePool resourcePool) {
         delegate.setResourcePool(resourcePool);
     }
-    
+
     public GeoServerResourceLoader getResourceLoader() {
         return delegate.getResourceLoader();
     }
-    
+
     public void setResourceLoader(GeoServerResourceLoader resourceLoader) {
         delegate.setResourceLoader(resourceLoader);
     }
-    
+
     public void accept(CatalogVisitor visitor) {
         delegate.accept(visitor);
     }
@@ -1392,7 +1405,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
 
         // wrap the iterator in a notNull filter to ensure any filtered
         // layers (result is null) don't get passed on from the securityWrapper
-        // Function. When the AccessLevel is HIDDEN and a layer gets filtered 
+        // Function. When the AccessLevel is HIDDEN and a layer gets filtered
         // out via a CatalogFilter - for example, this can happen with a
         // LocalWorkspaceCatalogFilter and a virtual service request
         return new CloseableIteratorAdapter(Iterators.filter(filteredWrapped,
@@ -1433,7 +1446,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
      * at least encode the "well known" part of the resulting filter, and separate out the
      * in-process evaluation of access credentials from the construction of the security wrapper for
      * each object.
-     * 
+     *
      * @return a catalog Predicate that evaluates if an object of the required type is accessible to
      *         the given user
      */
@@ -1476,7 +1489,7 @@ public class SecureCatalogImpl extends AbstractDecorator<Catalog> implements Cat
      * Protected to allow overriding in tests.
      */
     protected boolean isAdmin(Authentication authentication) {
-        
+
         return GeoServerExtensions.bean(GeoServerSecurityManager.class).
                 checkAuthenticationForAdminRole(authentication);
     }
