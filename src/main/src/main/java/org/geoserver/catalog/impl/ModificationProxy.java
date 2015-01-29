@@ -27,6 +27,7 @@ import org.geoserver.ows.util.OwsUtils;
 import org.geoserver.platform.GeoServerExtensions;
 import org.geotools.factory.CommonFactoryFinder;
 import org.opengis.filter.FilterFactory;
+import org.springframework.util.ClassUtils;
 
 /**
  * Proxies an object storing any modifications to it.
@@ -533,7 +534,7 @@ public class ModificationProxy implements WrappingProxy, Serializable {
      */
     private Class getCatalogInfoInterface(Class<? extends CatalogInfo> clazz) {
         Class result = CatalogInfo.class;
-        for (Class c : clazz.getInterfaces()) {
+        for (Class c : ClassUtils.getAllInterfacesForClass(clazz)) {
             if(result.isAssignableFrom(c)) {
                 result = c;
             }

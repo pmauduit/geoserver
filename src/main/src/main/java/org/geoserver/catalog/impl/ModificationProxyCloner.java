@@ -27,6 +27,7 @@ import org.geoserver.catalog.CatalogInfo;
 import org.geoserver.config.util.XStreamPersister;
 import org.geoserver.config.util.XStreamPersisterFactory;
 import org.geotools.util.logging.Logging;
+import org.springframework.util.ClassUtils;
 
 import com.thoughtworks.xstream.XStream;
 
@@ -129,7 +130,7 @@ class ModificationProxyCloner {
         Class<? extends CatalogInfo> sourceClass = object.getClass();
         Class result = CATALOGINFO_INTERFACE_CACHE.get(sourceClass);
         if(result == null) {
-            Class[] interfaces = sourceClass.getInterfaces();
+            Class[] interfaces = ClassUtils.getAllInterfacesForClass(sourceClass);
             // collect only CatalogInfo related interfaces
             List<Class> cis = new ArrayList<Class>();
             for (Class clazz : interfaces) {
