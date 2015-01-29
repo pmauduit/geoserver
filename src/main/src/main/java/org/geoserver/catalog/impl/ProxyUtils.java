@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.util.ClassUtils;
+
 /**
  * Utility class for working with proxies.
  * 
@@ -28,11 +30,11 @@ public class ProxyUtils {
      */
     public static <T> T createProxy(T proxyObject, Class<T> clazz, InvocationHandler h) {
         // proxy all interfaces implemented by the source object
-        List<Class> proxyInterfaces = (List) Arrays.asList( proxyObject.getClass().getInterfaces() );
+        List<Class> proxyInterfaces = Arrays.asList( ClassUtils.getAllInterfaces(proxyObject) );
         
         // ensure that the specified class is included
         boolean add = true;
-        for ( Class interfce : proxyObject.getClass().getInterfaces() ) {
+        for ( Class interfce : ClassUtils.getAllInterfaces(proxyObject) ) {
             if ( clazz.isAssignableFrom( interfce) ) {
                 add = false;
                 break;
