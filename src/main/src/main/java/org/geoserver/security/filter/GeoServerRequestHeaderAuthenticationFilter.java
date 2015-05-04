@@ -44,13 +44,13 @@ public class GeoServerRequestHeaderAuthenticationFilter extends GeoServerPreAuth
     
     @Override
     protected String getPreAuthenticatedPrincipalName(HttpServletRequest request) {
-    	// GEORCHESTRA CHANGE
         String header = request.getHeader(getPrincipalHeaderAttribute());
+        // GEORCHESTRA CHANGE
         if ("anonymousUser".equals(header)) {
         	return null;
         }
+        // END GEORCHESTRA CHANGE
 		return header;
-		// END GEORCHESTRA CHANGE
     }    
 
 }
