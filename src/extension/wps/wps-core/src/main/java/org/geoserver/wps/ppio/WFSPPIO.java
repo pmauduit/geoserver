@@ -50,7 +50,7 @@ public class WFSPPIO extends XMLPPIO {
 
     @Override
     public Object decode(InputStream input) throws Exception {
-        Parser p = new Parser(configuration);
+        Parser p = getParser(configuration);
         FeatureCollectionType fct = (FeatureCollectionType) p.parse(input);
         return decode(fct);
     }
@@ -60,7 +60,7 @@ public class WFSPPIO extends XMLPPIO {
         // xml parsing will most likely return it as parsed already, but if CDATA is used or if
         // it's a KVP parse it will be a string instead
         if(input instanceof String) {
-            Parser p = new Parser(configuration);
+            Parser p = getParser(configuration);
             input = p.parse(new StringReader((String) input));
         }
         

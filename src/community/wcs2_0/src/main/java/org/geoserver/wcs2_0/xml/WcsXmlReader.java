@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 
 import org.geoserver.ows.XmlRequestReader;
+import org.geoserver.util.EntityResolverProvider;
 import org.geotools.util.Version;
 import org.geotools.wcs.v2_0.WCS;
 import org.geotools.wcs.v2_0.WCSConfiguration;
@@ -41,6 +42,7 @@ public class WcsXmlReader extends XmlRequestReader {
         //        parser.setStrict(true);
 
         // parse
+        parser.setEntityResolver(EntityResolverProvider.RESOLVE_DISABLED_PROVIDER.getEntityResolver());
         Object parsed;
         try {
             parsed = parser.parse(reader);

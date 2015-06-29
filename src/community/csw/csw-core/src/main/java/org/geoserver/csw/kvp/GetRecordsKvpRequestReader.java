@@ -23,6 +23,7 @@ import org.geoserver.csw.records.CSWRecordDescriptor;
 import org.geoserver.csw.records.RecordDescriptor;
 import org.geoserver.platform.GeoServerExtensions;
 import org.geoserver.platform.ServiceException;
+import org.geoserver.util.EntityResolverProvider;
 import org.geotools.filter.text.cql2.CQL;
 import org.geotools.filter.v1_1.OGC;
 import org.geotools.filter.v1_1.OGCConfiguration;
@@ -33,6 +34,7 @@ import org.opengis.filter.sort.SortBy;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.xml.sax.EntityResolver;
 import org.xml.sax.helpers.NamespaceSupport;
 
 /**
@@ -139,6 +141,7 @@ public class GetRecordsKvpRequestReader extends CSWKvpRequestReader implements A
                     Parser parser = new Parser(new OGCConfiguration());
                     parser.setFailOnValidationError(true);
                     parser.setValidating(true);
+                    parser.setEntityResolver(EntityResolverProvider.RESOLVE_DISABLED_PROVIDER.getEntityResolver());
                     parser.getNamespaces().declarePrefix("ogc", OGC.NAMESPACE);
                     Filter filter = (Filter) parser.parse(new StringReader(constraint));
                     query.getConstraint().setFilter(filter);

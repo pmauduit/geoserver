@@ -26,6 +26,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.geoserver.config.ServiceInfo;
 import org.geoserver.ows.util.KvpUtils;
 import org.geoserver.platform.ServiceException;
+import org.geoserver.util.EntityResolverProvider;
 import org.geoserver.util.XCQL;
 import org.geotools.factory.CommonFactoryFinder;
 import org.geotools.filter.FilterFilter;
@@ -474,6 +475,7 @@ abstract public class KvpRequestReader {
 
         // instantiante parsers and content handlers
         FilterHandlerImpl contentHandler = new FilterHandlerImpl();
+        contentHandler.setEntityResolver(EntityResolverProvider.RESOLVE_DISABLED_PROVIDER.getEntityResolver());
         FilterFilter filterParser = new FilterFilter(contentHandler, null);
         GMLFilterGeometry geometryFilter = new GMLFilterGeometry(filterParser);
         GMLFilterDocument documentFilter = new GMLFilterDocument(geometryFilter);

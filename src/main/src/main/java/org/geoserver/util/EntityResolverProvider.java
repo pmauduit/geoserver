@@ -17,18 +17,24 @@ public class EntityResolverProvider {
     
     private GeoServer geoServer;
     
+    public static final EntityResolverProvider RESOLVE_DISABLED_PROVIDER = new EntityResolverProvider(null);
+    
     public EntityResolverProvider(GeoServer geoServer) {
         this.geoServer = geoServer;
     }
     
     public EntityResolver getEntityResolver() {
-        Boolean externalEntitiesEnabled = geoServer.getGlobal().isXmlExternalEntitiesEnabled();
-        if (externalEntitiesEnabled != null && externalEntitiesEnabled.booleanValue()) {
-            // XML parser will try to resolve entities
-            return null;
+        if (geoServer != null) {
+            Boolean externalEntitiesEnabled = geoServer.getGlobal().isXmlExternalEntitiesEnabled();
+            if (externalEntitiesEnabled != null && externalEntitiesEnabled.booleanValue()) {
+                // XML parser will try to resolve entities
+                return null;
+            } else {
+                // default behaviour: entities disabled
+                return new NoExternalEntityResolver();
+            }
         } else {
-            // default behaviour: entities disabled
             return new NoExternalEntityResolver();
         }
-    } 
+    }
 }

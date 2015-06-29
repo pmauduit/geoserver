@@ -21,6 +21,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.geoserver.ows.KvpParser;
 import org.geoserver.ows.util.KvpUtils;
 import org.geoserver.platform.ServiceException;
+import org.geoserver.util.EntityResolverProvider;
 import org.geotools.filter.FilterFilter;
 import org.geotools.gml.GMLFilterDocument;
 import org.geotools.gml.GMLFilterGeometry;
@@ -59,6 +60,7 @@ public abstract class FilterKvpParser extends KvpParser {
         // create the parser
         final Configuration configuration = getParserConfiguration();
         final Parser parser = new Parser(configuration);
+        parser.setEntityResolver(EntityResolverProvider.RESOLVE_DISABLED_PROVIDER.getEntityResolver());
 
         // seperate the individual filter strings
         List unparsed = KvpUtils.readFlat(value, KvpUtils.OUTER_DELIMETER);

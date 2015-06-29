@@ -21,6 +21,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.geoserver.ows.KvpParser;
 import org.geoserver.ows.util.KvpUtils;
 import org.geoserver.platform.ServiceException;
+import org.geoserver.util.EntityResolverProvider;
 import org.geotools.filter.FilterFilter;
 import org.geotools.filter.v1_0.OGCConfiguration;
 import org.geotools.gml.GMLFilterDocument;
@@ -76,6 +77,7 @@ public class FilterKvpParser extends KvpParser {
                     //create the parser
                     Configuration configuration = new OGCConfiguration();
                     Parser parser_1_0_0 = new Parser(configuration);
+                    parser_1_0_0.setEntityResolver(EntityResolverProvider.RESOLVE_DISABLED_PROVIDER.getEntityResolver());
                     filter = (Filter) parser_1_0_0.parse(input);
                 } catch (Exception e) {
                     //parsing failed, try with a Filter 1.1.0 parser
@@ -83,6 +85,7 @@ public class FilterKvpParser extends KvpParser {
                         input = new ByteArrayInputStream(rawContent);
                         Configuration configuration = new org.geotools.filter.v1_1.OGCConfiguration();
                         Parser parser_1_1_0 = new Parser(configuration);
+                        parser_1_1_0.setEntityResolver(EntityResolverProvider.RESOLVE_DISABLED_PROVIDER.getEntityResolver());
                         filter = (Filter) parser_1_1_0.parse(input);
                         
                         filters.add(filter);
@@ -127,6 +130,7 @@ public class FilterKvpParser extends KvpParser {
 
         // instantiante parsers and content handlers
         FilterHandlerImpl contentHandler = new FilterHandlerImpl();
+        contentHandler.setEntityResolver(EntityResolverProvider.RESOLVE_DISABLED_PROVIDER.getEntityResolver());
         FilterFilter filterParser = new FilterFilter(contentHandler, null);
         GMLFilterGeometry geometryFilter = new GMLFilterGeometry(filterParser);
         GMLFilterDocument documentFilter = new GMLFilterDocument(geometryFilter);
@@ -137,6 +141,7 @@ public class FilterKvpParser extends KvpParser {
             SAXParser parser = factory.newSAXParser();
             ParserAdapter adapter = new ParserAdapter(parser.getParser());
 
+            adapter.setEntityResolver(EntityResolverProvider.RESOLVE_DISABLED_PROVIDER.getEntityResolver());
             adapter.setContentHandler(documentFilter);
             adapter.parse(requestSource);
             LOGGER.fine("just parsed: " + requestSource);

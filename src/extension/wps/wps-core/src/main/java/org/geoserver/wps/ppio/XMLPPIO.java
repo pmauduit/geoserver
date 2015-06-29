@@ -10,6 +10,9 @@ import javax.xml.namespace.QName;
 
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
+import org.geoserver.util.EntityResolverProvider;
+import org.geotools.xml.Configuration;
+import org.geotools.xml.Parser;
 import org.xml.sax.ContentHandler;
 
 /**
@@ -22,6 +25,19 @@ public abstract class XMLPPIO extends ComplexPPIO {
     /** */
     protected QName element;
     
+    protected volatile EntityResolverProvider resolverProvider;
+    
+    /**
+     * Returns a parser using the given configuration
+     * 
+     * @param configuration
+     * @return
+     */
+    protected Parser getParser(Configuration configuration) {
+        Parser parser = new Parser(configuration);
+        parser.setEntityResolver(EntityResolverProvider.RESOLVE_DISABLED_PROVIDER.getEntityResolver());
+        return parser;
+    }
     /**
      * Constructor specifying 'text/xml' as mime type.
      */

@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.xml.namespace.QName;
 
 import org.geoserver.ows.XmlRequestReader;
+import org.geoserver.util.EntityResolverProvider;
 import org.geoserver.wps.WPSException;
 import org.geotools.util.Version;
 import org.geotools.util.logging.Logging;
@@ -38,6 +39,7 @@ public class WpsXmlReader extends XmlRequestReader {
     public Object read(Object request, Reader reader, Map kvp) throws Exception {
         Parser parser = new Parser(configuration);
         parser.setValidating(true);
+        parser.setEntityResolver(EntityResolverProvider.RESOLVE_DISABLED_PROVIDER.getEntityResolver());
 
         Object parsed;
         try {

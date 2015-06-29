@@ -16,6 +16,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.geoserver.ows.XmlRequestReader;
 import org.geoserver.ows.xml.v1_0.OWS;
 import org.geoserver.platform.ServiceException;
+import org.geoserver.util.EntityResolverProvider;
 import org.geoserver.wms.GetCapabilitiesRequest;
 import org.geoserver.wms.WMS;
 import org.xml.sax.Attributes;
@@ -59,6 +60,7 @@ public class CapabilitiesXmlReader extends XmlRequestReader {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser parser = factory.newSAXParser();
             ParserAdapter adapter = new ParserAdapter(parser.getParser());
+            adapter.setEntityResolver(EntityResolverProvider.RESOLVE_DISABLED_PROVIDER.getEntityResolver());
             adapter.setContentHandler(currentRequest);
             adapter.parse(new InputSource(reader));
         } catch (SAXException e) {
