@@ -1,3 +1,0 @@
-[submodule "data/minimal"]
-	path = data/minimal
-	url = https://github.com/georchestra/geoserver_minimal_datadir.git
