@@ -1,4 +1,4 @@
-/* (c) 2014 Open Source Geospatial Foundation - all rights reserved
+/* (c) 2014 - 2015 Open Source Geospatial Foundation - all rights reserved
  * (c) 2001 - 2013 OpenPlans
  * This code is licensed under the GPL 2.0 license, available at the root
  * application directory.
@@ -20,6 +20,10 @@ import java.util.logging.Logger;
 
 import org.vfny.geoserver.global.ConfigurationException;
 import org.vfny.geoserver.global.GeoserverDataDirectory;
+import org.geoserver.config.util.SecureXStream;
+import org.geoserver.platform.GeoServerExtensions;
+import org.geoserver.platform.GeoServerResourceLoader;
+import org.geoserver.platform.resource.Resource;
 
 import com.thoughtworks.xstream.XStream;
 
@@ -117,8 +121,13 @@ public class ProxyConfig implements java.io.Serializable{
 
         try {
             File proxyConfFile = getConfigFile();
-            InputStream proxyConfStream = new FileInputStream(proxyConfFile);
-            XStream xs = new XStream();
+            GeoServerResourceLoader loader = GeoServerExtensions.bean(GeoServerResourceLoader.class);
+            Resource configFile = loader.get( "proxy/proxy.xml" );
+            lock = configFile.lock();
+
+            InputStream proxyConfStream = configFile.in();
+            XStream xs = new SecureXStream();
+            xs.allowTypes(new Class[] { ProxyConfig.class, ProxyConfig.Mode.class });
             //Take the read lock, then read the file
             configReadLock.lock();
             retval = (ProxyConfig) (xs.fromXML(proxyConfStream));
