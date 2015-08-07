@@ -634,6 +634,7 @@ public class XStreamPersisterTest {
         // l.setName( "layer" );
         l.setResource( ft );
         l.setDefaultStyle( s );
+        l.getStyles().add(s);
         catalog.add( l );
         
         ByteArrayOutputStream out = out();
@@ -645,8 +646,9 @@ public class XStreamPersisterTest {
         assertEquals( l.getResource().getName(), l.getName() );
         assertEquals( ft, l.getResource() );
         assertEquals( s, l.getDefaultStyle() );
-        //assertNotNull( l.getStyles() );
-        
+        assertNotNull(l.getStyles());
+        assertEquals(1, l.getStyles().size());
+        assertTrue(l.getStyles().contains(s));
     }
     
     @Test
