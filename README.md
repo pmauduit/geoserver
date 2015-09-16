@@ -32,6 +32,16 @@ build the application run maven from the ```src``` directory.
 See the [developer guide](http://docs.geoserver.org/stable/en/developer/) 
 for more details.
 
+## RPM package generation
+
+After having run previous command, type in:
+
+   % mvn package rpm:rpm -PrpmPackage -pl web/app
+
+A RPM package should then be generated into the
+````web/app/target/rpm/geoserver/RPMS/noarch/``` directory.
+
+
 ## Bugs
 
 GeoServer uses [JIRA](https://osgeo-org.atlassian.net/projects/GEOS), hosted by 
