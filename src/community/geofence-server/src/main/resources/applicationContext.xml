@@ -58,6 +58,7 @@
                 <value>classpath*:geofence-datasource-ovr.properties</value>
                 <value>${GEOSERVER_DATA_DIR}/geofence/geofence-datasource-ovr.properties</value> <!-- optional -->
                 <value>${geofence-ovr}</value> <!-- optional -->
+                <value>file:${georchestra.datadir}/geoserver/geofence/geofence.properties</value>
             </list>
         </property>
         <property name="properties"> 
