@@ -152,7 +152,6 @@ public interface LayerGroupInfo extends PublishedInfo {
      * Sets the workspace.
      */
     void setWorkspace(WorkspaceInfo workspace);
-    
 
     /**
      * A collection of metadata links for the resource.
@@ -161,5 +160,5 @@ public interface LayerGroupInfo extends PublishedInfo {
      * @see MetadataLinkInfo
      */
     List<MetadataLinkInfo> getMetadataLinks();
-    
+
 }

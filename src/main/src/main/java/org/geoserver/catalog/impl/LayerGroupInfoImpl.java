@@ -53,7 +53,7 @@ public class LayerGroupInfoImpl implements LayerGroupInfo {
     protected List<PublishedInfo> publishables = new ArrayList<PublishedInfo>();
     protected List<StyleInfo> styles = new ArrayList<StyleInfo>();
     protected List<MetadataLinkInfo> metadataLinks = new ArrayList<MetadataLinkInfo>();
-    
+
     protected ReferencedEnvelope bounds;
     protected MetadataMap metadata = new MetadataMap();
 
