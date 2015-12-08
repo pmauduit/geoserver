@@ -81,24 +81,6 @@ public interface PublishedInfo extends CatalogInfo {
      * The type of the layer.
      */
     PublishedType getType();
-    
-    /**
-     * Gets the attribution information for this layer.  
-     *
-     * @return an AttributionInfo instance with the layer's attribution information.
-     *
-     * @see AttributionInfo
-     */
-    AttributionInfo getAttribution();
-
-    /**
-     * Sets the attribution information for this layer.  
-     *
-     * @param attribution an AttributionInfo instance with the new attribution information.
-     *
-     * @see AttributionInfo
-     */
-    void setAttribution(AttributionInfo attribution);
 
     /**
      * Gets the attribution information for this layer.  
