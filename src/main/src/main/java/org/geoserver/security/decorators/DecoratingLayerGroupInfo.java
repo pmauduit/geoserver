@@ -81,7 +81,17 @@ public class DecoratingLayerGroupInfo extends AbstractDecorator<LayerGroupInfo> 
     public Mode getMode() {
         return delegate.getMode();
     }
-    
+
+    @Override
+    public boolean isQueryDisabled() {
+        return delegate.isQueryDisabled();
+    }
+
+    @Override
+    public void setQueryDisabled(boolean queryDisabled) {
+        delegate.setQueryDisabled(queryDisabled);
+    }
+
     @Override
     public WorkspaceInfo getWorkspace() {
         return delegate.getWorkspace();

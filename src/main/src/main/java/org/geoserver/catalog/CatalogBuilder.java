@@ -54,6 +54,7 @@ import org.opengis.feature.type.FeatureType;
 import org.opengis.feature.type.GeometryDescriptor;
 import org.opengis.feature.type.Name;
 import org.opengis.feature.type.PropertyDescriptor;
+import org.opengis.geometry.Envelope;
 import org.opengis.metadata.Identifier;
 import org.opengis.parameter.ParameterValueGroup;
 import org.opengis.referencing.FactoryException;
@@ -1370,6 +1371,21 @@ public class CatalogBuilder {
         helper.calculateBounds();
     }
 
+    /**
+     * Calculate the bounds of a layer group from the CRS defined bounds. Relies
+     * on the {@link LayerGroupHelper}
+     *
+     * @param layerGroup
+     * @param crs
+     *            the CRS who's bounds should be used
+     * @see LayerGroupHelper#calculateBoundsFromCRS(CoordinateReferenceSystem)
+     */
+    public void calculateLayerGroupBoundsFromCRS(LayerGroupInfo layerGroup,
+            CoordinateReferenceSystem crs) {
+        LayerGroupHelper helper = new LayerGroupHelper(layerGroup);
+        helper.calculateBoundsFromCRS(crs);
+    }
+
     //
     // remove methods
     //
@@ -1459,19 +1475,19 @@ public class CatalogBuilder {
         if (groupInfo.getRootLayer() != null) {
             attach(groupInfo.getRootLayer());
         }
-        
+
         if (groupInfo.getRootLayerStyle() != null) {
-            attach(groupInfo.getRootLayerStyle());            
+            attach(groupInfo.getRootLayerStyle());
         }
-        
+
         for (PublishedInfo p : groupInfo.getLayers()) {
             if (p instanceof LayerInfo) {
                 attach((LayerInfo) p);
             } else {
-                attach((LayerGroupInfo) p);                
+                attach((LayerGroupInfo) p);
             }
         }
-        
+
         for (StyleInfo style : groupInfo.getStyles()) {
             if (style != null)
                 attach(style);
@@ -1499,7 +1515,7 @@ public class CatalogBuilder {
     public void attach(WorkspaceInfo wsInfo) {
         // nothing to do
     }
-    
+
     /**
      * Extracts the AttributeTypeInfo by copying them from the specified feature type.
      * @param ft The schema to be harvested
@@ -1522,7 +1538,45 @@ public class CatalogBuilder {
             }
             attributes.add(att);
         }
-        
+
         return attributes;
     }
+
+        /**
+         * Creates referenced envelope from resource based off the native or declared SRS. This bbox
+         * depends on the projection policy.
+         *
+         * <ul>
+         *  <li>force declared, reproject native to declared: use the declared SRS bounding box </li>
+         *  <li>keep native: use the native SRS bounding box</li>
+         * <ul>
+         *
+         * @param resource
+         * @return the new referenced envelope or null if there is no bounding box associated with the
+         *         CRS
+         */
+        public ReferencedEnvelope getBoundsFromCRS(ResourceInfo resource) {
+            ReferencedEnvelope crsReferencedEnvelope = null;
+
+            ProjectionPolicy projPolicy = resource.getProjectionPolicy();
+            CoordinateReferenceSystem crs = null;
+
+            //find the right crs to use based on the projection policy
+            if (projPolicy == ProjectionPolicy.NONE) {
+                crs = resource.getNativeCRS();
+            }
+            else {
+                crs = resource.getCRS();
+            }
+
+            if (crs != null) {
+                Envelope crsEnvelope = CRS.getEnvelope(crs);
+                if (crsEnvelope != null) {
+                    crsReferencedEnvelope = new ReferencedEnvelope(crsEnvelope);
+                }
+            }
+
+            return crsReferencedEnvelope;
+        }
+
 }

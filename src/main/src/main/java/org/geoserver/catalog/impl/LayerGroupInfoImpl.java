@@ -29,6 +29,8 @@ public class LayerGroupInfoImpl implements LayerGroupInfo {
     protected String id;
     protected String name;
     protected Mode mode = Mode.SINGLE;
+    protected Boolean queryDisabled;
+
     
     /**
      * This property in 2.2.x series is stored under the metadata map with key 'title'.
@@ -113,7 +115,17 @@ public class LayerGroupInfoImpl implements LayerGroupInfo {
     public void setMode(Mode mode) {
         this.mode = mode;
     }
-       
+
+    @Override
+    public boolean isQueryDisabled() {
+        return queryDisabled != null ? queryDisabled.booleanValue() : false;
+    }
+
+    @Override
+    public void setQueryDisabled(boolean queryDisabled) {
+        this.queryDisabled = queryDisabled ? Boolean.TRUE : null;
+    }
+
     @Override
     public String getTitle() {
         if(title == null && metadata != null) {
@@ -272,6 +284,7 @@ public class LayerGroupInfoImpl implements LayerGroupInfo {
         result = prime * result + ((identifiers == null) ? 0 : identifiers.hashCode());
         result = prime * result + ((attribution == null) ? 0 : attribution.hashCode());
         result = prime * result + ((metadataLinks == null) ? 0 : metadataLinks.hashCode());
+        result = prime * result + ((queryDisabled == null) ? 0 : queryDisabled.hashCode());
         return result;
     }
 
@@ -371,7 +384,13 @@ public class LayerGroupInfoImpl implements LayerGroupInfo {
                 return false;
         } else if (!metadataLinks.equals(other.getMetadataLinks()))
             return false;
-        
+
+        if (queryDisabled == null) {
+            if (other.isQueryDisabled())
+                return false;
+        } else if (!queryDisabled.equals(other.isQueryDisabled()))
+            return false;
+
         return true;
     }
 
