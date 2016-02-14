@@ -582,6 +582,9 @@ public class SecureCatalogImplTest extends AbstractAuthorizationTest {
         assertSame(states, sc.getFeatureTypeByName("topp:states"));
         assertSame(roads, sc.getFeatureTypeByName("topp:roads"));
         LayerGroupInfo layerGroup = sc.getLayerGroupByName("topp", "layerGroupWithSomeLockedLayer");        
+        if (layerGroup instanceof SecuredLayerGroupInfo) {
+            layerGroup = ((SecuredLayerGroupInfo) layerGroup).unwrap(LayerGroupInfo.class);
+        }
         assertSame(layerGroupWithSomeLockedLayer, layerGroup);
         assertEquals(2, layerGroup.getLayers().size());
         
