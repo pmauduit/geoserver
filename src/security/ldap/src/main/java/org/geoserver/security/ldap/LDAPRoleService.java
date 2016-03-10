@@ -296,9 +296,14 @@ public class LDAPRoleService extends AbstractGeoServerSecurityService implements
     
     private void fillUsersForRole(DirContext ctx, SortedSet<String> users,
             GeoServerRole role) {
+        String roleStr = role.toString();
+        if (roleStr.startsWith("ROLE_")) {
+            // remove standard role prefix
+            roleStr = roleStr.substring(5);
+        }
         DirContextOperations roleObj = LDAPUtils.getLdapTemplateInContext(ctx,
                 template).searchForSingleEntry(groupSearchBase, "cn={0}",
-                new String[] { role.toString() });
+                new String[] { roleStr });
         if (roleObj != null) {
             Object[] usernames = roleObj
                     .getObjectAttributes(groupMembershipAttribute);
