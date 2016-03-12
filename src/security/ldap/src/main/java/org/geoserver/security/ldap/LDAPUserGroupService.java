@@ -9,13 +9,17 @@ import org.geoserver.security.GeoServerUserGroupService;
 import org.geoserver.security.GeoServerUserGroupStore;
 import org.geoserver.security.config.SecurityNamedServiceConfig;
 import org.geoserver.security.event.UserGroupLoadedListener;
+import org.geoserver.security.impl.AbstractGeoServerSecurityService;
+import org.geoserver.security.impl.AbstractUserGroupService;
 import org.geoserver.security.impl.GeoServerUser;
 import org.geoserver.security.impl.GeoServerUserGroup;
+import org.geoserver.security.xml.XMLUserGroupStore;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-public class LDAPUserGroupService implements GeoServerUserGroupService {
+public class LDAPUserGroupService extends AbstractGeoServerSecurityService
+implements GeoServerUserGroupService {
 
     static Logger LOGGER = org.geotools.util.logging.Logging.getLogger("org.geoserver.security.ldap");
 
@@ -33,7 +37,15 @@ public class LDAPUserGroupService implements GeoServerUserGroupService {
 
     @Override
     public boolean canCreateStore() {
-        return false;
+        return true;
+    }
+
+    @Override
+    public GeoServerUserGroupStore createStore() throws IOException {
+        // TODO Auto-generated method stub
+        
+        // ??
+        return null;
     }
 
     @Override
@@ -54,14 +66,6 @@ public class LDAPUserGroupService implements GeoServerUserGroupService {
     @Override
     public GeoServerSecurityManager getSecurityManager() {
         return securityManager;
-    }
-
-    @Override
-    public GeoServerUserGroupStore createStore() throws IOException {
-        // TODO Auto-generated method stub
-        
-        // ??
-        return null;
     }
 
     @Override
@@ -205,5 +209,4 @@ public class LDAPUserGroupService implements GeoServerUserGroupService {
         // TODO ??
         return 0;
     }
-
 }
