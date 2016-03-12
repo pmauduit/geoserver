@@ -1,73 +1,64 @@
 package org.geoserver.security.ldap.config;
 
 import org.geoserver.security.config.SecurityUserGroupServiceConfig;
+import org.geoserver.security.ldap.LDAPBaseSecurityServiceConfig;
 
-public class LDAPUserGroupServiceConfig implements SecurityUserGroupServiceConfig {
+public class LDAPUserGroupServiceConfig extends LDAPBaseSecurityServiceConfig implements SecurityUserGroupServiceConfig {
 
-	@Override
-	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
+	/** unused */
+	protected String passwordEncoderName ;
+	protected String passwordPolicyName ;
+	
+	/** purpose ? Just copy-pasted from there to here */
+    private String allGroupsSearchFilter;
+    
+    /** needs LDAP binding before querying the tree */
+    private String user;
+
+    public String getUser() {
+		return user;
 	}
 
-	@Override
-	public void setId(String newId) {
-		// TODO Auto-generated method stub
-		
+	public void setUser(String user) {
+		this.user = user;
 	}
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getPassword() {
+		return password;
 	}
 
-	@Override
-	public void setName(String name) {
-		// TODO Auto-generated method stub
-		
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	@Override
-	public String getClassName() {
-		// TODO Auto-generated method stub
-		return null;
+	private String password;
+
+	public String getAllGroupsSearchFilter() {
+		return allGroupsSearchFilter;
 	}
 
-	@Override
-	public void setClassName(String className) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void initBeforeSave() {
-		// TODO Auto-generated method stub
-		
+	public void setAllGroupsSearchFilter(String allGroupsSearchFilter) {
+		this.allGroupsSearchFilter = allGroupsSearchFilter;
 	}
 
 	@Override
 	public String getPasswordEncoderName() {
-		// TODO Auto-generated method stub
-		return null;
+		return passwordEncoderName;
 	}
 
 	@Override
 	public void setPasswordEncoderName(String passwordEncoderName) {
-		// TODO Auto-generated method stub
+		this.passwordEncoderName = passwordEncoderName;
 		
 	}
 
 	@Override
 	public String getPasswordPolicyName() {
-		// TODO Auto-generated method stub
-		return null;
+		return passwordPolicyName;
 	}
 
 	@Override
 	public void setPasswordPolicyName(String passwordPolicyName) {
-		// TODO Auto-generated method stub
-		
+		this.passwordPolicyName = passwordPolicyName;
 	}
-
 }
