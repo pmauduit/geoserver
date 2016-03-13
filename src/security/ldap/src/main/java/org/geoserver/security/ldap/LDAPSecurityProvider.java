@@ -153,4 +153,10 @@ public class LDAPSecurityProvider extends GeoServerSecurityProvider {
             throws IOException {
         return new LDAPRoleService();
     }
+    
+    @Override
+    public GeoServerUserGroupService createUserGroupService(SecurityNamedServiceConfig config)
+            throws IOException {
+            return new LDAPUserGroupService(config);
+    }
 }

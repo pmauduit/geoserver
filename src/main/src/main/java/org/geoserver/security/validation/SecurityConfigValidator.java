@@ -63,7 +63,7 @@ public class SecurityConfigValidator extends AbstractSecurityValidator{
         if (className == null)
             throw new SecurityConfigException(CLASSNAME_REQUIRED,new Object[]{});
         
-        //TODO: remove the call to extensions, have teh security manager be passed in
+        //TODO: remove the call to extensions, have the security manager be passed in
         return prov.createConfigurationValidator(GeoServerExtensions.bean(GeoServerSecurityManager.class));
     }
     

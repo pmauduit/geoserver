@@ -20,9 +20,9 @@ public class LDAPUserGroupServicePanel extends UserGroupServicePanel<LDAPUserGro
         
         public LDAPAuthenticationPanel(String id) {
             super(id, new Model());
-            add(new TextField("user"));
+            add(new TextField("adminUserDn"));
         
-            PasswordTextField pwdField = new PasswordTextField("password");
+            PasswordTextField pwdField = new PasswordTextField("adminPassword");
             // avoid reseting the password which results in an
             // empty password on saving a modified configuration
             pwdField.setResetPassword(false);
@@ -30,19 +30,27 @@ public class LDAPUserGroupServicePanel extends UserGroupServicePanel<LDAPUserGro
         }
         
         public void resetModel() {
-            get("user").setDefaultModelObject(null);
-            get("password").setDefaultModelObject(null);
+            get("adminUserDn").setDefaultModelObject(null);
+            get("adminPassword").setDefaultModelObject(null);
         }
     }
 	public LDAPUserGroupServicePanel(String id, IModel<LDAPUserGroupServiceConfig> model) {
 		super(id, model);
-		add(new TextField("serverURL").setRequired(true));
+		/** LDAP server parameters */
+		add(new TextField("serverUrl").setRequired(true));
 		add(new CheckBox("useTLS"));
-		add(new TextField("groupSearchBase").setRequired(true));
-		add(new TextField("groupSearchFilter"));
-		add(new TextField("allGroupsSearchFilter"));
-		add(new TextField("userFilter"));
-		add(new AjaxCheckBox("bindBeforeGroupSearch") {
+		/** group options */
+		add(new TextField("groupsSearchFilter"));
+		add(new TextField("groupsSearchBase"));
+		add(new TextField("groupNameAttribute"));
+		add(new TextField("userGroupSearchFilter"));
+		/** user options */
+		add(new TextField("userSearchFilter"));
+		add(new TextField("userSearchBase"));
+		add(new TextField("userNameAttribute"));
+
+		/** privileged account for querying the LDAP server (if needed) */
+		add(new AjaxCheckBox("needLdapBind") {
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
 				WebMarkupContainer c = (WebMarkupContainer) LDAPUserGroupServicePanel.this
@@ -57,7 +65,7 @@ public class LDAPUserGroupServicePanel extends UserGroupServicePanel<LDAPUserGro
 			}
 		});
 		LDAPAuthenticationPanel authPanel = new LDAPAuthenticationPanel("authenticationPanel");
-		authPanel.setVisible(model.getObject().isBindBeforeGroupSearch());
+		authPanel.setVisible(model.getObject().getNeedLdapBind());
 		add(new WebMarkupContainer("authenticationPanelContainer").add(authPanel).setOutputMarkupId(true));
 	}
 }
