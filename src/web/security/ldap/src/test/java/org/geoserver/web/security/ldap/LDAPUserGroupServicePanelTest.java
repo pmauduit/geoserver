@@ -1,4 +1,4 @@
-/* (c) 2014 Open Source Geospatial Foundation - all rights reserved
+/* (c) 2016 Open Source Geospatial Foundation - all rights reserved
  * (c) 2013 OpenPlans
  * This code is licensed under the GPL 2.0 license, available at the root
  * application directory.
@@ -7,6 +7,8 @@ package org.geoserver.web.security.ldap;
 
 import static org.junit.Assert.assertNull;
 
+import java.io.Serializable;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -14,23 +16,25 @@ import org.apache.wicket.model.Model;
 import org.geoserver.data.test.SystemTestData;
 import org.geoserver.security.config.SecurityManagerConfig;
 import org.geoserver.security.ldap.LDAPTestUtils;
-import org.geoserver.security.ldap.config.LDAPRoleServiceConfig;
+import org.geoserver.security.ldap.config.LDAPUserGroupServiceConfig;
 import org.geoserver.security.web.AbstractSecurityWicketTestSupport;
 import org.geoserver.web.ComponentBuilder;
 import org.geoserver.web.FormTestPage;
 import org.junit.After;
 import org.junit.Assume;
 import org.junit.Test;
-import org.springframework.ldap.test.LdapTestUtils;
 
 /**
  * 
  * @author "Mauro Bartolomeoli - mauro.bartolomeoli@geo-solutions.it"
- * 
+ * @author Niels Charlier
+ *
  */
-public class LDAPRoleServicePanelTest extends AbstractSecurityWicketTestSupport {
+public class LDAPUserGroupServicePanelTest extends AbstractSecurityWicketTestSupport {
     
     private static final String GROUPS_BASE = "ou=Groups";
+    
+    private static final String USERS_BASE = "ou=People";
 
     private static final String GROUP_SEARCH_FILTER = "member=cn={0}";
 
@@ -39,12 +43,12 @@ public class LDAPRoleServicePanelTest extends AbstractSecurityWicketTestSupport 
     private static final String AUTH_PASSWORD = "secret";
 
     
-    LDAPRoleServicePanel current;
+    LDAPUserGroupServicePanel current;
     
     String relBase = "panel:";
     String base = "form:" + relBase;
     
-    LDAPRoleServiceConfig config;
+    LDAPUserGroupServiceConfig config;
     
     FeedbackPanel feedbackPanel = null;
     
@@ -54,24 +58,23 @@ public class LDAPRoleServicePanelTest extends AbstractSecurityWicketTestSupport 
     
     @After
     public void tearDown() throws Exception {
-        LdapTestUtils
-                .destroyApacheDirectoryServer(LdapTestUtils.DEFAULT_PRINCIPAL,
-                        LdapTestUtils.DEFAULT_PASSWORD);
+        LDAPTestUtils.shutdownEmbeddedServer();
     }
     
     
     protected void setupPanel(boolean needsAuthentication, boolean setRequiredFields) {
-        config = new LDAPRoleServiceConfig();
+        config = new LDAPUserGroupServiceConfig();
         config.setName("test");
         if(setRequiredFields) {
             config.setServerURL(ldapServerUrl + "/" + basePath);
             config.setGroupSearchBase(GROUPS_BASE);
+            config.setUserSearchBase(USERS_BASE);
         }
         config.setBindBeforeGroupSearch(needsAuthentication);
-        config.setGroupSearchFilter(GROUP_SEARCH_FILTER);
+        config.setGroupSearchFilter(GROUP_SEARCH_FILTER);        
         config.setUser(AUTH_USER);
         config.setPassword(AUTH_PASSWORD);
-        setupPanel(config);
+        setupPanel();
     }
     
     @Override
@@ -83,23 +86,24 @@ public class LDAPRoleServicePanelTest extends AbstractSecurityWicketTestSupport 
         getSecurityManager().saveSecurityConfig(config);
     }
     
-    protected void setupPanel(LDAPRoleServiceConfig theConfig) {
-        this.config = theConfig;
+    protected void setupPanel() {
         tester.startPage(new FormTestPage(new ComponentBuilder() {
             private static final long serialVersionUID = 1L;
     
             public Component buildComponent(String id) {
                 
-                return current = new LDAPRoleServicePanel(id, new Model(config));
+                return current = new LDAPUserGroupServicePanel(id, new Model<LDAPUserGroupServiceConfig>(config));
             };
-        }, new CompoundPropertyModel(config)){
+        }, new CompoundPropertyModel<Object>(config)){
+
+            private static final long serialVersionUID = -4090244876841730821L;
 
             @Override
-            protected void onBeforeRender() {
+            protected void onInitialize() {
                 feedbackPanel = new FeedbackPanel("feedback");
                 feedbackPanel.setOutputMarkupId(true);
                 add(feedbackPanel);
-                super.onBeforeRender();
+                super.onInitialize();
             }
             
         });
@@ -111,8 +115,8 @@ public class LDAPRoleServicePanelTest extends AbstractSecurityWicketTestSupport 
         setupPanel(false, true);
         checkBaseConfig();
         
-        assertNull(tester.getComponentFromLastRenderedPage("form:panel:authenticationPanelContainer:authenticationPanel:user"));
-        assertNull(tester.getComponentFromLastRenderedPage("form:panel:authenticationPanelContainer:authenticationPanel:password"));
+        assertNull(tester.getComponentFromLastRenderedPage("form:panel:authenticationPanel:user"));
+        assertNull(tester.getComponentFromLastRenderedPage("form:panel:authenticationPanel:password"));
     }
 
     @Test
@@ -122,36 +126,36 @@ public class LDAPRoleServicePanelTest extends AbstractSecurityWicketTestSupport 
         
         tester.newFormTester("form").submit();
         
-        tester.assertErrorMessages(new String[] {"Field 'Server URL' is required.", "Field 'Group search base' is required."});
+        tester.assertErrorMessages((Serializable [])new String[] {"Field 'Server URL' is required.", "Field 'Group search base' is required.",
+                "Field 'User search base' is required."});
     }
 
-    
     @Test
     public void testDataLoadedFromConfigurationWithAuthentication() throws Exception {
         Assume.assumeTrue(LDAPTestUtils.initLdapServer(true, ldapServerUrl, basePath));
         setupPanel(true, true);
         checkBaseConfig();
         
-        tester.assertModelValue("form:panel:authenticationPanelContainer:authenticationPanel:user", AUTH_USER);
-        tester.assertModelValue("form:panel:authenticationPanelContainer:authenticationPanel:password", AUTH_PASSWORD);
+        tester.assertModelValue("form:panel:authenticationPanel:user", AUTH_USER);
+        tester.assertModelValue("form:panel:authenticationPanel:password", AUTH_PASSWORD);
     }
     
     @Test
     public void testAuthenticationDisabled() throws Exception {
         Assume.assumeTrue(LDAPTestUtils.initLdapServer(true, ldapServerUrl, basePath));
         setupPanel(false, true);
-        tester.assertInvisible("form:panel:authenticationPanelContainer:authenticationPanel");
+        tester.assertInvisible("form:panel:authenticationPanel");
         tester.newFormTester("form").setValue("panel:bindBeforeGroupSearch", "on");
-        tester.executeAjaxEvent("form:panel:bindBeforeGroupSearch","onclick");
-        tester.assertVisible("form:panel:authenticationPanelContainer:authenticationPanel");
+        tester.executeAjaxEvent("form:panel:bindBeforeGroupSearch","click");
+        tester.assertVisible("form:panel:authenticationPanel");
     }
     
     public void testAuthenticationEnabled() throws Exception {
         Assume.assumeTrue(LDAPTestUtils.initLdapServer(true, ldapServerUrl, basePath));
         setupPanel(true, true);
-        tester.assertVisible("form:panel:authenticationPanelContainer:authenticationPanel");
+        tester.assertVisible("form:panel:authenticationPanel");
         tester.newFormTester("form").setValue("panel:bindBeforeGroupSearch", "");
-        tester.executeAjaxEvent("form:panel:bindBeforeGroupSearch","onclick");
+        tester.executeAjaxEvent("form:panel:bindBeforeGroupSearch","click");
         tester.assertInvisible("form:panel:authenticationPanelContainer:authenticationPanel");
     }
     

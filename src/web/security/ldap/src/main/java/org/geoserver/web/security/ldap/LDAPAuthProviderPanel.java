@@ -10,8 +10,6 @@ import java.util.Map;
 import java.util.logging.Level;
 
 import javax.naming.AuthenticationException;
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxCheckBox;
@@ -29,7 +27,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.geoserver.security.ldap.GeoserverLdapBindAuthenticator;
 import org.geoserver.security.ldap.LDAPAuthenticationProvider;
 import org.geoserver.security.ldap.LDAPSecurityProvider;
-import org.geoserver.security.ldap.LDAPSecurityServiceConfig;
+import org.geoserver.security.ldap.config.LDAPSecurityServiceConfig;
 import org.geoserver.security.web.auth.AuthenticationProviderPanel;
 import org.geoserver.security.web.usergroup.UserGroupServiceChoice;
 import org.geoserver.web.GeoServerBasePage;

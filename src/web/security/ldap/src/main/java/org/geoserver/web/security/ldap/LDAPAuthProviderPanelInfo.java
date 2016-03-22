@@ -6,7 +6,7 @@
 package org.geoserver.web.security.ldap;
 
 import org.geoserver.security.ldap.LDAPAuthenticationProvider;
-import org.geoserver.security.ldap.LDAPSecurityServiceConfig;
+import org.geoserver.security.ldap.config.LDAPSecurityServiceConfig;
 import org.geoserver.security.web.auth.AuthenticationProviderPanelInfo;
 
 /**

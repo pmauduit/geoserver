@@ -6,7 +6,7 @@
 package org.geoserver.web.security.ldap;
 
 import org.geoserver.security.ldap.LDAPRoleService;
-import org.geoserver.security.ldap.LDAPRoleServiceConfig;
+import org.geoserver.security.ldap.config.LDAPRoleServiceConfig;
 import org.geoserver.web.security.ldap.LDAPRoleServicePanel;
 import org.geoserver.security.web.role.RoleServicePanelInfo;
 

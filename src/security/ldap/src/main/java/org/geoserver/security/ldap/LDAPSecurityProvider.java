@@ -1,4 +1,4 @@
-/* (c) 2014 Open Source Geospatial Foundation - all rights reserved
+/* (c) 2014 - 2016 Open Source Geospatial Foundation - all rights reserved
  * (c) 2001 - 2013 OpenPlans
  * This code is licensed under the GPL 2.0 license, available at the root
  * application directory.
@@ -17,6 +17,7 @@ import org.geoserver.security.GeoServerSecurityManager;
 import org.geoserver.security.GeoServerSecurityProvider;
 import org.geoserver.security.GeoServerUserGroupService;
 import org.geoserver.security.config.SecurityNamedServiceConfig;
+import org.geoserver.security.ldap.config.LDAPSecurityServiceConfig;
 import org.geotools.util.logging.Logging;
 import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.ldap.core.support.LdapContextSource;
@@ -50,6 +51,11 @@ public class LDAPSecurityProvider extends GeoServerSecurityProvider {
     @Override
     public Class<LDAPAuthenticationProvider> getAuthenticationProviderClass() {
         return LDAPAuthenticationProvider.class;
+    }
+    
+    @Override
+    public Class<? extends GeoServerUserGroupService> getUserGroupServiceClass() {
+        return LDAPUserGroupService.class;
     }
     
     @Override
@@ -147,5 +153,11 @@ public class LDAPSecurityProvider extends GeoServerSecurityProvider {
     public GeoServerRoleService createRoleService(SecurityNamedServiceConfig config)
             throws IOException {
         return new LDAPRoleService();
+    }
+    
+    @Override
+    public GeoServerUserGroupService createUserGroupService(SecurityNamedServiceConfig config)
+            throws IOException {
+            return new LDAPUserGroupService(config);
     }
 }

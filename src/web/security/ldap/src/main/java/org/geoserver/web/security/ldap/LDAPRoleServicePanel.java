@@ -14,7 +14,7 @@ import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.geoserver.security.ldap.LDAPRoleServiceConfig;
+import org.geoserver.security.ldap.config.LDAPRoleServiceConfig;
 import org.geoserver.security.web.role.RoleServicePanel;
 import org.geoserver.web.security.ldap.LDAPAuthProviderPanel.AuthorizationPanel;
 import org.geoserver.web.security.ldap.LDAPAuthProviderPanel.LDAPAuthorizationPanel;
