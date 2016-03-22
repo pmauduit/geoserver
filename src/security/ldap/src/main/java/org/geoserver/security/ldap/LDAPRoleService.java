@@ -302,7 +302,7 @@ public class LDAPRoleService extends LDAPBaseSecurityService implements GeoServe
 
     @Override
     public int getRoleCount() throws IOException {
-        AtomicInteger count = new AtomicInteger(0);
+        final AtomicInteger count = new AtomicInteger(0);
         authenticateIfNeeded(new AuthenticatedLdapEntryContextCallback() {            
             @Override
             public void executeWithContext(DirContext ctx,

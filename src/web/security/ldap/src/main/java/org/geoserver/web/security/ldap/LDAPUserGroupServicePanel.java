@@ -74,7 +74,7 @@ public class LDAPUserGroupServicePanel extends UserGroupServicePanel<LDAPUserGro
                         (LDAPAuthenticationPanel) LDAPUserGroupServicePanel.this.get("authenticationPanel");
                 ldapAuthenticationPanel.resetModel();
                 ldapAuthenticationPanel.setVisible(getModelObject().booleanValue());
-                target.add(ldapAuthenticationPanel);
+                target.addComponent(ldapAuthenticationPanel);
             }
         });
         LDAPAuthenticationPanel authPanel = new LDAPAuthenticationPanel("authenticationPanel");

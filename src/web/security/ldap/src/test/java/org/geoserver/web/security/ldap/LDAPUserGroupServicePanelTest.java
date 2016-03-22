@@ -126,7 +126,7 @@ public class LDAPUserGroupServicePanelTest extends AbstractSecurityWicketTestSup
         
         tester.newFormTester("form").submit();
         
-        tester.assertErrorMessages((Serializable [])new String[] {"Field 'Server URL' is required.", "Field 'Group search base' is required.",
+        tester.assertErrorMessages(new String[] {"Field 'Server URL' is required.", "Field 'Group search base' is required.",
                 "Field 'User search base' is required."});
     }
 

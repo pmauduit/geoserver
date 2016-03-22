@@ -158,11 +158,14 @@ public class LDAPUserGroupService extends LDAPBaseSecurityService implements Geo
         return gsUser;
     }
     
-    protected ContextMapper addToUsers(SortedSet<GeoServerUser> users) {
-        return ctx -> { 
-            users.add(createUser((DirContextAdapter) ctx));
-            return null; 
-        };
+    protected ContextMapper addToUsers(final SortedSet<GeoServerUser> users) {
+        return new ContextMapper() {
+			@Override
+			public Object mapFromContext(Object ctx) { 
+				users.add(createUser((DirContextAdapter) ctx));
+			    return null; 
+			}
+		};
     }
     
     @Override
@@ -202,7 +205,7 @@ public class LDAPUserGroupService extends LDAPBaseSecurityService implements Geo
     }
 
     @Override
-    public GeoServerUserGroup getGroupByGroupname(String groupname) {
+    public GeoServerUserGroup getGroupByGroupname(final String groupname) {
         final AtomicReference<GeoServerUserGroup> group = new AtomicReference<GeoServerUserGroup>();
         
         authenticateIfNeeded(new AuthenticatedLdapEntryContextCallback() {          
@@ -225,7 +228,7 @@ public class LDAPUserGroupService extends LDAPBaseSecurityService implements Geo
     }
     
     @Override
-    public GeoServerUser getUserByUsername(String username) {
+    public GeoServerUser getUserByUsername(final String username) {
         final AtomicReference<GeoServerUser> user = new AtomicReference<GeoServerUser>();
         
         authenticateIfNeeded(new AuthenticatedLdapEntryContextCallback() {  
@@ -298,7 +301,7 @@ public class LDAPUserGroupService extends LDAPBaseSecurityService implements Geo
 
     @Override
     public int getUserCount() {
-        AtomicInteger size = new AtomicInteger(0);
+        final AtomicInteger size = new AtomicInteger(0);
         authenticateIfNeeded(new AuthenticatedLdapEntryContextCallback() {            
             @Override
             public void executeWithContext(DirContext ctx, LdapEntryIdentification ldapEntryIdentification) {
@@ -312,7 +315,7 @@ public class LDAPUserGroupService extends LDAPBaseSecurityService implements Geo
 
     @Override
     public int getGroupCount() {
-        AtomicInteger size = new AtomicInteger(0);
+        final AtomicInteger size = new AtomicInteger(0);
         authenticateIfNeeded(new AuthenticatedLdapEntryContextCallback() {            
             @Override
             public void executeWithContext(DirContext ctx, LdapEntryIdentification ldapEntryIdentification) {
@@ -324,7 +327,7 @@ public class LDAPUserGroupService extends LDAPBaseSecurityService implements Geo
     }
 
     @Override
-    public SortedSet<GeoServerUser> getUsersHavingProperty(String propname) {
+    public SortedSet<GeoServerUser> getUsersHavingProperty(final String propname) {
         final SortedSet<GeoServerUser> users = new TreeSet<GeoServerUser>();
         
         authenticateIfNeeded(new AuthenticatedLdapEntryContextCallback() {  
@@ -340,8 +343,8 @@ public class LDAPUserGroupService extends LDAPBaseSecurityService implements Geo
     }
 
     @Override
-    public int getUserCountHavingProperty(String propname) {
-        AtomicInteger size = new AtomicInteger(0);
+    public int getUserCountHavingProperty(final String propname) {
+        final AtomicInteger size = new AtomicInteger(0);
         authenticateIfNeeded(new AuthenticatedLdapEntryContextCallback() {            
             @Override
             public void executeWithContext(DirContext ctx, LdapEntryIdentification ldapEntryIdentification) {
@@ -353,7 +356,7 @@ public class LDAPUserGroupService extends LDAPBaseSecurityService implements Geo
     }
 
     @Override
-    public SortedSet<GeoServerUser> getUsersNotHavingProperty(String propname) {
+    public SortedSet<GeoServerUser> getUsersNotHavingProperty(final String propname) {
         final SortedSet<GeoServerUser> users = new TreeSet<GeoServerUser>();
         
         authenticateIfNeeded(new AuthenticatedLdapEntryContextCallback() {  
@@ -369,8 +372,8 @@ public class LDAPUserGroupService extends LDAPBaseSecurityService implements Geo
     }
 
     @Override
-    public int getUserCountNotHavingProperty(String propname) {
-        AtomicInteger size = new AtomicInteger(0);
+    public int getUserCountNotHavingProperty(final String propname) {
+        final AtomicInteger size = new AtomicInteger(0);
         authenticateIfNeeded(new AuthenticatedLdapEntryContextCallback() {            
             @Override
             public void executeWithContext(DirContext ctx, LdapEntryIdentification ldapEntryIdentification) {
@@ -382,7 +385,7 @@ public class LDAPUserGroupService extends LDAPBaseSecurityService implements Geo
     }
 
     @Override
-    public SortedSet<GeoServerUser> getUsersHavingPropertyValue(String propname, String propvalue)
+    public SortedSet<GeoServerUser> getUsersHavingPropertyValue(final String propname, final String propvalue)
             throws IOException {
         final SortedSet<GeoServerUser> users = new TreeSet<GeoServerUser>();
         
@@ -399,9 +402,9 @@ public class LDAPUserGroupService extends LDAPBaseSecurityService implements Geo
     }
 
     @Override
-    public int getUserCountHavingPropertyValue(String propname, String propvalue)
+    public int getUserCountHavingPropertyValue(final String propname, final String propvalue)
             throws IOException {
-        AtomicInteger size = new AtomicInteger(0);
+        final AtomicInteger size = new AtomicInteger(0);
         authenticateIfNeeded(new AuthenticatedLdapEntryContextCallback() {            
             @Override
             public void executeWithContext(DirContext ctx, LdapEntryIdentification ldapEntryIdentification) {

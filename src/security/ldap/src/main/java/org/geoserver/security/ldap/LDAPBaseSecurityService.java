@@ -259,7 +259,7 @@ public abstract class LDAPBaseSecurityService extends AbstractGeoServerSecurityS
         return userName.get();
     }
     
-    protected String lookupDn(String username) {
+    protected String lookupDn(final String username) {
         final AtomicReference<String> dn = new AtomicReference<String>(username);
         if (lookupUserForDn) {
             authenticateIfNeeded(new AuthenticatedLdapEntryContextCallback() {
@@ -280,8 +280,11 @@ public abstract class LDAPBaseSecurityService extends AbstractGeoServerSecurityS
         return dn.get();
     }
     
-    protected ContextMapper counter(AtomicInteger count) {
-        return ctx -> { count.set(count.get() + 1); return null; };
+    protected ContextMapper counter(final AtomicInteger count) {
+        return new ContextMapper() {
+			@Override
+			public Object mapFromContext(Object ctx) { count.set(count.get() + 1); return null; }
+		};
     }
     
 }
