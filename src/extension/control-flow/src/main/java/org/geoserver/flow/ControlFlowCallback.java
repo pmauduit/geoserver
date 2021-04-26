@@ -5,6 +5,11 @@
  */
 package org.geoserver.flow;
 
+import static com.codahale.metrics.MetricRegistry.name;
+
+import com.codahale.metrics.Gauge;
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.jmx.JmxReporter;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -40,6 +45,12 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class ControlFlowCallback extends AbstractDispatcherCallback
         implements ApplicationContextAware, GeoServerFilter {
 
+    static final MetricRegistry controlFlowMetrics = new MetricRegistry();
+    static final JmxReporter reporter = JmxReporter.forRegistry(controlFlowMetrics).build();
+
+    static {
+        reporter.start();
+    }
     /**
      * Header added to all responses to make it visible how much deplay was applied going thorough
      * the flow controllers
@@ -82,6 +93,16 @@ public class ControlFlowCallback extends AbstractDispatcherCallback
     public ControlFlowCallback() {
         // this is just to isolate tests from shared state, at runtime there is only one callback.
         REQUEST_CONTROLLERS.remove();
+        try {
+            controlFlowMetrics.register(
+                    name(this.getClass(), "blockedRequestsGauge"),
+                    (Gauge<Long>) () -> blockedRequests.get());
+            controlFlowMetrics.register(
+                    name(this.getClass(), "runningRequestsGauge"),
+                    (Gauge<Long>) () -> runningRequests.get());
+        } catch (IllegalArgumentException e) {
+            // Already registered because static / non-static objects mismatch ?
+        }
     }
 
     /** Returns the current number of blocked/queued requests. */

@@ -14,7 +14,7 @@
   </parent>
   <groupId>org.geoserver.extension</groupId>
   <artifactId>gs-control-flow</artifactId>
-  <version>2.17.5</version>
+  <version>2.17.5-georchestra</version>
   <name>OWS request flow controller</name>
   <dependencies>
     <dependency>
@@ -23,7 +23,17 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-     <groupId>org.springframework</groupId>
+      <groupId>io.dropwizard.metrics</groupId>
+      <artifactId>metrics-core</artifactId>
+      <version>4.1.19</version>
+    </dependency>
+    <dependency>
+      <groupId>io.dropwizard.metrics</groupId>
+      <artifactId>metrics-jmx</artifactId>
+      <version>4.1.19</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
      <artifactId>spring-test</artifactId>
      <scope>test</scope>
     </dependency>
