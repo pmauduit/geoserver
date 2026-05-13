@@ -20,6 +20,8 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -157,14 +159,14 @@ public class IOUtils {
         }
     }
 
-    /**
-     * Creates a directory as a child of baseDir. The directory name will be preceded by prefix and followed by suffix
-     */
-    public static File createRandomDirectory(String baseDir, String prefix, String suffix) throws IOException {
-        File tempDir = File.createTempFile(prefix, suffix, new File(baseDir));
-        tempDir.delete();
-        if (!tempDir.mkdir()) throw new IOException("Could not create the temp directory " + tempDir.getPath());
-        return tempDir;
+    /** Creates a directory as a child of baseDir. The directory name will be preceded by prefix */
+    public static File createRandomDirectory(String baseDir, String prefix) throws IOException {
+        Path basePath = Paths.get(baseDir);
+        Path tempDirPath = java.nio.file.Files.createTempDirectory(basePath, prefix);
+        File tmpDir = tempDirPath.toFile();
+        tmpDir.deleteOnExit();
+
+        return tmpDir;
     }
 
     /**

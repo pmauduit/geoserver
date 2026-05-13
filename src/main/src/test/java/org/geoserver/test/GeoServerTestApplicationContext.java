@@ -42,7 +42,7 @@ public class GeoServerTestApplicationContext extends ClassPathXmlApplicationCont
             throws BeansException {
         super(configLocation, false);
         try {
-            contextTmp = IOUtils.createRandomDirectory("./target", "mock", "tmp");
+            contextTmp = IOUtils.createRandomDirectory("./target", "mock");
             servletContext.setAttribute("javax.servlet.context.tempdir", contextTmp);
         } catch (Exception e) {
             throw new RuntimeException(e);

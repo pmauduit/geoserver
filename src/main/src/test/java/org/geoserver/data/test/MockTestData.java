@@ -35,7 +35,7 @@ public class MockTestData extends CiteTestData {
 
     public MockTestData() throws IOException {
         // setup the root
-        data = IOUtils.createRandomDirectory("./target", "mock", "data");
+        data = IOUtils.createRandomDirectory("./target", "mock");
         data.delete();
         data.mkdir();
 
