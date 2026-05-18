@@ -86,7 +86,9 @@ import org.geotools.map.FeatureLayer;
 import org.geotools.referencing.crs.DefaultGeographicCRS;
 import org.junit.Assert;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
@@ -105,6 +107,9 @@ import org.xml.sax.InputSource;
  * @author Markus Innerebner (EURAC Research)
  */
 public class KMLReflectorTest extends WMSTestSupport {
+
+    @Rule
+    public TemporaryFolder tempFolder = new TemporaryFolder();
 
     @Override
     protected void onSetUp(SystemTestData testData) throws Exception {
@@ -465,15 +470,17 @@ public class KMLReflectorTest extends WMSTestSupport {
 
     @Test
     public void testRasterPlacemarkTrue() throws Exception {
-        doTestRasterPlacemark(true);
+        File tempDir = tempFolder.newFolder();
+        doTestRasterPlacemark(true, tempDir);
     }
 
     @Test
     public void testRasterPlacemarkFalse() throws Exception {
-        doTestRasterPlacemark(false);
+        File tempDir = tempFolder.newFolder();
+        doTestRasterPlacemark(false, tempDir);
     }
 
-    protected void doTestRasterPlacemark(boolean doPlacemarks) throws Exception {
+    protected void doTestRasterPlacemark(boolean doPlacemarks, File tempDir) throws Exception {
         // the style selects a single feature
         final String requestUrl = "wms/reflect?layers="
                 + getLayerId(MockData.BASIC_POLYGONS)
@@ -483,10 +490,6 @@ public class KMLReflectorTest extends WMSTestSupport {
                 + KMZMapOutputFormat.MIME_TYPE;
         MockHttpServletResponse response = getAsServletResponse(requestUrl);
         assertEquals(KMZMapOutputFormat.MIME_TYPE, response.getContentType());
-
-        // create the kmz
-        File tempDir = org.geoserver.util.IOUtils.createRandomDirectory("./target", "kmplacemark");
-        tempDir.deleteOnExit();
 
         File zip = new File(tempDir, "kmz.zip");
         zip.deleteOnExit();

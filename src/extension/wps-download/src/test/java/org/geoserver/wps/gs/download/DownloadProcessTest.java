@@ -124,6 +124,8 @@ import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Rule;
+import org.junit.rules.TemporaryFolder;
 import org.locationtech.jts.geom.Envelope;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.Polygon;
@@ -138,6 +140,9 @@ import org.w3c.dom.Node;
  * @author "Alessio Fabiani - alessio.fabiani@geo-solutions.it"
  */
 public class DownloadProcessTest extends WPSTestSupport {
+
+    @Rule
+    public TemporaryFolder tempFolder = new TemporaryFolder();
 
     public interface Parser {
 
@@ -2980,8 +2985,7 @@ public class DownloadProcessTest extends WPSTestSupport {
      */
     private ShapefileDataStore decodeShape(InputStream input) throws Exception {
         // create the temp directory and register it as a temporary resource
-        File tempDir = IOUtils.createRandomDirectory(
-                IOUtils.createTempDirectory("shpziptemp").getAbsolutePath(), "download-process");
+        File tempDir = tempFolder.newFolder();
 
         // unzip to the temporary directory
         File shapeFile = null;
@@ -3037,13 +3041,10 @@ public class DownloadProcessTest extends WPSTestSupport {
      * @return A GeoPackage object if one was found, an exception otherwise
      */
     private GeoPackage decodeGeoPackage(InputStream input) throws Exception {
-        // create the temp directory and register it as a temporary resource
-        File tempDir = IOUtils.createRandomDirectory(
-                IOUtils.createTempDirectory("gpkgziptemp").getAbsolutePath(), "download-process");
-
         // unzip to the temporary directory
         File geopackage = null;
         File zipFile = null;
+        File tempDir = tempFolder.newFolder();
 
         // extract shp-zip file
         try (ZipInputStream zis = new ZipInputStream(input)) {
