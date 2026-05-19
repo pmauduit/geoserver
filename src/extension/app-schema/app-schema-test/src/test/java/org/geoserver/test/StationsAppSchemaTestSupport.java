@@ -63,7 +63,7 @@ public abstract class StationsAppSchemaTestSupport extends AbstractAppSchemaTest
     @Override
     protected StationsMockData createTestData() {
         // instantiate our custom complex types
-        return new StationsMockData();
+        return new StationsMockData(newFolder(), newFolder());
     }
 
     /**

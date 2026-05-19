@@ -16,7 +16,7 @@ public class MeasureTypeBindingTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected MeasureTypeBindingTestMockData createTestData() {
-        return new MeasureTypeBindingTestMockData();
+        return new MeasureTypeBindingTestMockData(newFolder());
     }
 
     /**

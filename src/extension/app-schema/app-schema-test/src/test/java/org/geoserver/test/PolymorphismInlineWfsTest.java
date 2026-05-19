@@ -18,7 +18,7 @@ public class PolymorphismInlineWfsTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected PolymorphismInlineMockData createTestData() {
-        return new PolymorphismInlineMockData();
+        return new PolymorphismInlineMockData(newFolder());
     }
 
     /**

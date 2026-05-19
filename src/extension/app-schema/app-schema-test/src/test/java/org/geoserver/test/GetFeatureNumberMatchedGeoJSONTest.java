@@ -10,7 +10,7 @@ import org.kordamp.json.JSONObject;
 public class GetFeatureNumberMatchedGeoJSONTest extends AbstractAppSchemaTestSupport {
     @Override
     protected AbstractAppSchemaMockData createTestData() {
-        return new FeatureChainingMockData();
+        return new FeatureChainingMockData(newFolder());
     }
 
     @Test

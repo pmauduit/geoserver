@@ -6,6 +6,7 @@
 
 package org.geoserver.test;
 
+import java.io.File;
 import org.geoserver.data.test.MockData;
 
 /**
@@ -23,8 +24,8 @@ public class TimeSeriesInlineMockData extends AbstractAppSchemaMockData {
     /** URI for csml namespace. */
     protected static final String CSML_URI = "http://ndg.nerc.ac.uk/csml";
 
-    public TimeSeriesInlineMockData() {
-        super(GML32_NAMESPACES);
+    public TimeSeriesInlineMockData(File tempFolder) {
+        super(GML32_NAMESPACES, tempFolder);
     }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */

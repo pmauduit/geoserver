@@ -7,6 +7,7 @@
 package org.geoserver.test;
 
 /** @author Niels Charlier */
+import java.io.File;
 import org.geoserver.data.test.MockData;
 import org.geotools.data.complex.AppSchemaDataAccess;
 
@@ -33,6 +34,10 @@ public class WmsSupportMockData extends AbstractAppSchemaMockData {
 
     /** Schema URL for observation and measurements */
     protected static final String OM_SCHEMA_LOCATION_URL = "http://schemas.opengis.net/om/1.0.0/observation.xsd";
+
+    public WmsSupportMockData(File tempFolder) {
+        super(tempFolder);
+    }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */
     @Override

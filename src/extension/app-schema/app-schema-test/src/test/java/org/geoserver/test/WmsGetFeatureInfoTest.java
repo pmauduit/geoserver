@@ -30,7 +30,7 @@ public class WmsGetFeatureInfoTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected WmsSupportMockData createTestData() {
-        WmsSupportMockData mockData = new WmsSupportMockData();
+        WmsSupportMockData mockData = new WmsSupportMockData(newFolder());
         mockData.addStyle("Default", "styles/Default.sld");
         mockData.addStyle("positionalaccuracy21", "styles/positionalaccuracy21.sld");
         return mockData;

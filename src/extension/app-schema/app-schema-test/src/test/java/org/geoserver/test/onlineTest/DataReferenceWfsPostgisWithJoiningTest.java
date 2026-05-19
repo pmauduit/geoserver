@@ -18,7 +18,7 @@ public class DataReferenceWfsPostgisWithJoiningTest extends DataReferenceWfsOnli
 
     @Override
     protected AppSchemaReferenceMockData createTestData() {
-        return new AppSchemaReferenceMockData();
+        return new AppSchemaReferenceMockData(newFolder());
     }
 
     @Override

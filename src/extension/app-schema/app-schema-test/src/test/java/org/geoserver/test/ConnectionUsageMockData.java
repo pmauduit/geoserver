@@ -4,6 +4,8 @@
  */
 package org.geoserver.test;
 
+import java.io.File;
+
 /**
  * Mock data for testing App-Schema connection usage.
  *
@@ -16,6 +18,10 @@ public class ConnectionUsageMockData extends AbstractAppSchemaMockData {
 
     /** URI for ex namespace. */
     protected static final String EX_URI = "http://example.com";
+
+    public ConnectionUsageMockData(File tempFolder) {
+        super(tempFolder);
+    }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */
     @Override

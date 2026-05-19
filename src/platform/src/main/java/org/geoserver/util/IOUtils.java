@@ -159,17 +159,6 @@ public class IOUtils {
         }
     }
 
-    /** Creates a directory as a child of baseDir. The directory name will be preceded by prefix */
-    @Deprecated
-    public static File createRandomDirectory(String baseDir, String prefix) throws IOException {
-        Path basePath = Paths.get(baseDir);
-        Path tempDirPath = java.nio.file.Files.createTempDirectory(basePath, prefix);
-        File tmpDir = tempDirPath.toFile();
-        tmpDir.deleteOnExit();
-
-        return tmpDir;
-    }
-
     /**
      * Creates a temporary directory whose name will start by prefix
      *

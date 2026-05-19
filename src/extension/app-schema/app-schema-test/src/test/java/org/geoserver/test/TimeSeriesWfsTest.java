@@ -20,7 +20,7 @@ public class TimeSeriesWfsTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected AbstractAppSchemaMockData createTestData() {
-        return new TimeSeriesMockData();
+        return new TimeSeriesMockData(newFolder());
     }
 
     @Test

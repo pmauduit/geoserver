@@ -6,12 +6,18 @@
 
 package org.geoserver.test;
 
+import java.io.File;
+
 /**
  * Mock data for testing SF0 in app-schema
  *
  * @author Rini Angreani (CSIRO Earth Science and Resource Engineering)
  */
 public class BoreholeViewMockData extends AbstractAppSchemaMockData {
+
+    public BoreholeViewMockData(File tempFolder) {
+        super(tempFolder);
+    }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */
     @Override

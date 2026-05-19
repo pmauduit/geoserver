@@ -19,7 +19,7 @@ public class Gsml32BoreholeWfsTest extends AbstractAppSchemaTestSupport {
     /** @see org.geoserver.test.AbstractAppSchemaTestSupport#buildTestData() */
     @Override
     protected Gsml32BoreholeMockData createTestData() {
-        return new Gsml32BoreholeMockData();
+        return new Gsml32BoreholeMockData(newFolder());
     }
 
     /** Test content of GetFeature response. */

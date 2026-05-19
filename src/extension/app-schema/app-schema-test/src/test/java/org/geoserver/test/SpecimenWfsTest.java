@@ -22,7 +22,7 @@ public class SpecimenWfsTest extends AbstractAppSchemaTestSupport {
     /** @see org.geoserver.test.AbstractAppSchemaTestSupport#buildTestData() */
     @Override
     protected SpecimenMockData createTestData() {
-        return new SpecimenMockData();
+        return new SpecimenMockData(newFolder());
     }
 
     /** Test whether GetFeature returns wfs:FeatureCollection. */

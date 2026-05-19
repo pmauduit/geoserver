@@ -43,7 +43,7 @@ public class BBoxFilterTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected BBoxMockData createTestData() {
-        return new BBoxMockData();
+        return new BBoxMockData(newFolder());
     }
 
     /** The following performs a WFS request and obtains all features specified in BBoxTestPropertyfile.properties */

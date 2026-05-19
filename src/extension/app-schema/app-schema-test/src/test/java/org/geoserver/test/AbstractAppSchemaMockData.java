@@ -138,29 +138,21 @@ public abstract class AbstractAppSchemaMockData extends SystemTestData implement
     /** True if running 3D online test. Only matters for Oracle, since a special wkt parser is needed. */
     private boolean is3D = false;
     /** Constructor with the default namespaces, schema directory, and catalog file. */
-    public AbstractAppSchemaMockData() {
-        this(NAMESPACES);
+    public AbstractAppSchemaMockData(File tempFolder) {
+        this(NAMESPACES, tempFolder);
     }
 
     /** Constructor with the default namespaces, schema directory, and catalog file. */
-    public AbstractAppSchemaMockData(boolean createPrimaryKey) {
-        this(NAMESPACES, createPrimaryKey);
+    public AbstractAppSchemaMockData(boolean createPrimaryKey, File folder) {
+        this(NAMESPACES, createPrimaryKey, folder);
     }
 
-    static File newRandomDirectory() {
-        try {
-            return IOUtils.createRandomDirectory("target", "app-schema-mock");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public AbstractAppSchemaMockData(Map<String, String> namespaces, File folder) {
+        this(namespaces, true, folder);
     }
 
-    public AbstractAppSchemaMockData(Map<String, String> namespaces) {
-        this(namespaces, true);
-    }
-
-    public AbstractAppSchemaMockData(Map<String, String> namespaces, boolean createPrimaryKey) {
-        super(newRandomDirectory());
+    public AbstractAppSchemaMockData(Map<String, String> namespaces, boolean createPrimaryKey, File folder) {
+        super(folder);
         this.namespaces = new LinkedHashMap<>(namespaces);
         this.createPrimaryKey = createPrimaryKey;
 
@@ -259,7 +251,6 @@ public abstract class AbstractAppSchemaMockData extends SystemTestData implement
      * @param namespacePrefix namespace prefix of the WFS feature type
      * @param typeName local name of the WFS feature type
      * @param fileName short name of the file in test-data to copy
-     * @param data mock data root directory
      */
     private void copyFileToFeatureTypeDir(String namespacePrefix, String typeName, String fileName) throws IOException {
         try (InputStream input = openResource(fileName)) {
@@ -316,21 +307,6 @@ public abstract class AbstractAppSchemaMockData extends SystemTestData implement
     @Override
     public void setUpDefault() throws Exception {
         // do nothing
-    }
-
-    /**
-     * Removes the mock data directory.
-     *
-     * @see org.geoserver.data.test.TestData#tearDown()
-     */
-    @Override
-    public void tearDown() {
-        try {
-            IOUtils.delete(data);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        data = null;
     }
 
     /** Writes catalog.xml to the data directory. */

@@ -6,12 +6,18 @@
 
 package org.geoserver.test;
 
+import java.io.File;
+
 /**
  * Mock data for testing feature chaining with simple content type (gml:name).
  *
  * @author Rini Angreani, CSIRO Earth Science and Resource Engineering
  */
 public class SimpleAttributeFeatureChainMockData extends AbstractAppSchemaMockData {
+
+    public SimpleAttributeFeatureChainMockData(File tempFolder) {
+        super(tempFolder);
+    }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */
     @Override

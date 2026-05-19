@@ -17,7 +17,7 @@ public class PropertyEncodingOrderTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected AbstractAppSchemaMockData createTestData() {
-        return new PropertyEncodingOrderMockData();
+        return new PropertyEncodingOrderMockData(newFolder());
     }
 
     /**

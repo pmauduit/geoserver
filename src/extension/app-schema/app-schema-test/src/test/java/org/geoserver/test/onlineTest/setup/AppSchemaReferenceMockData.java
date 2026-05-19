@@ -5,6 +5,7 @@
  */
 package org.geoserver.test.onlineTest.setup;
 
+import java.io.File;
 import org.geoserver.test.AbstractAppSchemaMockData;
 
 /**
@@ -12,6 +13,10 @@ import org.geoserver.test.AbstractAppSchemaMockData;
  *     <p>Mock data for Wms Online tests - uses some different mappings to accomodate wms
  */
 public class AppSchemaReferenceMockData extends AbstractAppSchemaMockData {
+    public AppSchemaReferenceMockData(File tempFolder) {
+        super(tempFolder);
+    }
+
     @Override
     protected void addContent() {
         addFeatureType(GSML_PREFIX, "Contact", "DataReferenceData/gsml_Contact/gsml_Contact.xml");

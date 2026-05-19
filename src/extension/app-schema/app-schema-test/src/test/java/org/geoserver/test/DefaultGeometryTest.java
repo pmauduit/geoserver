@@ -76,13 +76,17 @@ public class DefaultGeometryTest extends AbstractAppSchemaTestSupport {
     @Override
     protected StationsMockData createTestData() {
         // instantiate our custom complex types
-        StationsMockData mockData = new MockData();
+        StationsMockData mockData = new MockData(newFolder(), newFolder());
         mockData.addStyle("Default_Point", "styles/default_point.sld");
         mockData.addStyle("Default_Polygon", "styles/default_polygon.sld");
         return mockData;
     }
 
     private static final class MockData extends StationsMockData {
+
+        public MockData(File rootDir, File tempFolder) {
+            super(rootDir, tempFolder);
+        }
 
         @Override
         public void addContent() {

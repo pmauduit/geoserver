@@ -18,7 +18,7 @@ public class MappingNameTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected MappingNameMockData createTestData() {
-        return new MappingNameMockData();
+        return new MappingNameMockData(newFolder());
     }
 
     /** Test whether GetFeature returns a FeatureCollection with the right content based on the feature chaining. */

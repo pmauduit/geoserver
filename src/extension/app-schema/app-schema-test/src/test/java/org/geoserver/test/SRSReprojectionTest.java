@@ -57,7 +57,7 @@ public class SRSReprojectionTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected SRSReprojectionMockData createTestData() {
-        return new SRSReprojectionMockData();
+        return new SRSReprojectionMockData(newFolder());
     }
 
     /** Tests re-projection of NonFeatureTypeProxy. */

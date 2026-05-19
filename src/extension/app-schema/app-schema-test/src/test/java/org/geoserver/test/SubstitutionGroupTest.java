@@ -19,7 +19,7 @@ public class SubstitutionGroupTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected SubstitutionGroupMockData createTestData() {
-        return new SubstitutionGroupMockData();
+        return new SubstitutionGroupMockData(newFolder());
     }
 
     /** Test GetFeature . */

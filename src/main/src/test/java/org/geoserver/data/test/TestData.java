@@ -14,7 +14,7 @@ import java.io.File;
  */
 public interface TestData {
     /** Creates the temporary GeoServer data directory */
-    public void setUp() throws Exception;
+    public void setUp(File tempFolder) throws Exception;
 
     /** Wipes out the contents of the temporary data directory */
     public void tearDown() throws Exception;

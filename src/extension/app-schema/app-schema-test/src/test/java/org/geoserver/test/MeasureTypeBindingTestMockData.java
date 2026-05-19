@@ -6,6 +6,8 @@
 
 package org.geoserver.test;
 
+import java.io.File;
+
 /** @author Xiangtan Lin, CSIRO Information Management and Technology */
 public class MeasureTypeBindingTestMockData extends AbstractAppSchemaMockData {
 
@@ -14,6 +16,10 @@ public class MeasureTypeBindingTestMockData extends AbstractAppSchemaMockData {
 
     /** URI for ex namespace. */
     protected static final String EX_URI = "http://example.com";
+
+    public MeasureTypeBindingTestMockData(File tempFolder) {
+        super(tempFolder);
+    }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */
     @Override

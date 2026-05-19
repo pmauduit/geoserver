@@ -10,6 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.util.Collections;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -27,11 +28,15 @@ public final class NestedElementsFilteringTest extends AbstractAppSchemaTestSupp
     @Override
     protected StationsMockData createTestData() {
         // instantiate our custom complex types
-        return new MockData();
+        return new MockData(newFolder(), newFolder());
     }
 
     /** Helper class that will setup custom complex feature types using the stations data set. */
     private static final class MockData extends StationsMockData {
+
+        public MockData(File testRootDirectory, File tempFolder) {
+            super(testRootDirectory, tempFolder);
+        }
 
         @Override
         public void addContent() {

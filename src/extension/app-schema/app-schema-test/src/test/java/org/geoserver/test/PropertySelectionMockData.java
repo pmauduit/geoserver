@@ -6,6 +6,8 @@
 
 package org.geoserver.test;
 
+import java.io.File;
+
 /** @author Niels Charlier, Curtin University Of Technology */
 public class PropertySelectionMockData extends AbstractAppSchemaMockData {
 
@@ -14,6 +16,10 @@ public class PropertySelectionMockData extends AbstractAppSchemaMockData {
 
     /** URI for ex namespace. */
     protected static final String EX_URI = "http://example.com";
+
+    public PropertySelectionMockData(File tempFolder) {
+        super(tempFolder);
+    }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */
     @Override

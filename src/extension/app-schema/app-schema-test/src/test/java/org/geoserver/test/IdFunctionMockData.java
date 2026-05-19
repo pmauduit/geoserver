@@ -6,6 +6,7 @@
 
 package org.geoserver.test;
 
+import java.io.File;
 import org.geoserver.data.test.MockData;
 
 /**
@@ -16,6 +17,10 @@ import org.geoserver.data.test.MockData;
  * @author Rini Angreani (CSIRO Earth Science and Resource Engineering)
  */
 public class IdFunctionMockData extends AbstractAppSchemaMockData {
+
+    public IdFunctionMockData(File tempFolder) {
+        super(tempFolder);
+    }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */
     @Override

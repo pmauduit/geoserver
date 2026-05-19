@@ -19,7 +19,7 @@ public class SubstitutionGroupCoverageWfsTest extends AbstractAppSchemaTestSuppo
 
     @Override
     protected AbstractAppSchemaMockData createTestData() {
-        return new SubstitutionGroupCoverageMockData();
+        return new SubstitutionGroupCoverageMockData(newFolder());
     }
 
     @Test

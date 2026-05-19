@@ -50,7 +50,7 @@ public class FeatureChainingSharedConnectionTest extends AbstractAppSchemaTestSu
 
     @Override
     protected FeatureChainingMockData createTestData() {
-        return new FeatureChainingMockData();
+        return new FeatureChainingMockData(newFolder());
     }
 
     @Before

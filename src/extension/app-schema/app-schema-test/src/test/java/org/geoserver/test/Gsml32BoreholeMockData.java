@@ -6,6 +6,7 @@
 
 package org.geoserver.test;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
@@ -39,8 +40,8 @@ public class Gsml32BoreholeMockData extends AbstractAppSchemaMockData {
         }
     });
 
-    public Gsml32BoreholeMockData() {
-        super(GSML32_NAMESPACES);
+    public Gsml32BoreholeMockData(File tempFolder) {
+        super(GSML32_NAMESPACES, tempFolder);
     }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */

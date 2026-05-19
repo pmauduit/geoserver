@@ -6,6 +6,7 @@ package org.geoserver.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import org.custommonkey.xmlunit.SimpleNamespaceContext;
@@ -49,7 +50,7 @@ public class SimpleOutputTest extends StationsAppSchemaTestSupport {
 
     @Override
     protected StationsMockData createTestData() {
-        return new MockData();
+        return new MockData(newFolder(), newFolder());
     }
 
     @Override
@@ -200,6 +201,10 @@ public class SimpleOutputTest extends StationsAppSchemaTestSupport {
     }
 
     private static final class MockData extends StationsMockData {
+
+        public MockData(File testRootDirectory, File tempFolder) {
+            super(testRootDirectory, tempFolder);
+        }
 
         @Override
         public void addContent() {

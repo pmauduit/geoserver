@@ -5,6 +5,8 @@
 
 package org.geoserver.test;
 
+import java.io.File;
+
 /**
  * Mock data for testing substitution groups {@link SubstitutionGroupCoverageWfsTest}
  *
@@ -18,8 +20,8 @@ public class SubstitutionGroupCoverageMockData extends AbstractAppSchemaMockData
     /** URI for namespace. */
     protected static final String URI = "http://www.geotools.org/test";
 
-    public SubstitutionGroupCoverageMockData() {
-        super(GML32_NAMESPACES);
+    public SubstitutionGroupCoverageMockData(File tempFolder) {
+        super(GML32_NAMESPACES, tempFolder);
     }
 
     /** @see AbstractAppSchemaMockData#addContent() */

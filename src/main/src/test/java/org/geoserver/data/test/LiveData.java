@@ -7,6 +7,7 @@ package org.geoserver.data.test;
 
 import java.io.File;
 import org.geoserver.util.IOUtils;
+import org.junit.rules.TemporaryFolder;
 
 public class LiveData implements TestData {
     protected File source;
@@ -22,8 +23,8 @@ public class LiveData implements TestData {
      * override it in order to add extra behavior (like setting up an external database)
      */
     @Override
-    public void setUp() throws Exception {
-        data = IOUtils.createRandomDirectory("./target", "live");
+    public void setUp(File tempFolder) throws Exception {
+        data = tempFolder;
         IOUtils.deepCopy(source, data);
     }
 

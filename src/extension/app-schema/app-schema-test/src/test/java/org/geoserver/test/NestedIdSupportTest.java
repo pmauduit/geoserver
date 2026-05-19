@@ -35,7 +35,7 @@ public class NestedIdSupportTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected NestedIdSupportTestData createTestData() {
-        return new NestedIdSupportTestData();
+        return new NestedIdSupportTestData(newFolder());
     }
 
     /** Test Nested Id with Feature Chaining */

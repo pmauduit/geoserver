@@ -6,6 +6,8 @@
 
 package org.geoserver.test;
 
+import java.io.File;
+
 /** @author Niels Charlier (Curtin University Of Technology) */
 public class IdNotEncodedMockData extends AbstractAppSchemaMockData {
 
@@ -14,6 +16,10 @@ public class IdNotEncodedMockData extends AbstractAppSchemaMockData {
 
     /** URI for gwml namespace. */
     protected static final String GWML_URI = "http://www.nrcan.gc.ca/xml/gwml/1";
+
+    public IdNotEncodedMockData(File tempFolder) {
+        super(tempFolder);
+    }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */
     @Override

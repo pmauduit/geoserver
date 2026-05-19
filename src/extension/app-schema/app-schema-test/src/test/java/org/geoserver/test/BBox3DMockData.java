@@ -6,12 +6,18 @@
 
 package org.geoserver.test;
 
+import java.io.File;
+
 /**
  * Mock data for testing 3D BBOXes in app-schema
  *
  * @author Niels Charlier
  */
 public class BBox3DMockData extends AbstractAppSchemaMockData {
+
+    public BBox3DMockData(File folder) {
+        super(folder);
+    }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */
     @Override

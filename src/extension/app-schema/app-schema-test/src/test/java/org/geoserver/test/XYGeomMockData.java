@@ -6,6 +6,7 @@
 
 package org.geoserver.test;
 
+import java.io.File;
 import org.geoserver.data.test.MockData;
 import org.geotools.data.complex.AppSchemaDataAccess;
 
@@ -24,6 +25,10 @@ public class XYGeomMockData extends AbstractAppSchemaMockData {
 
     /** The test namespace URI. */
     public static final String TEST_URI = "http://test";
+
+    public XYGeomMockData(File tempFolder) {
+        super(tempFolder);
+    }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */
     @Override

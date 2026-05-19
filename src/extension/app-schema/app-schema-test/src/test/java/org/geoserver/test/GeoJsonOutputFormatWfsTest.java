@@ -12,6 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.kordamp.json.JSON;
@@ -23,11 +24,15 @@ public final class GeoJsonOutputFormatWfsTest extends AbstractAppSchemaTestSuppo
 
     @Override
     protected AbstractAppSchemaMockData createTestData() {
-        return new MockData();
+        return new MockData(newFolder(), newFolder());
     }
 
     /** Helper class that will setup custom complex feature types using the stations data set. */
-    private static final class MockData extends StationsMockData {
+    private final class MockData extends StationsMockData {
+
+        public MockData(File rootDir, File tempFolder) {
+            super(rootDir, tempFolder);
+        }
 
         @Override
         public void addContent() {
@@ -60,7 +65,7 @@ public final class GeoJsonOutputFormatWfsTest extends AbstractAppSchemaTestSuppo
                     "/test-data/stations/geoJson/stations.properties",
                     "/test-data/stations/geoJson/measurements.properties");
             // add borehole
-            new Gsml32BoreholeMockData().getNamespaces().forEach((k, v) -> putNamespace(k, v));
+            new Gsml32BoreholeMockData(newFolder()).getNamespaces().forEach((k, v) -> putNamespace(k, v));
             addFeatureType(
                     Gsml32BoreholeMockData.GSMLBH_PREFIX,
                     "Borehole",

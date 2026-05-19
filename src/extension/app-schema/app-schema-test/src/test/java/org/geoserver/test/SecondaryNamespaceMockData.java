@@ -6,6 +6,8 @@
 
 package org.geoserver.test;
 
+import java.io.File;
+
 /**
  * Mock data used to test encoding of secondary (transitively imported) namespace.
  *
@@ -24,6 +26,10 @@ public class SecondaryNamespaceMockData extends AbstractAppSchemaMockData {
 
     /** URI for sa namespace. */
     protected static final String SA_URI = "http://www.opengis.net/sampling/1.0";
+
+    public SecondaryNamespaceMockData(File tempFolder) {
+        super(tempFolder);
+    }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */
     @Override

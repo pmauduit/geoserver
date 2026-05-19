@@ -6,6 +6,7 @@
 
 package org.geoserver.test;
 
+import java.io.File;
 import org.geoserver.data.test.MockData;
 
 /**
@@ -21,6 +22,10 @@ public class SRSReprojectionMockData extends AbstractAppSchemaMockData {
 
     /** URI for ex namespace. */
     protected static final String EX_URI = "http://example.com";
+
+    public SRSReprojectionMockData(File tempFolder) {
+        super(tempFolder);
+    }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */
     @Override

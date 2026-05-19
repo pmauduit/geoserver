@@ -21,7 +21,7 @@ public class WaterMLTimeSeriesWfsTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected WaterMLTimeSeriesMockData createTestData() {
-        return new WaterMLTimeSeriesMockData();
+        return new WaterMLTimeSeriesMockData(newFolder());
     }
 
     /** Test get feature is fine with QuantityList as a list of simple type. */

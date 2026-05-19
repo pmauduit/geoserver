@@ -19,7 +19,7 @@ public class MultiGeometryTest extends AbstractAppSchemaTestSupport {
     @Override
     protected AbstractAppSchemaMockData createTestData() {
         System.setProperty("org.geotools.referencing.forceXY", "true");
-        return new MultiGeometryMockData();
+        return new MultiGeometryMockData(newFolder());
     }
 
     @Test

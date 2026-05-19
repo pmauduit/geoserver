@@ -5,9 +5,14 @@
  */
 package org.geoserver.test.onlineTest.setup;
 
+import java.io.File;
 import org.geoserver.test.AbstractAppSchemaMockData;
 
 public class WfsOnlineTestMockData extends AbstractAppSchemaMockData {
+    public WfsOnlineTestMockData(File tempFolder) {
+        super(tempFolder);
+    }
+
     @Override
     protected void addContent() {
         addFeatureType(

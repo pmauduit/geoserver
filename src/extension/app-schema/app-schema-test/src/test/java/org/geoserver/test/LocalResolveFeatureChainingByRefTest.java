@@ -19,7 +19,7 @@ public class LocalResolveFeatureChainingByRefTest extends AbstractAppSchemaTestS
 
     @Override
     protected FeatureGML32ResolveMockData createTestData() {
-        return new FeatureGML32ResolveMockData();
+        return new FeatureGML32ResolveMockData(newFolder());
     }
 
     /** Test Local Resolve with Depth 2. */

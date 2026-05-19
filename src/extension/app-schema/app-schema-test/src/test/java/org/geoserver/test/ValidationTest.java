@@ -18,7 +18,7 @@ public class ValidationTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected ValidationTestMockData createTestData() {
-        return new ValidationTestMockData();
+        return new ValidationTestMockData(newFolder());
     }
 
     /** Test that when minOccur=0 the validation should let it pass */

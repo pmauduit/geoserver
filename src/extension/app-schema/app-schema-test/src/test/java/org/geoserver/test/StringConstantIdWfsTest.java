@@ -18,7 +18,7 @@ public class StringConstantIdWfsTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected StringConstantIdMockData createTestData() {
-        return new StringConstantIdMockData();
+        return new StringConstantIdMockData(newFolder());
     }
 
     /** Test whether GetFeature returns wfs:FeatureCollection. */

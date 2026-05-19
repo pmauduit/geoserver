@@ -25,7 +25,7 @@ public class Gml311LinksTest extends AbstractMapPreviewPageTest {
 
     @Override
     protected SystemTestData createTestData() throws Exception {
-        return new FeatureChainingMockData();
+        return new FeatureChainingMockData(newFolder());
     }
 
     @Test

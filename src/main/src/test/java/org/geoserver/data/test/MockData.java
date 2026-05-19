@@ -313,11 +313,9 @@ public class MockData implements TestData {
     /** The coverage store id to namespace map */
     private HashMap coverageStoresNamespaces = new HashMap<>();
 
-    public MockData() throws IOException {
+    public MockData(File tmpFolder) throws IOException {
         // setup the root
-        data = IOUtils.createRandomDirectory("./target", "mock");
-        data.delete();
-        data.mkdir();
+        data = tmpFolder;
 
         // create a featureTypes directory
         featureTypes = new File(data, "featureTypes");
@@ -352,7 +350,7 @@ public class MockData implements TestData {
     }
 
     @Override
-    public void setUp() throws IOException {
+    public void setUp(File tmpFolder) throws IOException {
         setUpCatalog();
         copyTo(MockData.class.getResourceAsStream("services.xml"), "services.xml");
     }

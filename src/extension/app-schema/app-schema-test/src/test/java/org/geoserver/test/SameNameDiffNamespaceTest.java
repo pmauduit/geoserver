@@ -18,7 +18,7 @@ public class SameNameDiffNamespaceTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected SameNameDiffNamespaceMockData createTestData() {
-        return new SameNameDiffNamespaceMockData();
+        return new SameNameDiffNamespaceMockData(newFolder());
     }
 
     /** Test GetFeature with two 'name' properties with different namespace. */

@@ -18,7 +18,7 @@ public class DataReferenceWfsOracleWithJoiningTest extends DataReferenceWfsOnlin
 
     @Override
     protected AppSchemaReferenceMockData createTestData() {
-        return new AppSchemaReferenceMockData();
+        return new AppSchemaReferenceMockData(newFolder());
     }
 
     @Override

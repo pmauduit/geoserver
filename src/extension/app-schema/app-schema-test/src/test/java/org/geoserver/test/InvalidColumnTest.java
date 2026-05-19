@@ -18,7 +18,7 @@ public class InvalidColumnTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected InvalidColumnTestData createTestData() {
-        return new InvalidColumnTestData();
+        return new InvalidColumnTestData(newFolder());
     }
 
     /** Test whether GetFeature returns ows:ExceptionReport. */

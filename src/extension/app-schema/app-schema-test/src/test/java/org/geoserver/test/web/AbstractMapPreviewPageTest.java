@@ -9,6 +9,8 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,9 +18,22 @@ import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.geoserver.web.GeoServerWicketTestSupport;
 import org.geoserver.web.demo.MapPreviewPage;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 public abstract class AbstractMapPreviewPageTest extends GeoServerWicketTestSupport {
+
+    @Rule
+    public TemporaryFolder tempFolder = new TemporaryFolder();
+
+    protected File newFolder() {
+        try {
+            return tempFolder.newFolder();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     protected List<String> EXPECTED_GML_LINKS = new ArrayList<>();
 

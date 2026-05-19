@@ -6,8 +6,14 @@
 
 package org.geoserver.test;
 
+import java.io.File;
+
 /** @author Niels Charlier, Curtin University Of Technology */
 public class NestedIdSupportTestData extends AbstractAppSchemaMockData {
+
+    public NestedIdSupportTestData(File tempFolder) {
+        super(tempFolder);
+    }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */
     @Override

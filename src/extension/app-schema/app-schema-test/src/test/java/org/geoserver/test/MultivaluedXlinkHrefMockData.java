@@ -5,6 +5,8 @@
 
 package org.geoserver.test;
 
+import java.io.File;
+
 /**
  * Mock data for a multivalued xlink:href ClientProperty mapping without feature chaining.
  *
@@ -12,8 +14,8 @@ package org.geoserver.test;
  */
 public class MultivaluedXlinkHrefMockData extends AbstractAppSchemaMockData {
 
-    public MultivaluedXlinkHrefMockData() {
-        super(GML32_NAMESPACES);
+    public MultivaluedXlinkHrefMockData(File tempFolder) {
+        super(GML32_NAMESPACES, tempFolder);
     }
 
     @Override

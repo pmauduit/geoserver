@@ -22,7 +22,7 @@ public class DuplicatePropertiesWfsTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected DuplicatePropertiesMockData createTestData() {
-        return new DuplicatePropertiesMockData();
+        return new DuplicatePropertiesMockData(newFolder());
     }
 
     /** Test whether GetCapabilities returns wfs:WFS_Capabilities. */

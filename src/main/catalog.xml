@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog>
+    <datastores>
+        <datastore enabled="true" id="cite" namespace="cite">
+            <connectionParams>
+                <parameter name="namespace" value="http://www.opengis.net/cite"/>
+                <parameter name="directory" value="cite"/>
+            </connectionParams>
+        </datastore>
+    </datastores>
+    <formats/>
+    <namespaces>
+        <namespace prefix="cite" uri="http://www.opengis.net/cite"/>
+        <namespace default="true" prefix="gs" uri="http://geoserver.org"/>
+    </namespaces>
+    <styles>
+        <style filename="BasicPolygons.sld" id="BasicPolygons"/>
+        <style filename="Default.sld" id="Default"/>
+    </styles>
+</catalog>

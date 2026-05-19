@@ -6,6 +6,7 @@
 
 package org.geoserver.test;
 
+import java.io.File;
 import org.geoserver.data.test.MockData;
 
 /**
@@ -17,12 +18,12 @@ import org.geoserver.data.test.MockData;
  */
 public class FeatureGML32MockData extends AbstractAppSchemaMockData {
 
-    public FeatureGML32MockData(boolean createPrimaryKey) {
-        super(GML32_NAMESPACES, createPrimaryKey);
+    public FeatureGML32MockData(boolean createPrimaryKey, File tempFolder) {
+        super(GML32_NAMESPACES, createPrimaryKey, tempFolder);
     }
 
-    public FeatureGML32MockData() {
-        super(GML32_NAMESPACES);
+    public FeatureGML32MockData(File tempFolder) {
+        super(GML32_NAMESPACES, tempFolder);
     }
 
     /** Prefix for ex namespace. */

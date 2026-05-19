@@ -17,7 +17,7 @@ public class MultivaluedXlinkHrefTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected MultivaluedXlinkHrefMockData createTestData() {
-        return new MultivaluedXlinkHrefMockData();
+        return new MultivaluedXlinkHrefMockData(newFolder());
     }
 
     /** Test that GetFeature returns a single feature with two gsml:occurrence, each with expected xlink:href. */

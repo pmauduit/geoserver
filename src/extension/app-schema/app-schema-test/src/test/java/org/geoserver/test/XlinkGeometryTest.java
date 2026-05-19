@@ -17,7 +17,7 @@ public class XlinkGeometryTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected AbstractAppSchemaMockData createTestData() {
-        return new XlinkGeometryMockData();
+        return new XlinkGeometryMockData(newFolder());
     }
 
     /** Tests whether automatic and manual xlink:href is encoded in all Geometry Types */

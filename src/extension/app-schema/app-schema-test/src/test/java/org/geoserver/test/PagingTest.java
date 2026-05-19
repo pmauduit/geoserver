@@ -36,7 +36,7 @@ public class PagingTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected FeatureGML32MockData createTestData() {
-        FeatureGML32MockData mockData = new FeatureGML32MockData();
+        FeatureGML32MockData mockData = new FeatureGML32MockData(newFolder());
         mockData.addStyle("namefilter", "styles/mappedfeaturebyname.sld");
         return mockData;
     }

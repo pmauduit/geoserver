@@ -19,7 +19,7 @@ public class EncodeIfEmptyTest extends AbstractAppSchemaTestSupport {
     /** @see org.geoserver.test.AbstractAppSchemaTestSupport#buildTestData() */
     @Override
     protected EncodeIfEmptyMockData createTestData() {
-        return new EncodeIfEmptyMockData();
+        return new EncodeIfEmptyMockData(newFolder());
     }
 
     /** Test whether GetFeature returns wfs:FeatureCollection. */

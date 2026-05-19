@@ -6,6 +6,7 @@
 
 package org.geoserver.test;
 
+import java.io.File;
 import org.geoserver.data.test.MockData;
 
 /**
@@ -17,8 +18,8 @@ import org.geoserver.data.test.MockData;
  */
 public class FeatureGML32ResolveMockData extends AbstractAppSchemaMockData {
 
-    public FeatureGML32ResolveMockData() {
-        super(GML32_NAMESPACES);
+    public FeatureGML32ResolveMockData(File tempFolder) {
+        super(GML32_NAMESPACES, tempFolder);
     }
 
     /** Prefix for ex namespace. */

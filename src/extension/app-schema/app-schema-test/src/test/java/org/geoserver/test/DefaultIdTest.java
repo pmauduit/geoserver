@@ -29,7 +29,7 @@ public class DefaultIdTest extends AbstractAppSchemaTestSupport {
             ID_PREFIX = "MAPPEDFEATURENOID.";
         }
 
-        return new DefaultIdMockData();
+        return new DefaultIdMockData(newFolder());
     }
 
     /** Test GetFeature. */

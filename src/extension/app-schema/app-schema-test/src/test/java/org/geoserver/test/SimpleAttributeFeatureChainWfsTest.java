@@ -39,7 +39,7 @@ public class SimpleAttributeFeatureChainWfsTest extends AbstractAppSchemaTestSup
 
     @Override
     protected SimpleAttributeFeatureChainMockData createTestData() {
-        return new SimpleAttributeFeatureChainMockData();
+        return new SimpleAttributeFeatureChainMockData(newFolder());
     }
 
     /** Test that feature chaining for gml:name works. */

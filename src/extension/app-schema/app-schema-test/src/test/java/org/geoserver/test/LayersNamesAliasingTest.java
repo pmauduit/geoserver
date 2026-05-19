@@ -59,7 +59,7 @@ public final class LayersNamesAliasingTest extends AbstractAppSchemaTestSupport 
     @Override
     protected AliasStationsMockData createTestData() {
         // instantiate our custom complex types
-        return new AliasStationsMockData() {
+        return new AliasStationsMockData(newFolder(), newFolder()) {
             @Override
             protected Optional<String> extraStationFeatures() {
                 String features = "\nst.2=st.2|station2|32154895|station2@stations.org|POINT(-1.0E-7 1.0E-7)";

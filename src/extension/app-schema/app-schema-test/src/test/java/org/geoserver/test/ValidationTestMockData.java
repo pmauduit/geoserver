@@ -6,6 +6,8 @@
 
 package org.geoserver.test;
 
+import java.io.File;
+
 /**
  * Mock data for testing validation with GeoServer.
  *
@@ -15,6 +17,10 @@ public class ValidationTestMockData extends AbstractAppSchemaMockData {
     protected static final String ER_PREFIX = "er";
 
     protected static final String ER_URI = "urn:cgi:xmlns:GGIC:EarthResource:1.1";
+
+    public ValidationTestMockData(File tempFolder) {
+        super(tempFolder);
+    }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */
     @Override

@@ -38,12 +38,11 @@ public class GeoServerTestApplicationContext extends ClassPathXmlApplicationCont
 
     final File contextTmp;
 
-    public GeoServerTestApplicationContext(String[] configLocation, ServletContext servletContext)
+    public GeoServerTestApplicationContext(String[] configLocation, ServletContext servletContext, File tempFolder)
             throws BeansException {
         super(configLocation, false);
         try {
-            contextTmp = IOUtils.createRandomDirectory("./target", "mock");
-            servletContext.setAttribute("javax.servlet.context.tempdir", contextTmp);
+            servletContext.setAttribute("javax.servlet.context.tempdir", tempFolder);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -11,6 +11,6 @@ public class GetFeatureNumberMatchedWithoutPrimaryKeyGMLTest extends GetFeatureN
 
     @Override
     protected FeatureGML32MockData createTestData() {
-        return new FeatureGML32MockData(false);
+        return new FeatureGML32MockData(false, newFolder());
     }
 }

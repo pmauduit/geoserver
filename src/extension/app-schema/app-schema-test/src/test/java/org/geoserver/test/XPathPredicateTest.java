@@ -31,7 +31,7 @@ public class XPathPredicateTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected FeatureGML32MockData createTestData() {
-        return new FeatureGML32MockData();
+        return new FeatureGML32MockData(newFolder());
     }
 
     /** Making sure multi-valued attributes in nested features can be queried from the top level. (GEOT-3156) */

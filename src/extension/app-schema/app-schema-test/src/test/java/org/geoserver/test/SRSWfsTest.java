@@ -42,7 +42,7 @@ public class SRSWfsTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected SRSMockData createTestData() {
-        return new SRSMockData();
+        return new SRSMockData(newFolder());
     }
 
     @Override

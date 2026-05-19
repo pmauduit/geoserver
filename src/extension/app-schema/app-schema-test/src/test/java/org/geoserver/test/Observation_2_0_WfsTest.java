@@ -19,7 +19,7 @@ public class Observation_2_0_WfsTest extends AbstractAppSchemaTestSupport {
     /** @see org.geoserver.test.AbstractAppSchemaTestSupport#buildTestData() */
     @Override
     protected Observation_2_0_MockData createTestData() {
-        return new Observation_2_0_MockData();
+        return new Observation_2_0_MockData(newFolder());
     }
 
     /** Test whether GetFeature returns wfs:FeatureCollection. */

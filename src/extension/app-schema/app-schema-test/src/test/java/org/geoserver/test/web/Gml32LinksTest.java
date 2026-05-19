@@ -19,6 +19,6 @@ public class Gml32LinksTest extends AbstractMapPreviewPageTest {
 
     @Override
     protected SystemTestData createTestData() throws Exception {
-        return new Gsml30MockData();
+        return new Gsml30MockData(newFolder());
     }
 }

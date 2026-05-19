@@ -67,7 +67,7 @@ public class FeatureChainingWfsTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected FeatureChainingMockData createTestData() {
-        return new FeatureChainingMockData();
+        return new FeatureChainingMockData(newFolder());
     }
 
     public static final String GETFEATURE_ATTRIBUTES = "service=\"WFS\" " //

@@ -1,0 +1,1 @@
+<featureType datastore="cite"><name>BasicPolygons</name><SRS>4326</SRS><SRSHandling>2</SRSHandling><title>BasicPolygons</title><abstract>abstract about BasicPolygons</abstract><numDecimals value="8"/><keywords>BasicPolygons</keywords><latLonBoundingBox dynamic="false" minx="-180.0" miny="-90.0" maxx="180.0" maxy="90.0"/><styles default="BasicPolygons"/></featureType>

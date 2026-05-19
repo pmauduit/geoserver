@@ -23,6 +23,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -79,11 +80,15 @@ public final class NormalizedMultiValuesTest extends AbstractAppSchemaTestSuppor
     @Override
     protected StationsMockData createTestData() {
         // instantiate our custom complex types
-        return new MockData();
+        return new MockData(newFolder(), newFolder());
     }
 
     /** Helper class that will setup custom complex feature types using the stations data set. */
     private static final class MockData extends StationsMockData {
+
+        public MockData(File testRootDirectory, File tempFolder) {
+            super(testRootDirectory, tempFolder);
+        }
 
         @Override
         public void addContent() {

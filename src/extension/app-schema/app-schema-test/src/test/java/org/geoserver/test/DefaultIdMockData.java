@@ -6,12 +6,18 @@
 
 package org.geoserver.test;
 
+import java.io.File;
+
 /**
  * Mock data for {@link DefaultIdTest}.
  *
  * @author Rini Angreani (CSIRO Earth Science and Resource Engineering)
  */
 public class DefaultIdMockData extends AbstractAppSchemaMockData {
+    public DefaultIdMockData(File tempFolder) {
+        super(tempFolder);
+    }
+
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */
     @Override
     public void addContent() {

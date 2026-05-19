@@ -73,10 +73,14 @@ public class NestedGeometryFilterEncodingTest extends AbstractAppSchemaTestSuppo
     @Override
     protected StationsMockData createTestData() {
         // instantiate our custom complex types
-        return new MockData();
+        return new MockData(newFolder(), newFolder());
     }
 
     private static final class MockData extends StationsMockData {
+
+        public MockData(File testRootDirectory, File tempFolder) {
+            super(testRootDirectory, tempFolder);
+        }
 
         @Override
         public void addContent() {

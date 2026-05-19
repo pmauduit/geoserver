@@ -120,19 +120,12 @@ public class SystemTestData extends CiteTestData {
     /** internal catalog, used for setup before the real catalog available */
     Catalog catalog;
 
-    public SystemTestData() throws IOException {
-        // setup the root
-        data = IOUtils.createRandomDirectory("./target", "default");
-        data.delete();
-        data.mkdir();
-    }
-
     public SystemTestData(File data) {
         this.data = data;
     }
 
     @Override
-    public void setUp() throws Exception {
+    public void setUp(File ignored) throws Exception {
         GeoServerExtensionsHelper.setIsSpringContext(false);
         createCatalog();
         createConfig();

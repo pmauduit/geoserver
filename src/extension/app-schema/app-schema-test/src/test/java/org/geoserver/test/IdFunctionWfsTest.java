@@ -50,7 +50,7 @@ public class IdFunctionWfsTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected IdFunctionMockData createTestData() {
-        return new IdFunctionMockData();
+        return new IdFunctionMockData(newFolder());
     }
 
     @Override

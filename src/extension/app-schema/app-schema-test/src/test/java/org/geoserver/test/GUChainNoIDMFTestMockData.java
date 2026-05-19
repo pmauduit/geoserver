@@ -6,12 +6,18 @@
 
 package org.geoserver.test;
 
+import java.io.File;
+
 /**
  * Mock data for testing validation with GeoServer.
  *
  * @author Victor Tey, CSIRO Exploration and Mining
  */
 public class GUChainNoIDMFTestMockData extends AbstractAppSchemaMockData {
+
+    public GUChainNoIDMFTestMockData(File tempFolder) {
+        super(tempFolder);
+    }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */
     @Override

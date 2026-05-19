@@ -23,7 +23,7 @@ public class WmsGetMapTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected WmsSupportMockData createTestData() {
-        WmsSupportMockData mockData = new WmsSupportMockData();
+        WmsSupportMockData mockData = new WmsSupportMockData(newFolder());
         mockData.addStyle("Default", "styles/Default.sld");
         mockData.addStyle("outcropcharacter", "styles/outcropcharacter.sld");
         mockData.addStyle("positionalaccuracy", "styles/positionalaccuracy.sld");

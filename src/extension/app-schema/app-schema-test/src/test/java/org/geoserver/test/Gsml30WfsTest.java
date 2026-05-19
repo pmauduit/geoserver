@@ -24,7 +24,7 @@ public class Gsml30WfsTest extends AbstractAppSchemaTestSupport {
     /** @see org.geoserver.test.AbstractAppSchemaTestSupport#buildTestData() */
     @Override
     protected Gsml30MockData createTestData() {
-        return new Gsml30MockData();
+        return new Gsml30MockData(newFolder());
     }
 
     /** Test DescribeFeatureType response. */

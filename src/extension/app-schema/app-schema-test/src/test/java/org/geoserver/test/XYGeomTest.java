@@ -22,7 +22,7 @@ public class XYGeomTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected XYGeomMockData createTestData() {
-        return new XYGeomMockData();
+        return new XYGeomMockData(newFolder());
     }
 
     /** Test whether DescribeFeatureType returns xsd:schema. */

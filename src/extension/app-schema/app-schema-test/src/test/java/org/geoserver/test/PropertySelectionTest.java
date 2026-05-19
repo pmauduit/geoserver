@@ -20,7 +20,7 @@ public class PropertySelectionTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected PropertySelectionMockData createTestData() {
-        return new PropertySelectionMockData();
+        return new PropertySelectionMockData(newFolder());
     }
 
     /** Test GetFeature with Property Selection. */

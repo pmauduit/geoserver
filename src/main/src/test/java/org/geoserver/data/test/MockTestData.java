@@ -33,11 +33,9 @@ public class MockTestData extends CiteTestData {
     MockCreator mockCreator;
     boolean includeRaster;
 
-    public MockTestData() throws IOException {
+    public MockTestData(File tempFolder) throws IOException {
         // setup the root
-        data = IOUtils.createRandomDirectory("./target", "mock");
-        data.delete();
-        data.mkdir();
+        data = tempFolder;
 
         mockCreator = new MockCreator();
     }
@@ -77,7 +75,7 @@ public class MockTestData extends CiteTestData {
     }
 
     @Override
-    public void setUp() throws Exception {}
+    public void setUp(File tempFolder) throws Exception {}
 
     @Override
     public void tearDown() throws Exception {

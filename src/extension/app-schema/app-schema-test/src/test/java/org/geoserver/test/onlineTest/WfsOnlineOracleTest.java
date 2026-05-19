@@ -18,7 +18,7 @@ public class WfsOnlineOracleTest extends WfsOnlineTest {
 
     @Override
     protected WfsOnlineTestMockData createTestData() {
-        return new WfsOnlineTestMockData();
+        return new WfsOnlineTestMockData(newFolder());
     }
 
     @Override

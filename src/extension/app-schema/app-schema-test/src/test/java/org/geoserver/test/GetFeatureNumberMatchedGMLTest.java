@@ -20,7 +20,7 @@ public class GetFeatureNumberMatchedGMLTest extends AbstractAppSchemaTestSupport
 
     @Override
     protected FeatureGML32MockData createTestData() {
-        return new FeatureGML32MockData();
+        return new FeatureGML32MockData(newFolder());
     }
 
     /** Tests that a count for All the features works * */

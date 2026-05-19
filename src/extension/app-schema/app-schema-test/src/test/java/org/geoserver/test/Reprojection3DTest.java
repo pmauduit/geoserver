@@ -22,7 +22,7 @@ public class Reprojection3DTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected BBox3DMockData createTestData() {
-        return new BBox3DMockData();
+        return new BBox3DMockData(newFolder());
     }
 
     /** Tests re-projection of NonFeatureTypeProxy. */

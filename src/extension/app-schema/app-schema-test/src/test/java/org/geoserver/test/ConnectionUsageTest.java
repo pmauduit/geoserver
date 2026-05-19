@@ -55,7 +55,7 @@ public class ConnectionUsageTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected ConnectionUsageMockData createTestData() {
-        return new ConnectionUsageMockData();
+        return new ConnectionUsageMockData(newFolder());
     }
 
     @Before

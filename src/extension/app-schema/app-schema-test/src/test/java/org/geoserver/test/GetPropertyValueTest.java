@@ -20,7 +20,7 @@ public class GetPropertyValueTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected XLink32MockData createTestData() {
-        return new XLink32MockData();
+        return new XLink32MockData(newFolder());
     }
 
     /** Test GetPropertyValue for a simple property, tests only selected property is returned */

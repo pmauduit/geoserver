@@ -19,7 +19,7 @@ public class HandlesIncludesTest extends StationsAppSchemaTestSupport {
     @Override
     protected StationsMockData createTestData() {
         // instantiate our custom complex types
-        return new HandlesIncludesMockData();
+        return new HandlesIncludesMockData(newFolder(), newFolder());
     }
 
     /**
@@ -36,6 +36,10 @@ public class HandlesIncludesTest extends StationsAppSchemaTestSupport {
     }
 
     private static class HandlesIncludesMockData extends StationsMockData {
+        public HandlesIncludesMockData(File testRootDirectory, File tempFolder) {
+            super(testRootDirectory, tempFolder);
+        }
+
         @Override
         public void addContent() {
 

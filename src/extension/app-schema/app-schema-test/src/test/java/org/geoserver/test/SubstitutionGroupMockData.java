@@ -6,12 +6,18 @@
 
 package org.geoserver.test;
 
+import java.io.File;
+
 /**
  * Mock data for Substitution Group Test
  *
  * @author Niels Charlier, Curtin University Of Technology
  */
 public class SubstitutionGroupMockData extends AbstractAppSchemaMockData {
+
+    public SubstitutionGroupMockData(File tempFolder) {
+        super(tempFolder);
+    }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */
     @Override

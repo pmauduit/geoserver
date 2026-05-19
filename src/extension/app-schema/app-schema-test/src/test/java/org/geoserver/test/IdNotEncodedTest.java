@@ -14,7 +14,7 @@ public class IdNotEncodedTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected IdNotEncodedMockData createTestData() {
-        return new IdNotEncodedMockData();
+        return new IdNotEncodedMockData(newFolder());
     }
 
     /** Test whether GetFeature */

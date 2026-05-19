@@ -18,7 +18,7 @@ public class GUChainNoIDMFTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected GUChainNoIDMFTestMockData createTestData() {
-        return new GUChainNoIDMFTestMockData();
+        return new GUChainNoIDMFTestMockData(newFolder());
     }
 
     @Test

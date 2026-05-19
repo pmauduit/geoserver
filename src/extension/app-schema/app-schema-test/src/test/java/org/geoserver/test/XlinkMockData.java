@@ -6,6 +6,7 @@
 
 package org.geoserver.test;
 
+import java.io.File;
 import org.geoserver.data.test.MockData;
 import org.geotools.data.complex.AppSchemaDataAccess;
 
@@ -17,6 +18,10 @@ import org.geotools.data.complex.AppSchemaDataAccess;
  * @author Ben Caradoc-Davies, CSIRO Exploration and Mining
  */
 public class XlinkMockData extends AbstractAppSchemaMockData {
+
+    public XlinkMockData(File tempFolder) {
+        super(tempFolder);
+    }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */
     @Override

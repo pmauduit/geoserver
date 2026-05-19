@@ -23,7 +23,7 @@ public class TimeSeriesInlineWfsTest extends TimeSeriesWfsTest {
         // only the test data is different since the config is slightly different (not using feature
         // chaining)
         // but the test cases from TimeSeriesWfsTest are the same
-        return new TimeSeriesInlineMockData();
+        return new TimeSeriesInlineMockData(newFolder());
     }
 
     /** Test subsetting timePositionList. */

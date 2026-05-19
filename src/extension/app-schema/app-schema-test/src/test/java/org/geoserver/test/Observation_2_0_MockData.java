@@ -6,6 +6,8 @@
 
 package org.geoserver.test;
 
+import java.io.File;
+
 /**
  * Mock data for {@link Observation_2_0_WfsTest}.
  *
@@ -19,8 +21,8 @@ public class Observation_2_0_MockData extends AbstractAppSchemaMockData {
     /** URI for om namespace. */
     protected static final String OM_URI = "http://www.opengis.net/om/2.0";
 
-    public Observation_2_0_MockData() {
-        super(GML32_NAMESPACES);
+    public Observation_2_0_MockData(File tempFolder) {
+        super(GML32_NAMESPACES, tempFolder);
         // add SchemaCatalog so validateGet() would work with unpublished schemas
         setSchemaCatalog("schemas/wml2dr_catalog.xml");
     }

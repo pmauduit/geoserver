@@ -18,7 +18,7 @@ public class DuplicateTypeTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected DuplicateTypeMockData createTestData() {
-        return new DuplicateTypeMockData();
+        return new DuplicateTypeMockData(newFolder());
     }
 
     /** Test GetFeature for gsml:DuplicateMappedFeature. */

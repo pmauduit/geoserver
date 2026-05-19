@@ -22,7 +22,7 @@ public class IdFunctionWfsWithJoiningTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected IdFunctionMockData createTestData() {
-        return new IdFunctionMockData();
+        return new IdFunctionMockData(newFolder());
     }
 
     /** Test whether GetFeature returns wfs:FeatureCollection. */

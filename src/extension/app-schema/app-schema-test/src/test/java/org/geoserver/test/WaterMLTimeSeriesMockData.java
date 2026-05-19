@@ -6,6 +6,7 @@
 
 package org.geoserver.test;
 
+import java.io.File;
 import org.geoserver.data.test.MockData;
 
 /**
@@ -32,8 +33,8 @@ public class WaterMLTimeSeriesMockData extends AbstractAppSchemaMockData {
     /** URI for swe 2.0 namespace. */
     protected static final String SWE2_URI = "http://www.opengis.net/swe/2.0";
 
-    public WaterMLTimeSeriesMockData() {
-        super(GML32_NAMESPACES);
+    public WaterMLTimeSeriesMockData(File tempFolder) {
+        super(GML32_NAMESPACES, tempFolder);
         // add SchemaCatalog so validateGet() would work with unpublished schemas
         setSchemaCatalog("schemas/wml2dr_catalog.xml");
     }

@@ -19,7 +19,7 @@ public class Gsml32BoreholeIntervalWfsTest extends AbstractAppSchemaTestSupport 
     /** @see org.geoserver.test.AbstractAppSchemaTestSupport#buildTestData() */
     @Override
     protected Gsml32BoreholeIntervalMockData createTestData() {
-        return new Gsml32BoreholeIntervalMockData();
+        return new Gsml32BoreholeIntervalMockData(newFolder());
     }
 
     /** Test content of GetFeature response. */

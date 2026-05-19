@@ -8,6 +8,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import java.io.File;
 import java.util.Collections;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -21,10 +22,15 @@ public class SameNestedAttributeTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected StationsMockData createTestData() {
-        return new MockData();
+        return new MockData(newFolder(), newFolder());
     }
 
     private static final class MockData extends StationsMockData {
+
+        public MockData(File testRootDirectory, File tempFolder) {
+            super(testRootDirectory, tempFolder);
+        }
+
         @Override
         public void addContent() {
             // add stations namespaces

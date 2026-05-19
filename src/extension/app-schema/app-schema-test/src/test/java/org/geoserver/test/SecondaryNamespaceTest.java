@@ -18,7 +18,7 @@ public class SecondaryNamespaceTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected SecondaryNamespaceMockData createTestData() {
-        return new SecondaryNamespaceMockData();
+        return new SecondaryNamespaceMockData(newFolder());
     }
 
     /** Test encoding of sa namespace. */

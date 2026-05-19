@@ -30,7 +30,7 @@ public class LocalResolveTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected XLink32MockData createTestData() {
-        return new XLink32MockData();
+        return new XLink32MockData(newFolder());
     }
 
     @Before

@@ -4,6 +4,7 @@
  */
 package org.geoserver.test;
 
+import java.io.File;
 import java.util.Collections;
 import org.junit.Test;
 import org.w3c.dom.Document;
@@ -16,10 +17,15 @@ public class NoIdExpressionTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected StationsMockData createTestData() {
-        return new MockData();
+        return new MockData(newFolder(), newFolder());
     }
 
     private static final class MockData extends StationsMockData {
+
+        public MockData(File testRootDirectory, File tempFolder) {
+            super(testRootDirectory, tempFolder);
+        }
+
         @Override
         public void addContent() {
             // add stations namespaces

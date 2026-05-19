@@ -7,6 +7,7 @@ package org.geoserver.test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import org.custommonkey.xmlunit.XpathEngine;
@@ -75,11 +76,15 @@ public final class IsolatedNamespacesWfsTest extends AbstractAppSchemaTestSuppor
     @Override
     protected StationsMockData createTestData() {
         // instantiate our custom complex types
-        return new MockData();
+        return new MockData(newFolder(), newFolder());
     }
 
     /** Helper class that will setup custom complex feature types using the stations data set. */
     private static final class MockData extends StationsMockData {
+
+        public MockData(File rootDir, File tempFolder) {
+            super(rootDir, tempFolder);
+        }
 
         @Override
         public void addContent() {

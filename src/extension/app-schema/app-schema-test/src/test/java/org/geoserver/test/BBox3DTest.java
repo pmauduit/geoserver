@@ -6,7 +6,9 @@
 
 package org.geoserver.test;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.w3c.dom.Document;
 
 /**
@@ -16,9 +18,12 @@ import org.w3c.dom.Document;
  */
 public class BBox3DTest extends AbstractAppSchemaTestSupport {
 
+    @Rule
+    public TemporaryFolder tempFolder = new TemporaryFolder();
+
     @Override
     protected AbstractAppSchemaMockData createTestData() {
-        return new BBox3DMockData();
+        return new BBox3DMockData(newFolder());
     }
 
     /** Tests re-projection of NonFeatureTypeProxy. */

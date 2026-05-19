@@ -48,7 +48,7 @@ public class SecuredFeatureChainingTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected FeatureChainingMockData createTestData() {
-        return new FeatureChainingMockData();
+        return new FeatureChainingMockData(newFolder());
     }
 
     @Override

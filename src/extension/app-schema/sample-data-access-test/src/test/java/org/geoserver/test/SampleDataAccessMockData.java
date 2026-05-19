@@ -55,10 +55,8 @@ public class SampleDataAccessMockData extends SystemTestData {
     File featureTypes;
 
     /** Constructor. Creates empty mock data directory. */
-    public SampleDataAccessMockData() throws IOException {
-        data = IOUtils.createRandomDirectory("./target", "sample-data-access-mock");
-        data.delete();
-        data.mkdir();
+    public SampleDataAccessMockData(File tempFolder) throws IOException {
+        data = tempFolder;
 
         // create a featureTypes directory
         featureTypes = new File(data, "featureTypes");

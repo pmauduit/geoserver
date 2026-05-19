@@ -11,6 +11,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import java.io.File;
 import java.util.Collections;
 import org.geoserver.catalog.FeatureTypeInfo;
 import org.junit.Before;
@@ -26,11 +27,15 @@ public final class ReprojectionAxisFlipTest extends AbstractAppSchemaTestSupport
     @Override
     protected StationsMockData createTestData() {
         // instantiate our custom complex types
-        return new MockData();
+        return new MockData(newFolder(), newFolder());
     }
 
     /** Helper class that will setup custom complex feature types using the stations data set. */
     private static final class MockData extends StationsMockData {
+
+        public MockData(File testRootDirectory, File tempFolder) {
+            super(testRootDirectory, tempFolder);
+        }
 
         @Override
         public void addContent() {

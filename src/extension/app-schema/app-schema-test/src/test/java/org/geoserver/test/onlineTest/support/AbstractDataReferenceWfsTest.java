@@ -5,6 +5,8 @@
  */
 package org.geoserver.test.onlineTest.support;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +16,8 @@ import javax.sql.DataSource;
 import org.geoserver.data.test.SystemTestData;
 import org.geoserver.test.AbstractAppSchemaTestSupport;
 import org.junit.Assume;
+import org.junit.Rule;
+import org.junit.rules.TemporaryFolder;
 
 /**
  * Base class that provides the Wfs test support framework and perform checks on the fixture and the availabilities of
@@ -27,6 +31,17 @@ public abstract class AbstractDataReferenceWfsTest extends AbstractAppSchemaTest
     protected Properties fixture = null;
 
     protected boolean available;
+
+    @Rule
+    public TemporaryFolder tempFolder = new TemporaryFolder();
+
+    protected File newFolder() {
+        try {
+            return tempFolder.newFolder();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public AbstractDataReferenceWfsTest() throws Exception {
         setup = this.getReferenceDataSetup();

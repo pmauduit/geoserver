@@ -20,7 +20,7 @@ public class SortByTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected FeatureGML32MockData createTestData() {
-        return new FeatureGML32MockData();
+        return new FeatureGML32MockData(newFolder());
     }
 
     @Test

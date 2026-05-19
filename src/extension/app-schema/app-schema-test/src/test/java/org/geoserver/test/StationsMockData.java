@@ -26,7 +26,6 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.custommonkey.xmlunit.SimpleNamespaceContext;
 import org.custommonkey.xmlunit.XMLUnit;
@@ -57,14 +56,9 @@ public class StationsMockData extends AbstractAppSchemaMockData {
     // directory that should contain all the new files created during the setup of this data set
     private File testRootDirectory;
 
-    /** Helper method that just quietly creates a temporary directory, */
-    private static File createTestRootDirectory() {
-        try {
-            // create the tests root directory
-            return IOUtils.createTempDirectory("app-schema-stations");
-        } catch (Exception exception) {
-            throw new RuntimeException("Error creating temporary directory.", exception);
-        }
+    public StationsMockData(File testRootDirectory, File tempFolder) {
+        super(tempFolder);
+        this.testRootDirectory = testRootDirectory;
     }
 
     /** Helper method that builds a xpath engine that will use the provided GML namespaces. */
@@ -322,10 +316,7 @@ public class StationsMockData extends AbstractAppSchemaMockData {
      * schemas, properties, etc ... of the target GML version.
      */
     protected synchronized File getDirectoryForGmlPrefix(String gmlPrefix) {
-        if (testRootDirectory == null) {
-            // init the test directory
-            testRootDirectory = createTestRootDirectory();
-        }
+
         if (gmlPrefix == null || gmlPrefix.isEmpty()) {
             // no GML prefix, let's just use the root directory
             return testRootDirectory;
@@ -370,20 +361,5 @@ public class StationsMockData extends AbstractAppSchemaMockData {
      */
     protected Optional<String> extraMeasurementFeatures() {
         return Optional.empty();
-    }
-
-    @Override
-    public void tearDown() {
-        super.tearDown();
-        try {
-            // remove tests root directory
-            IOUtils.delete(testRootDirectory);
-        } catch (Exception exception) {
-            // something bad happen, just log the exception and move on
-            LOGGER.log(
-                    Level.WARNING,
-                    "Error removing tests root directory '%s'.".formatted(testRootDirectory.getAbsolutePath()),
-                    exception);
-        }
     }
 }

@@ -21,7 +21,7 @@ public class SecondaryNamespaceExceptionTest extends AbstractAppSchemaTestSuppor
 
     @Override
     protected SecondaryNamespaceExceptionMockData createTestData() {
-        return new SecondaryNamespaceExceptionMockData();
+        return new SecondaryNamespaceExceptionMockData(newFolder());
     }
 
     /** Test encoding of sa namespace. */

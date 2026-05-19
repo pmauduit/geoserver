@@ -6,6 +6,8 @@
 
 package org.geoserver.test;
 
+import java.io.File;
+
 /**
  * Mock data for {@link Gsml30WfsTest}.
  *
@@ -16,8 +18,8 @@ public class Gsml30MockData extends AbstractAppSchemaMockData {
     public static final String GSML_SCHEMA_LOCATION =
             "https://www.seegrid.csiro.au/subversion/GeoSciML/branches/3.0.0_rc1_gml3.2/geosciml-core/3.0.0/xsd/geosciml-core.xsd";
 
-    public Gsml30MockData() {
-        super(GML32_NAMESPACES);
+    public Gsml30MockData(File tempFolder) {
+        super(GML32_NAMESPACES, tempFolder);
     }
 
     /** @see org.geoserver.test.AbstractAppSchemaMockData#addContent() */

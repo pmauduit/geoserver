@@ -19,8 +19,8 @@ public class LiveSystemTestData extends SystemTestData {
     }
 
     @Override
-    public void setUp() throws Exception {
-        data = IOUtils.createRandomDirectory("./target", "live");
+    public void setUp(File tempFolder) throws Exception {
+        data = tempFolder;
         IOUtils.deepCopy(source, data);
     }
 

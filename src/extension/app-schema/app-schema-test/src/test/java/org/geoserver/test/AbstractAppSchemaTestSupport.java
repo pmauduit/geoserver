@@ -18,6 +18,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringWriter;
@@ -63,6 +64,8 @@ import org.geotools.jdbc.SQLDialect;
 import org.geotools.xml.resolver.SchemaCache;
 import org.geotools.xml.resolver.SchemaCatalog;
 import org.geotools.xml.resolver.SchemaResolver;
+import org.junit.Rule;
+import org.junit.rules.TemporaryFolder;
 import org.kordamp.json.JSON;
 import org.kordamp.json.JSONArray;
 import org.kordamp.json.JSONObject;
@@ -79,6 +82,19 @@ import org.w3c.dom.NodeList;
  * @author Ben Caradoc-Davies, CSIRO Exploration and Mining
  */
 public abstract class AbstractAppSchemaTestSupport extends GeoServerSystemTestSupport {
+
+    @Rule
+    public TemporaryFolder tempFolder = new TemporaryFolder();
+
+    protected File newFolder() {
+        try {
+            File folder = tempFolder.newFolder();
+            folder.mkdir();
+            return folder;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * The namespace URI used internally in the DOM to qualify the name of an "xmlns:" attribute. Note that "xmlns:"

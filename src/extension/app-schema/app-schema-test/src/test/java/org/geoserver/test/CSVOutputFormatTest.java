@@ -27,7 +27,7 @@ public class CSVOutputFormatTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected BoreholeViewMockData createTestData() {
-        return new BoreholeViewMockData();
+        return new BoreholeViewMockData(newFolder());
     }
 
     /** Tests full request with CSV outputFormat. */

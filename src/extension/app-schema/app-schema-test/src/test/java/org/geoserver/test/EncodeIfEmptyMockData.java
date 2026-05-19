@@ -6,6 +6,8 @@
 
 package org.geoserver.test;
 
+import java.io.File;
+
 /**
  * Mock data for {@link EncodeIfEmptyTest}.
  *
@@ -25,8 +27,8 @@ public class EncodeIfEmptyMockData extends AbstractAppSchemaMockData {
     /** URI for om namespace. */
     protected static final String SWE_URI = "http://www.opengis.net/swe/2.0";
 
-    public EncodeIfEmptyMockData() {
-        super(GML32_NAMESPACES);
+    public EncodeIfEmptyMockData(File tempFolder) {
+        super(GML32_NAMESPACES, tempFolder);
         // add SchemaCatalog so validateGet() would work with unpublished schemas
         setSchemaCatalog("schemas/wml2dr_catalog.xml");
     }

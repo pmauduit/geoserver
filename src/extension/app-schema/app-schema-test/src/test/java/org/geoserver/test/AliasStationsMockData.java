@@ -13,6 +13,10 @@ public class AliasStationsMockData extends StationsMockData {
 
     private String layerNamePrefix;
 
+    public AliasStationsMockData(File rootDirectory, File tempFolder) {
+        super(rootDirectory, tempFolder);
+    }
+
     @Override
     public void addContent() {
         setLayerNamePrefix("lyr");

@@ -6,12 +6,18 @@
 
 package org.geoserver.test;
 
+import java.io.File;
+
 /**
  * Mock data for testing Multiple Geometries in app-schema
  *
  * @author Niels Charlier
  */
 public class MultiGeometryMockData extends AbstractAppSchemaMockData {
+
+    public MultiGeometryMockData(File tempFolder) {
+        super(tempFolder);
+    }
 
     @Override
     public void addContent() {

@@ -21,7 +21,7 @@ public class XlinkWfsTest extends AbstractAppSchemaTestSupport {
 
     @Override
     protected XlinkMockData createTestData() {
-        return new XlinkMockData();
+        return new XlinkMockData(newFolder());
     }
 
     /** Test whether GetCapabilities returns wfs:WFS_Capabilities. */
