@@ -12,6 +12,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serial;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -59,9 +62,9 @@ public class Directory extends FileData {
     }
 
     public static Directory createNew(File parent) throws IOException {
-        File directory = File.createTempFile("tmp", "", parent);
-        if (!directory.delete() || !directory.mkdir())
-            throw new IOException("Error creating temp directory at " + directory.getAbsolutePath());
+        Path tmpPath = Files.createTempDirectory(parent.toPath(), "tmp");
+        File directory = tmpPath.toFile();
+
         return new Directory(directory);
     }
 
